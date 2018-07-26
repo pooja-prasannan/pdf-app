@@ -13,6 +13,7 @@ class CovertView(View):
 
     def post(self, request):
         file = request.FILES['file']
+        print("fileeeee", file)
         images = convert_from_bytes(file.read())
         img_path_list = []
         for image in images:

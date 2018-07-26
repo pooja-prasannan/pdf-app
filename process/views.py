@@ -7,13 +7,6 @@ from django.shortcuts import render
 from pdf2image import convert_from_bytes
 
 
-def handle_uploaded_file(f):
-    with open(os.path.join(settings.MEDIA_ROOT, 'pdf', 'temp.pdf'), 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-    return destination.name
-
-
 class CovertView(View):
     def get(self, request):
         return render(request, 'process/index.html')

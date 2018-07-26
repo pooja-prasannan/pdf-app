@@ -3,11 +3,15 @@ body
     background:#111;
     color:#fff;
 }
-.content
+.in-content
 {
     float:left;
     width:calc(100% - 30px);
     padding:15px;
+}
+.in-content ul[role="tablist"]
+{
+    display:none;
 }
 .in-box
 {
@@ -77,6 +81,39 @@ position: absolute;
 .images img
 {
     float:left;
-    margin-right:10px;
-    margin-bottom:10px;
+
 }
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+  #sortable li {  width: 150px; height: 250px; float:left;    margin-right:10px;
+    margin-bottom:10px;}
+.actions li[aria-disabled="false"] a
+{
+    width: auto;
+    height: 20px;
+    background: orange;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.actions li[aria-disabled="true"] a
+{
+    width: auto;
+    height: 20px;
+    background: orange;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    display:none;
+}
+.selected
+{
+box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 5px solid #00ee00;
+
+    }

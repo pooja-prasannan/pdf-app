@@ -3,7 +3,7 @@ import os
 
 from django.conf import settings
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from pdf2image import convert_from_bytes
 
 
@@ -12,12 +12,17 @@ class CovertView(View):
         return render(request, 'process/index.html')
 
     def post(self, request):
-        file = request.FILES['file']
-        print("fileeeee", file)
-        images = convert_from_bytes(file.read())
-        img_path_list = []
-        for image in images:
-            img_path = os.path.join('images', "{}.png".format(random.randint(1, 100000)))
-            image.save(os.path.join(settings.MEDIA_ROOT, img_path))
-            img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
-        return render(request, 'process/index.html', context={'images': img_path_list})
+        try :
+            file = request.FILES['file']
+            print("fileeeee", file)
+            images = convert_from_bytes(file.read())
+            img_path_list = []
+            for image in images:
+                img_path = os.path.join('images', "{}.png".format(random.randint(1, 100000)))
+                image.save(os.path.join(settings.MEDIA_ROOT, img_path))
+                img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
+            return render(request, 'process/index.html', context={'images': img_path_list})
+        except:
+            print("no file selected")
+            return render(request, 'process/index.html')
+

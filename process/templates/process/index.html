@@ -5,22 +5,26 @@
 </head>
 <body>
 {% load static %}
-  <link href="{% static 'css/jquery.steps.css' %}?ver1.0.1" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="{% static 'css/jquery.steps.css' %}?ver1.0.1" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
 
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script src="{% static 'js/jquery.steps.js' %}"></script>
-  <script src="{% static 'js/jquery.steps.min.js' %}"></script>
-<!--<script  src="{% static 'js/jquery.ui.widget.js' %}" ></script>-->
-<!--<script  src="{% static 'js/jquery.fileupload.js' %}" ></script>-->
- <!--<link href="{% static 'css/style.css' %}" rel="stylesheet"/>-->
- <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="{% static 'js/jquery.steps.js' %}"></script>
+    <script src="{% static 'js/jquery.steps.min.js' %}"></script>
+    <script src="{% static 'js/process.js' %}"></script>
+
 {% block content %}
-<div class="content">
+<div class="in-content">
     <h2>Step 1 Upload PDF</h2>
     <div class="in-box">
-      <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
+  <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
     {% csrf_token %}
-          <div class="upload-box">
+       <div class="upload-box">
                       <input type="file" name="file" id="fileupload">
               <img src="{% static 'img/upload.svg' %}"><br/>
               <label>Browse PDF</label><br/>
@@ -29,63 +33,30 @@
         <div id="progress"></div>
         <div id="progressBar"></div>
           </div>
+    <div id="example-basic" style="display:none">
 
+        <h3>Step 2: Organize</h3>
+        <section>
+             <div class="images">
+                <ul id="sortable">
+                    {% for img in images %}
+                    <li class="ui-state-default"><img src="{{img}}"  width="150px" height="250px"></li>
+                    {% endfor %}
+                </ul>
+              </div>
+        </section>
+        <h3>Pager</h3>
+        <section>
+            <p>The next and previous buttons help you to navigate through your content.</p>
+        </section>
+    </div>
 
-       <div class="images">
-               {% for img in images %}
-
-                         <img src="{{img}}"  width="150px" height="200px">
-
-               {% endfor %}
-      </div>
-      </form>
+  </form>
     </div>
 
 </div>
 
-    {% endblock %}
+{% endblock %}
 </body>
 </html>
-<script>
-  var form = $("#form_pdfconvert");
-form.validate({
-    errorPlacement: function errorPlacement(error, element) { element.before(error); },
-    rules: {
-        confirm: {
-            equalTo: "#password"
-        }
-    }
-});
-form.children("div").steps({
-    headerTag: "h3",
-    bodyTag: "section",
-    transitionEffect: "slideLeft",
-    onStepChanging: function (event, currentIndex, newIndex)
-    {
-        form.validate().settings.ignore = ":disabled,:hidden";
-        return form.valid();
-    },
-    onFinishing: function (event, currentIndex)
-    {
-        form.validate().settings.ignore = ":disabled";
-        return form.valid();
-    },
-    onFinished: function (event, currentIndex)
-    {
-        alert("Submitted!");
-    }
-});
-    $(document).ready(function(){
-        $("#fileupload").change(function()
-        {
-        setTimeout(function()
-        {
-        $("button").click();
-        console.log("hai")
-        },500);
-        });
-    });
-</script>
-
-
 

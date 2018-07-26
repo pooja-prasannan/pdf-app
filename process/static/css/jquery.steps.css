@@ -7,7 +7,6 @@
 {
     display: block;
     width: 100%;
-    overflow: hidden;
 }
 
 .wizard a,
@@ -139,13 +138,9 @@
 
 .wizard > .content
 {
-    background: #eee;
-    display: block;
-    margin: 0.5em;
-    min-height: 35em;
-    overflow: hidden;
-    position: relative;
-    width: auto;
+
+    display:inline-block;
+    width: 100%;
 
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -164,19 +159,19 @@
 {
     float: left;
     position: absolute;
-    width: 95%;
-    height: 95%;
-    padding: 2.5%;
+    width:calc(100% - 30px);
+
+  /*  padding: 2.5%;*/
 }
 
 .wizard > .content > .body ul
 {
-    list-style: disc !important;
+    /*list-style: disc !important;*/
 }
 
 .wizard > .content > .body ul > li
 {
-    display: list-item;
+    /*display: list-item;*/
 }
 
 .wizard > .content > .body > iframe
@@ -223,6 +218,7 @@
     display: block;
     text-align: right;
     width: 100%;
+        top: -83px;
 }
 
 .wizard.vertical > .actions

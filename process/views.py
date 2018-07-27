@@ -1,7 +1,9 @@
+import json
 import random
 import os
 
 from django.conf import settings
+from django.views.generic import TemplateView
 from django.views import View
 from django.shortcuts import render, HttpResponse
 from pdf2image import convert_from_bytes
@@ -21,8 +23,15 @@ class CovertView(View):
                 img_path = os.path.join('images', "{}.png".format(random.randint(1, 100000)))
                 image.save(os.path.join(settings.MEDIA_ROOT, img_path))
                 img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
-            return render(request, 'process/index.html', context={'images': img_path_list})
+            return render(request, 'process/index.html', {
+                'images': img_path_list,
+                'json_images': json.dumps(img_path_list)
+            })
         except:
             print("no file selected")
             return render(request, 'process/index.html')
+
+
+class DemoView(TemplateView):
+    template_name = "process/demo.html"
 

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Sortable - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+  #sortable { font-size: 1.4em; }
+  #sortable .ui-selecting { background: #FECA40; }
+  #sortable .ui-selected { background: #F39814; color: white; }
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable div { margin: 3px; padding: 0.4em; font-size: 1.4em; }
+  </style>
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+
+
+
+#sortable > div { float: left; }
+
+
+
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+    };
+
+  var data = {
+      "images": {
+          "1": "https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/peony-sarah-bernhardt-bloom-500_23ceb160.jpg",
+          "2": "https://www.prettycool.co.uk/user/products/large/purple-small-double-flower-hair-clip-20300-p.jpg",
+          "3": "https://top13.net/wp-content/uploads/2014/11/43-small-flowers.jpg"
+       }
+  }
+  var selected = new Array();
+  data = JSON.stringify(data)
+  window.localStorage.setItem('data', data);
+  $( function() {
+      $("#sortable").sortable({
+            revert: true,
+            update: function( event, ui ) {
+                var image_ids = $("#sortable").sortable("toArray");
+                var data = window.localStorage.getItem('data');
+                data = JSON.parse(data)
+                data["order"] = image_ids
+                data = JSON.stringify(data)
+                window.localStorage.setItem('data', data);
+            }
+        });
+    $( "#next-button" ).click(function() {
+        var current_step = $(" #next-button ").data("current-step");
+        if (current_step == "drag") {
+           $( "#sortable" ).sortable( "disable" )
+           $( "#sortable" ).selectable({
+               selected: function(event, ui){
+                   window.selected.push(ui.selected.id);
+                   console.log(ui.selected.id)
+                   console.log("--->", selected);
+               },
+               unselected: function(event, ui){
+                   window.selected.remove(ui.unselected.id);
+               }
+           });
+           $(" #next-button ").data("current-step","front_cover");
+        }
+        if (current_step == "front_cover") {
+            console.log("--->", selected);
+            var data = window.localStorage.getItem('data');
+            data = JSON.parse(data)
+            data["front_cover"] = window.selected
+            var front_cover = data["front_cover"];
+            var i;
+            for (i = 0; i < front_cover.length; i++) {
+                    $("#"+front_cover[i]).hide();
+            }
+            data = JSON.stringify(data)
+            window.localStorage.setItem('data', data);
+            $(" #next-button ").data("current-step","back_cover");
+
+        }
+
+    })
+
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+</head>
+<body>
+
+<div class="dem">
+    <div id="sortable" class="ui-state-default">
+        <div id = "1" class="ui-state-default"><img src="https://www.fiftyflowers.com/site_files/FiftyFlowers/Image/Product/peony-sarah-bernhardt-bloom-500_23ceb160.jpg" width="100" height=100 class="img-responsive" alt=""></div>
+        <div id = "2" class="ui-state-default">    <img width="100" height=100 src="https://www.prettycool.co.uk/user/products/large/purple-small-double-flower-hair-clip-20300-p.jpg" class="img-responsive" alt=""></div>
+        <div id = "3" class="ui-state-default">    <img width="100" height=100 src="https://top13.net/wp-content/uploads/2014/11/43-small-flowers.jpg" class="img-responsive" alt=""></div>
+    </div>
+</div>
+
+<button name="next" data-current-step="drag" id="next-button">next</button>
+</body>
+</html>

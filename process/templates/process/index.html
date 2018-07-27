@@ -9,7 +9,9 @@
     <link href="{% static 'css/jquery.steps.css' %}?ver1.0.1" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
-
+    <script type="text/javascript">
+        var data = {{json_images |safe }};
+    </script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -20,38 +22,40 @@
 
 {% block content %}
 <div class="in-content">
-    <h2>Step 1 Upload PDF</h2>
+    <h2 id="lbl-step-1">Step 1: Upload PDF</h2>
     <div class="in-box">
-  <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
-    {% csrf_token %}
-       <div class="upload-box">
-                      <input type="file" name="file" id="fileupload">
-              <img src="{% static 'img/upload.svg' %}"><br/>
-              <label>Browse PDF</label><br/>
-        <button type="submit">Upload</button>
-        <div id="filename"></div>
-        <div id="progress"></div>
-        <div id="progressBar"></div>
-          </div>
-    <div id="example-basic" style="display:none">
-
-        <h3>Step 2: Organize</h3>
-        <section>
-             <div class="images">
-                <ul id="sortable">
-                    {% for img in images %}
-                    <li class="ui-state-default"><img src="{{img}}"  width="150px" height="250px"></li>
-                    {% endfor %}
-                </ul>
-              </div>
-        </section>
-        <h3>Pager</h3>
-        <section>
-            <p>The next and previous buttons help you to navigate through your content.</p>
-        </section>
-    </div>
-
-  </form>
+      <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
+        {% csrf_token %}
+           <div class="upload-box">
+               <input type="file" name="file" id="fileupload">
+                    <img src="{% static 'img/upload.svg' %}"><br/>
+                    <label>Browse PDF</label><br/>
+                    <button type="submit">Upload</button>
+                    <div id="filename"></div>
+                    <div id="progress"></div>
+                    <div id="progressBar"></div>
+           </div>
+            <div id="steps" style="display:none">
+                <h3 class="head">Step 2: Organize</h3>
+                <section step="organize">
+                     <div class="images">
+                        <ul id="sortable" class="sortable">
+                            {% for img in images %}
+                            <li class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" id="{{forloop.counter}}"></li>
+                            {% endfor %}
+                        </ul>
+                      </div>
+                </section>
+                <h3 class="head">Step 3: Select Front Cover Images</h3>
+                <section step="front_cover">
+                    <div class="images"></div>
+                </section>
+                <h3>Step 4: Select Back Cover Images</h3>
+                <section step="back_cover">
+                    <div class="images"></div>
+                </section>
+            </div>
+      </form>
     </div>
 
 </div>

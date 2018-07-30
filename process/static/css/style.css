@@ -109,6 +109,23 @@ position: absolute;
     font-weight: bold;
     display:none;
 }
+.orange-btn
+{
+    width: auto;
+    height: 20px;
+    background: orange;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.next
+{
+    position:absolute;
+    right:40px;
+    top:20px;
+}
 .selected
 {
 box-sizing: border-box;

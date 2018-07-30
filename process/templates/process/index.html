@@ -5,25 +5,40 @@
 </head>
 <body>
 {% load static %}
+    <style>
+
+  #sortable { font-size: 1.4em; border:none!important;  }
+  #sortable .ui-selecting { background: #FECA40; }
+  #sortable .ui-selected { background: #F39814; color: white; }
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+  #sortable div { margin: 3px; padding: 0.4em; font-size: 1.4em;background:transparent!important;
+    border:none!important; }
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+
+#sortable > div { float: left; }
+.ui-state-default
+{
+    background:transparent!important;
+    border:none;
+    }
+
+    </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="{% static 'css/jquery.steps.css' %}?ver1.0.1" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
     <script type="text/javascript">
-        var data = {{json_images |safe }};
+        var jsonData = {{json_images |safe }};
     </script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <script src="{% static 'js/jquery.steps.js' %}"></script>
-    <script src="{% static 'js/jquery.steps.min.js' %}"></script>
-    <script src="{% static 'js/process.js' %}"></script>
+    <script src="{% static 'js/pdf-step.js' %}"></script>
 
 {% block content %}
-<div class="in-content">
+<div>
     <h2 id="lbl-step-1">Step 1: Upload PDF</h2>
-    <div class="in-box">
+    <div>
       <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
         {% csrf_token %}
            <div class="upload-box">
@@ -36,30 +51,15 @@
                     <div id="progressBar"></div>
            </div>
             <div id="steps" style="display:none">
-                <h3 class="head">Step 2: Organize</h3>
-                <section step="organize">
-                     <div class="images">
-                        <ul id="sortable" class="sortable">
-                            {% for img in images %}
-                            <li class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" id="{{forloop.counter}}"></li>
-                            {% endfor %}
-                        </ul>
-                      </div>
-                </section>
-                <h3 class="head">Step 3: Select Front Cover Images</h3>
-                <section step="front_cover">
-                    <div class="images">
-                        <ul id="sortable-1" class="sortable">
-                            {% for img in images %}
-                            <li class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" id="{{forloop.counter}}"></li>
-                            {% endfor %}
-                        </ul>
-                      </div>
-                </section>
-                <h3>Step 4: Select Back Cover Images</h3>
-                <section step="back_cover">
-                    <div class="images"></div>
-                </section>
+                <div id="info_box">Organise</div>
+                <div class="dem">
+                    <div id="sortable" class="ui-state-default images">
+                        {% for img in images %}
+                            <div id = "{{forloop.counter}}" class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" class="img-responsive" alt=""></div>
+                        {% endfor %}
+                    </div>
+                    <button name="next" class="orange-btn next" data-current-step="drag" id="next-button">next</button>
+                </div>
             </div>
       </form>
     </div>

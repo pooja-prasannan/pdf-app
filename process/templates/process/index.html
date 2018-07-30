@@ -8,8 +8,14 @@
     <style>
 
   #sortable { font-size: 1.4em; border:none!important;  }
-  #sortable .ui-selecting { background: #FECA40; }
-  #sortable .ui-selected { background: #F39814; color: white; }
+  #sortable .ui-selecting img { box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 5px solid #00ee00;}
+  #sortable .ui-selected img { box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 5px solid #00ee00; }
   #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
   #sortable div { margin: 3px; padding: 0.4em; font-size: 1.4em;background:transparent!important;
     border:none!important; }
@@ -37,9 +43,9 @@
 
 {% block content %}
 <div>
-    <h2 id="lbl-step-1">Step 1: Upload PDF</h2>
+    <h2 id="lbl-step-title">Step 1: Upload PDF</h2>
     <div>
-      <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
+      <form method="post" enctype="multipart/form-data" id="form_pdfconvert" style="text-align:center">
         {% csrf_token %}
            <div class="upload-box">
                <input type="file" name="file" id="fileupload">
@@ -51,7 +57,7 @@
                     <div id="progressBar"></div>
            </div>
             <div id="steps" style="display:none">
-                <div id="info_box">Organise</div>
+                <!--<div id="info_box">Organise</div>-->
                 <div class="dem">
                     <div id="sortable" class="ui-state-default images">
                         {% for img in images %}

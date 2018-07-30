@@ -4,6 +4,7 @@ $(document).ready(function() {
         {
             $(".upload-box").hide();
             $("#steps").show();
+            $("#lbl-step-title ").text("Step 2: Organize")
         }
 });
 
@@ -63,7 +64,7 @@ $(document).ready(function() {
                    }
                });
                $("#next-button ").data("current-step","front_cover");
-               $("#info_box ").text("Select Front Cover Images")
+               $("#lbl-step-title ").text("Step 3: Select Front Cover Images");
             }
             if (current_step == "front_cover") {
                 console.log("--->", selected);
@@ -80,7 +81,7 @@ $(document).ready(function() {
                 $("#next-button ").data("current-step","back_cover");
                 // reset selection
                 window.selected = new Array();
-                $("#info_box ").text("Select Back Cover Images")
+                $("#lbl-step-title ").text("Step 4: Select Back Cover Images")
             }
             if (current_step == "back_cover") {
                 var data = window.localStorage.getItem('data');
@@ -99,7 +100,7 @@ $(document).ready(function() {
                 $("#next-button ").data("current-step","tabs");
                 // reset selection
                 window.selected = new Array();
-                $("#info_box ").text("Select Tabs");
+                $("#lbl-step-title ").text("Step 5: Select Tabs");
 
             }
             if (current_step == "tabs") {
@@ -123,7 +124,7 @@ $(document).ready(function() {
                 $("#next-button ").data("current-step","stack");
                 // reset selection
                 window.selected = new Array();
-                $("#info_box ").text("Select Stack")
+                $("#lbl-step-title ").text("Step 6: Refine Components")
             }
             if (current_step == "stack") {
                 if (window.selected.length % 2 != 0) {
@@ -135,4 +136,8 @@ $(document).ready(function() {
         });
 
         $( "#sortable" ).disableSelection();
+//        $(".ui-selectable img").click(function()
+//        {
+//            $(this).toggleClass("selected");
+//        });
       });

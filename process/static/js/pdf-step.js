@@ -50,6 +50,7 @@ $(document).ready(function() {
             e.preventDefault();
             var current_step = $("#next-button ").data("current-step");
             if (current_step == "drag") {
+
                $("#sortable" ).sortable( "disable" )
                $("#sortable" ).selectable({
                    selected: function(event, ui){
@@ -67,8 +68,10 @@ $(document).ready(function() {
                $("#lbl-step-title ").text("Step 3: Select Front Cover Images");
             }
             if (current_step == "front_cover") {
+
                 console.log("--->", selected);
                 var data = window.localStorage.getItem('data');
+                console.log(">>>>>>>>>>>>>>>>1111",data)
                 data = JSON.parse(data)
                 data["front_cover"] = window.selected
                 var front_cover = data["front_cover"];
@@ -84,17 +87,22 @@ $(document).ready(function() {
                 $("#lbl-step-title ").text("Step 4: Select Back Cover Images")
             }
             if (current_step == "back_cover") {
+
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
                 data["back_cover"] = window.selected
-                var all_divs = $("div .ui-state-default")
-                var i;
-                console.log(data["images"].length)
-                for (var key  in data["images"]){
-                        $("#"+key).show();
+                var back_cover = data["back_cover"];
+//                var all_divs = $("div .ui-state-default")
+//                var i;
+//                console.log(data["images"].length)
+//                for (var key  in data["images"]){
+//                        $("#"+key).hide();
+//                }
+                 for (i = 0; i < back_cover.length; i++) {
+                        $("#"+back_cover[i]).hide();
                 }
                 // remove selected divs
-                $("div").removeClass("ui-selected");
+//                $("div").removeClass("ui-selected");
                 data = JSON.stringify(data)
                 window.localStorage.setItem('data', data);
                 $("#next-button ").data("current-step","tabs");
@@ -104,6 +112,7 @@ $(document).ready(function() {
 
             }
             if (current_step == "tabs") {
+
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Tabs")
                     return false;
@@ -113,10 +122,28 @@ $(document).ready(function() {
                 data["tabs"] = window.selected
                 var all_divs = $("div .ui-state-default")
                 var i;
-                console.log(data["images"].length)
-                for (var key  in data["images"]){
-                        $("#"+key).show();
+                console.log("tab length",data["tabs"].length)
+//                for (var key  in data["order"]+1){
+//                        $("#"+key).show();
+//                }
+
+
+                $("#"+data["front_cover"][0]).show();
+                
+                 for (var i = 0; i < data["tabs"].length; i++) {
+
+                          if (data["tabs"][i] % 2 == 0) {
+
+                        $("#"+data["tabs"][i]).show();
+                        }
+                         if (data["tabs"][i] % 2 != 0) {
+
+                        $("#"+data["tabs"][i]).hide();
+                        }
                 }
+                $("#"+data["back_cover"][0]).show();
+
+
                 // remove selected divs
                 $("div").removeClass("ui-selected");
                 data = JSON.stringify(data)
@@ -124,13 +151,16 @@ $(document).ready(function() {
                 $("#next-button ").data("current-step","stack");
                 // reset selection
                 window.selected = new Array();
+                $("#next-button ").data("current-step","refine-components");
                 $("#lbl-step-title ").text("Step 6: Refine Components")
             }
-            if (current_step == "stack") {
+            if (current_step == "refine-components") {
+
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Stack")
                     return false;
                 }
+
             }
 
         });

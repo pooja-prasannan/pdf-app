@@ -48,7 +48,13 @@
                 </section>
                 <h3 class="head">Step 3: Select Front Cover Images</h3>
                 <section step="front_cover">
-                    <div class="images"></div>
+                    <div class="images">
+                        <ul id="sortable-1" class="sortable">
+                            {% for img in images %}
+                            <li class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" id="{{forloop.counter}}"></li>
+                            {% endfor %}
+                        </ul>
+                      </div>
                 </section>
                 <h3>Step 4: Select Back Cover Images</h3>
                 <section step="back_cover">

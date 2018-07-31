@@ -44,6 +44,9 @@
 {% block content %}
 <div>
     <h2 id="lbl-step-title">Step 1: Upload PDF</h2>
+      <div id="save">
+          <button name="save" class="orange-btn next" id="save-button">Save</button>
+      </div>
     <div>
       <form method="post" enctype="multipart/form-data" id="form_pdfconvert" style="text-align:center">
         {% csrf_token %}
@@ -61,9 +64,11 @@
                 <div class="dem">
                     <div id="sortable" class="ui-state-default images">
                         {% for img in images %}
-                            <div id = "{{forloop.counter}}" class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" class="img-responsive" alt=""></div>
+                            <div id = "{{forloop.counter}}" class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" class="img-responsive" alt="">
+                            </div>
                         {% endfor %}
                     </div>
+
                     <button name="next" class="orange-btn next" data-current-step="drag" id="next-button">next</button>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+alert("hi")
 
         if($(".images img").length >0)
         {
@@ -18,7 +19,6 @@ $(document).ready(function() {
     }
     return this;
     };
-
     console.log("dataaaaaaaaaaaaaaaaaaaa", jsonData);
 
     var images = {};
@@ -44,9 +44,12 @@ $(document).ready(function() {
                     data["order"] = image_ids
                     data = JSON.stringify(data)
                     window.localStorage.setItem('data', data);
+                    console.log(window.localStorage.getItem('data'))
                 }
             });
         $( "#next-button" ).click(function(e) {
+           console.log(window.localStorage.getItem('data'))
+
             e.preventDefault();
             var current_step = $("#next-button ").data("current-step");
             if (current_step == "drag") {
@@ -119,29 +122,96 @@ $(document).ready(function() {
                 }
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
-                data["tabs"] = window.selected
-                var all_divs = $("div .ui-state-default")
+                //data["tabs"] = window.selected
+                var current_order =  data['order'];
+                console.log(current_order)
+                  for (i = 0; i < data["back_cover"].length; i++) {
+                      current_order.remove(data["back_cover"][i])
+                  }
+                  for (i = 0; i < data["front_cover"].length; i++) {
+                      current_order.remove(data["front_cover"][i])
+                  }
+
+
+
+
+
+//                            order = [1,3,4,5,6,7,8,9,11]
+//                ws = [4,5,8,9]
+              console.log("coooooooooooooooooo ",current_order, current_order[0])
+              console.log("wssssssssssssssssss ",window.selected)
+                var j=0;
+                var tab=[];
+                var stack=[];
+                  var tab1=[];
+                var stack1=[];
+                var new_stack = [];
+                var new_tab = [];
+                var l = 0;
+                var k = 0;
+                var is_tab = false
+                var is_stack =false
+
+                for(var i =0; i< current_order.length; i++)
+                {
+                if (current_order[i] == window.selected[j])
+
+                    {
+                        if (is_stack){
+                            new_tab.push(tab)
+                            l++;
+                            is_stack=false}
+                        tab.push(current_order[i])
+                        j++
+                        is_tab = true
+                }
+
+                else{
+                    if (is_tab){
+                    new_stack.push(stack)
+                        k++
+                        is_tab = false
+                        is_stack = true
+                    }
+                    stack.push(current_order[i])
+                }
+                }
+                   console.log("new tab",new_tab)
+                   console.log("tab",tab)
+                   console.log("newwstack", new_stack)
+                   console.log("stack",stack)
+
+
+
+
                 var i;
                 console.log("tab length",data["tabs"].length)
 //                for (var key  in data["order"]+1){
 //                        $("#"+key).show();
 //                }
 
-
                 $("#"+data["front_cover"][0]).show();
-                
-                 for (var i = 0; i < data["tabs"].length; i++) {
+                 $("#"+data["front_cover"][0]).append(`<div><label for="name">Front</label></div>`);
 
-                          if (data["tabs"][i] % 2 == 0) {
+                 for (var i = 0, j=0;i < data["tabs"].length; i++) {
+
+                    if (i% 2 == 0) {
 
                         $("#"+data["tabs"][i]).show();
-                        }
-                         if (data["tabs"][i] % 2 != 0) {
-
+                        $("#"+data["tabs"][i]).append(`<div><label for="name">tab ${j+1} </label></div>`);
+                        j=j+1;
+                     }
+                    else {
                         $("#"+data["tabs"][i]).hide();
-                        }
+                     }
                 }
                 $("#"+data["back_cover"][0]).show();
+                $("#"+data["back_cover"][0]).append(`<div><label for="name">Back</label></div>`);
+                alert("stack"+data["stack"])
+
+                var not_sel=$( "#sortable" ).children().not("ui-selected").attr("id")
+                console.log("not selected",not_sel)
+                alert("not sel"+not_sel)
 
 
                 // remove selected divs
@@ -153,16 +223,14 @@ $(document).ready(function() {
                 window.selected = new Array();
                 $("#next-button ").data("current-step","refine-components");
                 $("#lbl-step-title ").text("Step 6: Refine Components")
+                $("#save").show();
             }
             if (current_step == "refine-components") {
-
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Stack")
                     return false;
                 }
-
             }
-
         });
 
         $( "#sortable" ).disableSelection();

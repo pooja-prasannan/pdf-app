@@ -1,5 +1,5 @@
 $(document).ready(function() {
-alert("hi")
+
 
         if($(".images img").length >0)
         {
@@ -131,59 +131,50 @@ alert("hi")
                   for (i = 0; i < data["front_cover"].length; i++) {
                       current_order.remove(data["front_cover"][i])
                   }
+            var j=0;
+            var l = 0;
+            var k = 0;
+            var tab=[];
+            var stack=[];
+            var new_stack = [];
+            var new_tab = [];
+            var is_tab = false
+            var is_stack =false
 
-
-
-
-
-//                            order = [1,3,4,5,6,7,8,9,11]
-//                ws = [4,5,8,9]
-              console.log("coooooooooooooooooo ",current_order, current_order[0])
-              console.log("wssssssssssssssssss ",window.selected)
-                var j=0;
-                var tab=[];
-                var stack=[];
-                  var tab1=[];
-                var stack1=[];
-                var new_stack = [];
-                var new_tab = [];
-                var l = 0;
-                var k = 0;
-                var is_tab = false
-                var is_stack =false
-
-                for(var i =0; i< current_order.length; i++)
-                {
-                if (current_order[i] == window.selected[j])
-
-                    {
-                        if (is_stack){
-                            new_tab.push(tab)
-                            l++;
-                            is_stack=false}
-                        tab.push(current_order[i])
-                        j++
-                        is_tab = true
+            for(var i =0; i< current_order.length; i++)
+            {
+            if (current_order[i] == window.selected[j]){
+                    if (is_stack){
+                        new_tab.push([tab])
+                        tab =[]
+                        is_stack=false}
+                    tab.push(current_order[i])
+                    j++
+                    is_tab = true
+            }
+            else{
+                if (is_tab){
+                    new_stack.push([stack])
+                    stack =[]
+                    is_tab = false
+                    is_stack = true
                 }
+                stack.push(current_order[i])
+            }
+            if ( i == current_order.length - 1){
+                    new_tab.push([tab])
+                    new_stack.push([stack])
+            }
+            }
+            data["total_tabs"] = new_tab;
+            data["total_stacks"] = new_stack
+            for (i=0;i< data["total_tabs"].length;i++){
+//              for(j=0; j< data["total_tabs"][i].length;j++){
+                console.log("ffff",data["total_tabs"][i][0][0])
 
-                else{
-                    if (is_tab){
-                    new_stack.push(stack)
-                        k++
-                        is_tab = false
-                        is_stack = true
-                    }
-                    stack.push(current_order[i])
-                }
-                }
-                   console.log("new tab",new_tab)
-                   console.log("tab",tab)
-                   console.log("newwstack", new_stack)
-                   console.log("stack",stack)
-
-
-
-
+//               }
+            }
+            console.log("order",current_order)
                 var i;
                 console.log("tab length",data["tabs"].length)
 //                for (var key  in data["order"]+1){
@@ -193,26 +184,21 @@ alert("hi")
                 $("#"+data["front_cover"][0]).show();
                  $("#"+data["front_cover"][0]).append(`<div><label for="name">Front</label></div>`);
 
-                 for (var i = 0, j=0;i < data["tabs"].length; i++) {
+                 for (i=0,j=0;i< data["total_tabs"].length;i++) {
+                     $("#"+data["total_tabs"][i][0][0]).show();
+                     $("#"+data["total_tabs"][i][0][0]).append(`<div><label for="name">tab ${j+1} </label></div>`);
+                     j=j+1;
+                     $("#"+data["total_tabs"][i][0][1]).hide();
+               }
+                for (i=0,j=0;i< data["total_stacks"].length;i++) {
+                     $("#"+data["total_stacks"][i][0][0]).show();
+                     $("#"+data["total_stacks"][i][0][0]).append(`<div><label for="name">stack ${j+1} </label></div>`);
+                     j=j+1;
+                     $("#"+data["total_stacks"][i][0][1]).hide();
+               }
 
-                    if (i% 2 == 0) {
-
-                        $("#"+data["tabs"][i]).show();
-                        $("#"+data["tabs"][i]).append(`<div><label for="name">tab ${j+1} </label></div>`);
-                        j=j+1;
-                     }
-                    else {
-                        $("#"+data["tabs"][i]).hide();
-                     }
-                }
                 $("#"+data["back_cover"][0]).show();
                 $("#"+data["back_cover"][0]).append(`<div><label for="name">Back</label></div>`);
-                alert("stack"+data["stack"])
-
-                var not_sel=$( "#sortable" ).children().not("ui-selected").attr("id")
-                console.log("not selected",not_sel)
-                alert("not sel"+not_sel)
-
 
                 // remove selected divs
                 $("div").removeClass("ui-selected");
@@ -223,7 +209,11 @@ alert("hi")
                 window.selected = new Array();
                 $("#next-button ").data("current-step","refine-components");
                 $("#lbl-step-title ").text("Step 6: Refine Components")
-                $("#save").show();
+                $(".abc").addClass("context-menu-one");
+                $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="save-button">Save</button>`);
+                $("#next-button").html(`<button name="build" class="orange-btn " data-current-step="drag" id="build">Build Book</button>`);
+                $("#sortable").append(`<button name="book_attribute" class="orange-btn"  id="book_attribute">Define Book Attribute</button>`)
+
             }
             if (current_step == "refine-components") {
                 if (window.selected.length % 2 != 0) {

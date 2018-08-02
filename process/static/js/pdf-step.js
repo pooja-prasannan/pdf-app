@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
         if($(".images img").length >0)
         {
             $(".upload-box").hide();
@@ -47,7 +46,7 @@ $(document).ready(function() {
                     console.log(window.localStorage.getItem('data'))
                 }
             });
-        $( "#next-button" ).click(function(e) {
+        $( "#next-button, #build" ).click(function(e) {
            console.log(window.localStorage.getItem('data'))
 
             e.preventDefault();
@@ -145,7 +144,7 @@ $(document).ready(function() {
             {
             if (current_order[i] == window.selected[j]){
                     if (is_stack){
-                        new_tab.push([tab])
+                        new_tab.push(tab)
                         tab =[]
                         is_stack=false}
                     tab.push(current_order[i])
@@ -154,7 +153,7 @@ $(document).ready(function() {
             }
             else{
                 if (is_tab){
-                    new_stack.push([stack])
+                    new_stack.push(stack)
                     stack =[]
                     is_tab = false
                     is_stack = true
@@ -162,21 +161,21 @@ $(document).ready(function() {
                 stack.push(current_order[i])
             }
             if ( i == current_order.length - 1){
-                    new_tab.push([tab])
-                    new_stack.push([stack])
+                    new_tab.push(tab)
+                    new_stack.push(stack)
             }
             }
             data["total_tabs"] = new_tab;
             data["total_stacks"] = new_stack
             for (i=0;i< data["total_tabs"].length;i++){
 //              for(j=0; j< data["total_tabs"][i].length;j++){
-                console.log("ffff",data["total_tabs"][i][0][0])
+//                console.log("ffff",data["total_tabs"][i][0][0])
 
 //               }
             }
             console.log("order",current_order)
                 var i;
-                console.log("tab length",data["tabs"].length)
+//                console.log("tab length",data["tabs"].length)
 //                for (var key  in data["order"]+1){
 //                        $("#"+key).show();
 //                }
@@ -184,18 +183,45 @@ $(document).ready(function() {
                 $("#"+data["front_cover"][0]).show();
                  $("#"+data["front_cover"][0]).append(`<div><label for="name">Front</label></div>`);
 
-                 for (i=0,j=0;i< data["total_tabs"].length;i++) {
-                     $("#"+data["total_tabs"][i][0][0]).show();
-                     $("#"+data["total_tabs"][i][0][0]).append(`<div><label for="name">tab ${j+1} </label></div>`);
-                     j=j+1;
-                     $("#"+data["total_tabs"][i][0][1]).hide();
-               }
-                for (i=0,j=0;i< data["total_stacks"].length;i++) {
-                     $("#"+data["total_stacks"][i][0][0]).show();
-                     $("#"+data["total_stacks"][i][0][0]).append(`<div><label for="name">stack ${j+1} </label></div>`);
-                     j=j+1;
-                     $("#"+data["total_stacks"][i][0][1]).hide();
-               }
+            // show and hide tabsss
+
+                        var a= data["total_tabs"]
+                        for(var i=0,j=0;i<a.length;i++)
+            {
+//                     var first = a[i].shift();
+
+
+                 $("#"+a[i][0]).show();
+                 $("#"+a[i][0]).append(`<div><label for="name">tab ${j+1} </label></div>`);
+                 j++;
+            }
+             for(var i=0;i<a.length;i++)
+            {
+
+                for(var j=1;j<a[i].length;j++){
+
+
+                 $("#"+a[i][j]).hide();
+                }
+            }
+            // show and hide stacks
+            var a= data["total_stacks"]
+
+            for(var i=0,j=0;i<a.length;i++)
+           {
+//                   var first = a[i].shift();
+	                 $("#"+a[i][0]).show();
+	                $("#"+a[i][0]).append(`<div><label for="name">stack ${j+1} </label></div>`);
+	                j++
+            }
+            for(var i=0;i<a.length;i++)
+            {
+
+                for(var j=1;j<a[i].length;j++){
+                  $("#"+a[i][j]).hide();
+                }
+            }
+
 
                 $("#"+data["back_cover"][0]).show();
                 $("#"+data["back_cover"][0]).append(`<div><label for="name">Back</label></div>`);
@@ -209,17 +235,23 @@ $(document).ready(function() {
                 window.selected = new Array();
                 $("#next-button ").data("current-step","refine-components");
                 $("#lbl-step-title ").text("Step 6: Refine Components")
-                $(".abc").addClass("context-menu-one");
+                $(".images-ids").addClass("context-menu-one");
                 $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="save-button">Save</button>`);
                 $("#next-button").html(`<button name="build" class="orange-btn " data-current-step="drag" id="build">Build Book</button>`);
                 $("#sortable").append(`<button name="book_attribute" class="orange-btn"  id="book_attribute">Define Book Attribute</button>`)
 
             }
             if (current_step == "refine-components") {
+
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Stack")
                     return false;
                 }
+//                alert("ujhyuijkyhuj")
+//                window.selected = new Array();
+//                 $("#next-button ").data("current-step","edit");
+//                $("#lbl-step-title ").text("Step 5: Adjust Page");
+
             }
         });
 

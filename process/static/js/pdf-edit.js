@@ -1,39 +1,32 @@
 
     $(function() {
-
         $.contextMenu({
-            selector: '.abc',
+            selector: '.context-menu-one',
             callback: function(key, options) {
-                    var a= this.id
-                    alert("id"+a);
-                var m = "clicked: " + key;
-                //window.console && console.log(m) || alert(m);
+
                 if (key== "delete"){
-                    alert("clicked delete");
-                    $("#"+a).hide();
+                     var ids= $('.context-menu-active').attr('id')
+                     $("#"+ids).hide();
                 }
-                       if (key== "edit"){
+                 if (key== "edit"){
                     alert("clicked edit");
+                    $("#next-button ").data("current-step","edit");
+                    $("#lbl-step-title ").text("Step 7: Adjust Page");
+                    var ids= $('.context-menu-active').attr('id')
+                    $(".images-ids").hide();
+                    $("#"+ids).show();
+
                 }
             },
             items: {
-
                 "delete": {name: "Delete", icon: "delete"},
                 "edit": {name: "Edit", icon: "edit"},
                 "add": {name: "Add", icon: "add"},
-               // "quit": {name: "Quit", icon: function(){
-               //  return 'context-menu-icon context-menu-icon-quit';
-               // }}
-
             }
-            //alert("asadsadsa"+this.id)
         });
 
-//        $('.context-menu-one').on('click', function(e){
-//          alert(event.target);
-//          var a= event.target.id;
-//                    alert("idsssssssssss"+a);
-//
-//        })
+        $('.images-ids').on('click', function(e){
+            console.log('clicked', this);
+        })
 
     });

@@ -1,12 +1,16 @@
 import json
 import random
 import os
-
+import base64
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.views import View
 from django.shortcuts import render, HttpResponse
 from pdf2image import convert_from_bytes
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+
 
 
 class CovertView(View):
@@ -30,6 +34,28 @@ class CovertView(View):
         except:
             print("no file selected")
             return render(request, 'process/index.html')
+
+
+class Base64ImageView(View):
+    def get(self, request):
+        return render(request, 'process/index.html')
+
+    @method_decorator(ensure_csrf_cookie)
+    def post(self, request):
+        try:
+            image_url = request.GET.get('image_url')
+            image_id = request.GET.get('image_id')
+            encoded_image = image_url.split(',')[-1]
+            # print(image_url)
+            # print(image_id)
+            imgdata = base64.standard_b64decode(encoded_image)
+            # print(imgdata)
+            image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + '.png'), 'w+')
+            image_result.write(imgdata)
+            image_result.seek(0, 0)
+        except Exception as e:
+            print(e)
+        return render(request, 'process/index.html')
 
 
 class DemoView(TemplateView):

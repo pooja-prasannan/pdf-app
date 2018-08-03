@@ -134,6 +134,17 @@ box-sizing: border-box;
     border: 5px solid #00ee00;
 
 }
+img {
+  max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+
+
+.preview {
+  overflow: hidden !important;
+  width: 100px !important;
+  height: 100px !important;
+}
+
 /*
 .ui-selectable .ui-selected
 {

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
         if($(".images img").length >0)
         {
             $(".upload-box").hide();
@@ -236,9 +237,9 @@ $(document).ready(function() {
                 $("#next-button ").data("current-step","refine-components");
                 $("#lbl-step-title ").text("Step 6: Refine Components")
                 $(".images-ids").addClass("context-menu-one");
-                $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="save-button">Save</button>`);
-                $("#next-button").html(`<button name="build" class="orange-btn " data-current-step="drag" id="build">Build Book</button>`);
-                $("#sortable").append(`<button name="book_attribute" class="orange-btn"  id="book_attribute">Define Book Attribute</button>`)
+//                $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="save-button">Save</button>`);
+//                $("#next-button").html(`<button name="build" class="orange-btn " data-current-step="drag" id="build">Build Book</button>`);
+//                $("#sortable").append(`<button name="book_attribute" class="orange-btn"  id="book_attribute">Define Book Attribute</button>`)
 
             }
             if (current_step == "refine-components") {
@@ -247,10 +248,11 @@ $(document).ready(function() {
                     alert("Please select EVEN number Stack")
                     return false;
                 }
-//                alert("ujhyuijkyhuj")
+
 //                window.selected = new Array();
 //                 $("#next-button ").data("current-step","edit");
 //                $("#lbl-step-title ").text("Step 5: Adjust Page");
+//                  $("#next-button").html(`<button name="crop-save" class="orange-btn " data-current-step="crop" id="crop-save" >Save</button>`);
 
             }
         });

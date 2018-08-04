@@ -47,12 +47,11 @@
                    $("#back").append(`&nbsp <div name="save" id="preview-section" class="preview"  ></div>`);
                    setTimeout(function(){
                         $(".preview").find("img").hide();
-                   }, 300);
+                   }, 100);
 
 //                   $(".preview").find("img").hide();
                     $('#preview-btn').on('click', function(e){
-
-
+                        $("#"+ids).show();
                         $(".preview").find("img").show();
                    })
 
@@ -62,8 +61,9 @@
                    })
 
                   $('#crop-save,#next-button').on('click', function(e){
-                    alert("save-click");
 
+                         $("#"+ids).hide();
+                   $(".preview").find("img").show();
 
                     cropper.getCroppedCanvas();
                     cropper.getCroppedCanvas({
@@ -80,14 +80,20 @@
 
                     // Upload cropped image to server if the browser supports `HTMLCanvasElement.toBlob`
                     cropper.getCroppedCanvas().toBlob((blob) => {
-                      var formData = new FormData();
 
-                      formData.append('croppedImage', blob);
+                     var reader = new FileReader();
+                     reader.readAsDataURL(blob);
+                     reader.onloadend = function() {
+                         base64data = reader.result;
+//
+                     }
+                      var formData ={'image_ids': ids, 'croppedImage':base64data}
 
                       // Use `jQuery.ajax` method
                       $.ajax('/images/', {
                         method: "POST",
-                        data: formData,
+                        data: JSON.stringify(formData),
+
                         processData: false,
                         contentType: false,
                         success() {

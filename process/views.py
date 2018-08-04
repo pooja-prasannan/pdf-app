@@ -19,6 +19,9 @@ class CovertView(View):
 
     def post(self, request):
         try :
+            pp = request.POST.get('croppedImage')
+            print("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", pp)
+            print(request.POST)
             file = request.FILES['file']
             print("fileeeee", file)
             images = convert_from_bytes(file.read())
@@ -40,17 +43,16 @@ class Base64ImageView(View):
     def get(self, request):
         return render(request, 'process/index.html')
 
-    @method_decorator(ensure_csrf_cookie)
     def post(self, request):
+
         try:
-            image_url = request.GET.get('image_url')
-            image_id = request.GET.get('image_id')
+
+            json_data = json.loads(request.body.decode('utf-8'))
+            image_url = json_data.get('croppedImage')
+            image_id = "image{}".format(json_data.get('image_ids'))
             encoded_image = image_url.split(',')[-1]
-            # print(image_url)
-            # print(image_id)
             imgdata = base64.standard_b64decode(encoded_image)
-            # print(imgdata)
-            image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + '.png'), 'w+')
+            image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + '.png'), 'wb')
             image_result.write(imgdata)
             image_result.seek(0, 0)
         except Exception as e:

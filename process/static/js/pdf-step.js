@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
         if($(".images img").length >0)
         {
             $(".upload-box").hide();

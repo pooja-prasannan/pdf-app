@@ -39,6 +39,12 @@
     <link rel="stylesheet" href="{% static 'css/cropper.css' %}"/>
     <script type="text/javascript">
         var jsonData = {{json_images |safe }};
+        var img_url = '';
+        {% if img_url %}
+            img_url = {{img_url }};
+        {% endif %}
+         alert("index"+img_url);
+
     </script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -86,8 +92,10 @@
            </div>
             <div id="steps" style="display:none">
                 <!--<div id="info_box">Organise</div>-->
-                <div class="dem">
+                <div class="dem">HAIIIIIIIIIII ---> {{img_url }}
+
                     <div id="sortable" class="ui-state-default images">
+
                         {% for img in images %}
                             <div id = "{{forloop.counter}}" class="images-ids"  class="ui-state-default">
                                 <img src="{{img}}"  width="150px" height="250px" class="img-responsive" alt="">

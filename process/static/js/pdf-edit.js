@@ -2,17 +2,106 @@
     $(function() {
 
 
+
         $.contextMenu({
             selector: '.context-menu-one',
             callback: function(key, options) {
 
-                    var m = "clicked: " + key;
-                     window.console && console.log(m) || alert(m);
+//                    var m = "clicked: " + key;
+//                     window.console && console.log(m) || alert(m);
 
                 if (key== "delete"){
                      var ids= $('.context-menu-active').attr('id')
                      $("#"+ids).hide();
                 }
+
+
+                if( key== "front")
+                {
+                $("#back").append(` <input type='file' id="imgInp" multiple/>`);
+                var fileList =[];
+                $("#back").on('change','#imgInp',function() {
+                    readURL(this);
+                    $('#imgInp').hide();
+
+                });
+
+
+//                   function readURL(input) {
+//                         alert("readURL")
+//                         if (input.files && input.files[0]) {
+//                                var reader = new FileReader();
+//                                reader.onload = function (e) {
+//                               var a= $('#blah').attr('src', e.target.result).width(150) .height(250);
+//                               console.log("blaaaaah",a);
+//                               $("#sortable").append(a)
+//
+//                    };
+//                         reader.readAsDataURL(input.files[0]);
+//                     }
+//                    }
+                        function readURL(input) {
+                         alert("readURL")
+                         fileList =[];
+                         for(var i=0 ; i<input.files.length ;i++)
+                         {
+                        $("#sortable").append(`<img id=${i}_front_cover src="#" alt="your image" />`);
+                         console.log("imgggggg", input.files[i])
+
+                         fileList.push(input.files[i]);
+                         var reader = new FileReader();
+                         console.log(FileList)
+                         reader.onload = function (e) {
+//                         var r= ${i};
+
+//                                 var fc = ${i}+"front_cover"
+//                          alert("dscdscdsfvcdvcdf"+'#'+${i})
+//                         $(`#${i}_front_cover`).attr('src', e.target.result).width(150) .height(250);
+                          $("#0_front_cover").attr('src', e.target.result).width(150) .height(250);
+                          $("#1_front_cover").attr('src', e.target.result).width(150) .height(250);
+                         };
+                         reader.readAsDataURL(input.files[i]);
+
+
+                         var url  = 'http://server.com/upload';
+                        var image_file = $('#imgInp').get(0).files[0];
+
+                        var formData = new FormData();
+                        formData.append("image_file", image_file);
+
+                        $.ajax({
+                          url: /add-images/,
+                          type: 'POST',
+                          data: formData,
+                          async: false,
+                          cache: false,
+                          contentType: false,
+                          processData: false,
+                          success: function (status) {
+                            console.log(status)
+                          }
+                        });
+                          }
+                    }
+                }
+
+                if( key== "back")
+                {
+                    alert("back");
+                }
+
+                 if( key== "tab")
+                {
+                    alert("tab");
+                }
+
+                 if( key== "stack")
+                {
+                    alert("stack");
+                }
+
+
+
                  if (key== "edit"){
                     alert("clicked edit");
                     $("#next-button ").data("current-step","edit");
@@ -197,10 +286,10 @@
                 "delete": {name: "Delete", icon: "delete"},
                 "edit": {name: "Edit", icon: "edit"},
                 "add": {name: "Add",items: {
-                            "fold2-key1": {"name": "Front"},
-                            "fold2-key2": {"name": "Stack"},
-                            "fold2-key3": {"name": "Tab"},
-                            "fold2-key4": {"name": "Back"}
+                            "front": {"name": "Front"},
+                            "stack": {"name": "Stack"},
+                            "tab": {"name": "Tab"},
+                            "back": {"name": "Back"}
                         }, icon: "add"},
             }
         });

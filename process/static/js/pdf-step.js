@@ -113,12 +113,14 @@ $(document).ready(function() {
                 $("#lbl-step-title ").text("Step 5: Select Tabs");
 
             }
+
             if (current_step == "tabs") {
 
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Tabs")
                     return false;
                 }
+
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
                 //data["tabs"] = window.selected
@@ -226,6 +228,8 @@ $(document).ready(function() {
                 $("#"+data["back_cover"][0]).show();
                 $("#"+data["back_cover"][0]).append(`<div><label for="name">Back</label></div>`);
 
+//                 $("#back").append(`<div><button type="button" id="add-btn" >Add </button></div>`)
+
                 // remove selected divs
                 $("div").removeClass("ui-selected");
                 data = JSON.stringify(data)
@@ -238,9 +242,16 @@ $(document).ready(function() {
                 $(".images-ids").addClass("context-menu-one");
 //                $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="save-button">Save</button>`);
 //                $("#next-button").html(`<button name="build" class="orange-btn " data-current-step="drag" id="build">Build Book</button>`);
-//                $("#sortable").append(`<button name="book_attribute" class="orange-btn"  id="book_attribute">Define Book Attribute</button>`)
+
 
             }
+
+
+
+
+
+
+
             if (current_step == "refine-components") {
 
                 if (window.selected.length % 2 != 0) {

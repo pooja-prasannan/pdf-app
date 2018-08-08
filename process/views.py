@@ -44,23 +44,43 @@ class Base64ImageView(View):
         try:
 
             json_data = json.loads(request.body.decode('utf-8'))
-            image_url = json_data.get('croppedImage')
-            image_id = "image{}".format(json_data.get('image_ids'))
-            encoded_image = image_url.split(',')[-1]
-            imgdata = base64.standard_b64decode(encoded_image)
-            image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + '.png'), 'wb')
-            img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
-            image_result.write(imgdata)
-            image_result.seek(0, 0)
-            print("img_url", img_url)
+            print(json_data)
+            if json_data.get('action') == 'edit_image':
+                image_url = json_data.get('croppedImage')
+                image_id = "image{}".format(json_data.get('image_ids'))
+                encoded_image = image_url.split(',')[-1]
+                imgdata = base64.standard_b64decode(encoded_image)
+                image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + '.png'), 'wb')
+                img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
+                image_result.write(imgdata)
+                image_result.seek(0, 0)
+                print("img_url", img_url)
+            if json_data.get('action') == 'add_image':
+                img_lis = []
+                image_url_lis = json_data.get('front_cover')
+                id_max = json_data.get('id_max')
+                for i, img_url in enumerate(image_url_lis):
+                    encoded_image = img_url.split(',')[-1]
+                    image_id = "image{}".format(id_max+i)
+                    imgdata = base64.standard_b64decode(encoded_image)
+                    if 'png' in img_url:
+                        image_type = '.png'
+                    if 'jpeg' in img_url:
+                        image_type = '.jpg'
+                    image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + image_type), 'wb')
+                    url = "{}{}{}".format(settings.MEDIA_URL, image_id, image_type)
+                    img_lis.append(url)
+                    image_result.write(imgdata)
+                    image_result.seek(0, 0)
+                    print("img_url", url)
+                img_url = img_lis
+                print(img_url)
+
         except Exception as e:
             print(e)
             img_url = ''
         return JsonResponse({'img_url': img_url})
-        # return render(request, 'process/index.html', context={
-        #     'img_url': img_url
-        #
-        # })
+
 
 
 class DemoView(TemplateView):

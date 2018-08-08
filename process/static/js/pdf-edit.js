@@ -1,24 +1,18 @@
-
+var base64data1=[];
+var max;
     $(function() {
-
-
-
         $.contextMenu({
             selector: '.context-menu-one',
             callback: function(key, options) {
 
-//                    var m = "clicked: " + key;
-//                     window.console && console.log(m) || alert(m);
 
                 if (key== "delete"){
                      var ids= $('.context-menu-active').attr('id')
                      $("#"+ids).hide();
                 }
-
-
                 if( key== "front")
                 {
-                $("#back").append(` <input type='file' id="imgInp" multiple/>`);
+                $("#back").append(` <input type='file' multiple id="imgInp" />`);
                 var fileList =[];
                 $("#back").on('change','#imgInp',function() {
                     readURL(this);
@@ -26,63 +20,101 @@
 
                 });
 
+                        function readURL(input)
+                        {
+//                            var max = 0;
 
-//                   function readURL(input) {
-//                         alert("readURL")
-//                         if (input.files && input.files[0]) {
-//                                var reader = new FileReader();
-//                                reader.onload = function (e) {
-//                               var a= $('#blah').attr('src', e.target.result).width(150) .height(250);
-//                               console.log("blaaaaah",a);
-//                               $("#sortable").append(a)
+//                         var reader = new FileReader();
+//                           reader.readAsDataURL(input.files);
+//                           reader.onload = function () {
+//                             console.log(reader.result);
+//                           };
+
+
+
+                            if (input.files) {
+                             console.log("imp",input.files)
+                            var base64data=[];
+                            var filesAmount = input.files.length;
+                            for(var i=0;i<filesAmount;i++){
+
+                            console.log("length",input.files[i])
+                        getBase64(input.files[i])
+
+                            }
+
 //
-//                    };
-//                         reader.readAsDataURL(input.files[0]);
-//                     }
-//                    }
-                        function readURL(input) {
-                         alert("readURL")
-                         fileList =[];
-                         for(var i=0 ; i<input.files.length ;i++)
-                         {
-                        $("#sortable").append(`<img id=${i}_front_cover src="#" alt="your image" />`);
-                         console.log("imgggggg", input.files[i])
+                            }
 
-                         fileList.push(input.files[i]);
-                         var reader = new FileReader();
-                         console.log(FileList)
-                         reader.onload = function (e) {
-//                         var r= ${i};
-
-//                                 var fc = ${i}+"front_cover"
-//                          alert("dscdscdsfvcdvcdf"+'#'+${i})
-//                         $(`#${i}_front_cover`).attr('src', e.target.result).width(150) .height(250);
-                          $("#0_front_cover").attr('src', e.target.result).width(150) .height(250);
-                          $("#1_front_cover").attr('src', e.target.result).width(150) .height(250);
-                         };
-                         reader.readAsDataURL(input.files[i]);
+                            }
 
 
-                         var url  = 'http://server.com/upload';
-                        var image_file = $('#imgInp').get(0).files[0];
 
-                        var formData = new FormData();
-                        formData.append("image_file", image_file);
+                            function getBase64(file){
+                               var reader = new FileReader();
+                               reader.readAsDataURL(file);
+                               reader.onload = function () {
+//                                 console.log("INSIDE",reader.result);
+                                 base64data1.push(reader.result)
+//                                     console.log("lkdchjslj",base64data1)
+                               if(base64data1.length == 2){
+                                 $('.images-ids').each(function()
+                                    {
+                                    var value = parseInt($(this).attr('id'));
+                                    max=0;
+                                    max = (value > max) ? value : max;
+                                    });
+                                    console.log("poo",base64data1)
+                                    var formData1 ={'front_cover':base64data1, 'id_max': max, 'action': 'add_image'}
+                                    console.log("formdata",formData1)
+                                    $.ajax('/images/', {
+                                    method: "POST",
+                                    data: JSON.stringify(formData1),
+                                    processData: false,
+                                    contentType: false,
+                                    success(data) {
+                                     console.log('Upload succes',data['img_url'].length);
+//                                     for(var inc=1;data['img_url'].length;i++)
+//
+//                                    },
+                                    error() {
+                                      console.log('Upload error');
+                                    },
+                                  });
+                                  }
+                               };
+                               }
 
-                        $.ajax({
-                          url: /add-images/,
-                          type: 'POST',
-                          data: formData,
-                          async: false,
-                          cache: false,
-                          contentType: false,
-                          processData: false,
-                          success: function (status) {
-                            console.log(status)
-                          }
-                        });
-                          }
-                    }
+
+//                            alert("i"+i)
+//                             var new_max = max+i
+//                            var data =window.localStorage.getItem('data');
+//                            data = JSON.parse(data);
+//                            data["front_cover"].push(new_max)
+//                            data = JSON.stringify(data)
+//                            window.localStorage.setItem('data',data);
+//
+                           // var reader = new FileReader();
+
+                                //reader.onload = function(e) {
+//                                for(var j=1;j<=filesAmount;j++){
+//                                var n_max = max+j
+//                                alert("before"+n_max)
+//                                 $("#"+n_max).find('img').attr('src', e.target.result).width(150) .height(250);
+//                                 alert("after")
+//                                }
+                    // }
+                        //alert("readAsDataURL"+i)
+                       // reader.readAsDataURL(input.files[i]);
+
+//                      var url  = 'http://server.com/upload';
+//                        var image_file = $('#imgInp').get(0).files[0];
+//
+//                        var formData = new FormData();
+//                        formData.append("image_file", image_file);
+//
+                       // Use `jQuery.ajax` method
+
                 }
 
                 if( key== "back")
@@ -176,7 +208,7 @@
                           base64data = reader.result;
 //
                      }
-                      var formData ={'image_ids': ids, 'croppedImage':base64data}
+                      var formData ={'image_ids': ids, 'croppedImage':base64data, 'action': 'edit_image'}
 
                       // Use `jQuery.ajax` method
                       $.ajax('/images/', {

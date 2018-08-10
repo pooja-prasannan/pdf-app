@@ -26,7 +26,7 @@ var keys;
 
 
                 var fileList =[];
-                $("#back").on('change','#imgInp',function() {
+                $("#back").off().on('change','#imgInp',function() {
                     $('#imgInp').hide();
                     if(this.files.length>2){
 //                    var abc = $("#imgInp").length();
@@ -57,9 +57,9 @@ var keys;
                            }
                          }
 
-//                         else{
-//                          alert("You can upload only 2 files")
-//                         }
+                         else{
+                          alert("You can upload only 2 files")
+                         }
                     }
 
                 function getBase64(keys ,input, file){
@@ -90,21 +90,35 @@ var keys;
                                 {
 
                                  var new_max = max+inc+1
-                                 alert("new"+new_max)
+
                                  $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                   <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                  $("#"+new_max).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
-
+//                                 if(key == "front"){
+//                                    data =window.localStorage.getItem('data')
+//                                    data = JSON.parse(data)
+//                                    data['front_cover'].push(new_max)
+//                                    data = JSON.stringify(data)
+//                                    window.localStorage.setItem('data', data);
+//
+//                                 }
+//                                  if(key == "back"){
+//                                    data =window.localStorage.getItem('data')
+//                                    data = JSON.parse(data)
+//                                    data['back_cover'].push(new_max)
+//
+//                                 }
                                  if(inc%2==0)
                                    {
                                      $("#"+new_max).find("img").show();
                                      if(keys == "front"){
-                                     alert(keys)
-                                     $("#"+new_max).append(`<div><label for="name">Front</label></div>`);
+
+
+                                    $("#"+new_max).append(`<div><label for="name">Front</label></div>`);
                                      }
 
                                      if(keys == "back"){
-                                     alert(keys)
+
                                      $("#"+new_max).append(`<div><label for="name">Back</label></div>`);
                                      }
                                    }
@@ -126,13 +140,13 @@ var keys;
                      }
                 }
 
-                 if( key== "tab")
+                 if( key== "stack")
                 {
-                alert("tab")
-                     $("#back").empty()
-                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
+
+                $("#back").empty()
+                $("#back").append(` <input type='file' multiple id="imgInp" />`);
                 var fileList =[];
-                $("#back").on('change','#imgInp',function() {
+                $("#back").off().on('change','#imgInp',function() {
                     readURL(this);
                     base64data.length=0;
                     $('#imgInp').show();
@@ -142,7 +156,7 @@ var keys;
 
                 function readURL(input)
                     {
-                      //alert("fgdg")
+
                         if ( input.files) {
                         console.log("imp",input.files)
                         var base64data=[];
@@ -158,14 +172,14 @@ var keys;
                     }
 
                 function getBase64(input, file){
-               // alert("getBase64"+base64data.length);
+
                    var reader = new FileReader();
                    reader.readAsDataURL(file);
                    reader.onload = function () {
                          base64data.push(reader.result)
 
                        if(base64data.length == input.files.length){
-                       alert(input.files.length)
+
                            $('.images-ids').each(function()
                             {
                                 var value = parseInt($(this).attr('id'));
@@ -185,17 +199,21 @@ var keys;
                                 {
 
                                      var new_max = max+inc+1
-                                     alert("new"+new_max)
+
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                      $("#"+new_max).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
-                                     if(inc%2==0)
+
+//                                    data =window.localStorage.getItem('data')
+//                                    data = JSON.parse(data)
+//                                    data['total_stacks'].push(new_max)
+
+
+
+                                     if(inc==0)
                                        {
-                                      // alert("keysssssss"+key)
                                          $("#"+new_max).find("img").show();
-
-                                         $("#"+new_max).append(`<div><label for="name">tabs</label></div>`);
-
+                                         $("#"+new_max).append(`<div><label for="name">stack</label></div>`);
                                        }
                                      else
                                      {
@@ -214,38 +232,29 @@ var keys;
                      }
                 }
 
-                 if( key== "stack")
+                 if( key== "tab")
                 {
                  $("#back").empty()
                 keys=key;
-              //  alert("initialstack"+keys)
-//                if($("#back").find("input").length){
-//
-//                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
-//                }
-//                else{
-//                $("#back").append(` <input type='file' multiple id="imgInp" />`);
-//                }
-
-
-
-
                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
                 var fileList =[];
-                $("#back").on('change','#imgInp',function() {
+                $("#back").off().on('change','#imgInp',function() {
 
-                    $('#imgInp').hide();
+
+//                    $('#imgInp').hide();
                     readURL_stack(this,keys);
+//                    alert("imp length"+this.length)
                     base64data.length=0;
+                    base64data=[]
 
 
                 });
 
                 function readURL_stack(input, keys)
                     {
+
                         if ( input.files.length==2) {
-                     //   alert("stack length"+input.files.length)
-                      //  alert("url"+keys)
+
                         console.log("imp",input.files)
                         var base64data=[];
                         var filesAmount = input.files.length;
@@ -262,7 +271,7 @@ var keys;
                     }
 
                 function getBase64_stack(keys, input, file){
-//                alert("getBase64"+base64data.length+"keysfunc"+keys);
+
                    var reader = new FileReader();
                    reader.readAsDataURL(file);
                    reader.onload = function () {
@@ -288,16 +297,18 @@ var keys;
                                 {
 
                                      var new_max = max+inc+1
-                                     alert("new"+new_max)
+
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                      $("#"+new_max).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
-
+//                                     data =window.localStorage.getItem('data')
+//                                     data = JSON.parse(data)
+//                                     data['total_tabs'].push(new_max)
                                      if(inc%2==0)
                                        {
                                          $("#"+new_max).find("img").show();
-                                         alert("display"+keys)
-                                         $("#"+new_max).append(`<div><label for="name">stack</label></div>`);
+
+                                         $("#"+new_max).append(`<div><label for="name">tab</label></div>`);
 
                                        }
                                      else
@@ -312,7 +323,7 @@ var keys;
                                       console.log('Upload error');
                                     },
                               });
-                                    $('#imgInp').hide();
+//                                    $('#imgInp').hide();
                              }
                            };
                      }
@@ -459,7 +470,7 @@ var keys;
                 }
             }
                 $("#"+data["back_cover"][0]).show();
-                    alert("back-click"+ids);
+
                 var cropped_image = window.localStorage.getItem('cropped-image');
 
                  var result = JSON.parse(cropped_image);
@@ -468,7 +479,7 @@ var keys;
 
                     var cropped_images= result[r];
                     for( var key in cropped_images){
-                        alert(key+"   "+cropped_images[key])
+
 
                         $("#"+key).find("img").attr('src',cropped_images[key]);
                         $("#"+key).removeClass('cropper-face')

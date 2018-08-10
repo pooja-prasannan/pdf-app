@@ -1,7 +1,13 @@
 var base64data=[];
 var max;
+var max1;
 var keys;
     $(function() {
+
+
+
+
+
         $.contextMenu({
             selector: '.context-menu-one',
             callback: function(key, options) {
@@ -71,43 +77,79 @@ var keys;
                          base64data.push(reader.result)
 
                        if(base64data.length == input.files.length){
-                           $('.images-ids').each(function()
-                            {
-                                var value = parseInt($(this).attr('id'));
-                                max=0;
-                                max = (value > max) ? value : max;
-                            });
-                            var formData1 ={'front_cover':base64data, 'id_max': max, 'action': 'add_image'}
+
+
+//                            var data = window.localStorage.getItem('data');
+//                            data = JSON.parse(data);
+                            max1=0;
+                             $('.images-ids').each(function()
+                                {
+                                    var value = parseInt($(this).attr('id'));
+
+                                    max1 = (value > max1) ? value : max1;
+                                });
+
+                                alert("max value"+max1)
+
+
+                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image'}
                             console.log("formdata",formData1)
                             $.ajax('/images/', {
                             method: "POST",
                             data: JSON.stringify(formData1),
                             processData: false,
                             contentType: false,
-                            success(data) {
-                             console.log('Upload succes',data['img_url'].length);
-                             for(var inc=0;inc<data['img_url'].length;inc++)
+                            contentType: false,
+                            success(datas) {
+                             console.log('Upload succes',datas['img_url'].length);
+                             for(var inc=0;inc<datas['img_url'].length;inc++)
                                 {
+                                 max=0;
+                                $('.images-ids').each(function()
+                                 {
+                                var value = parseInt($(this).attr('id'));
 
-                                 var new_max = max+inc+1
+                                max = (value > max) ? value : max;
+                                 });
 
-                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
-                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                 $("#"+new_max).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
-//                                 if(key == "front"){
-//                                    data =window.localStorage.getItem('data')
-//                                    data = JSON.parse(data)
-//                                    data['front_cover'].push(new_max)
-//                                    data = JSON.stringify(data)
-//                                    window.localStorage.setItem('data', data);
-//
-//                                 }
-//                                  if(key == "back"){
-//                                    data =window.localStorage.getItem('data')
-//                                    data = JSON.parse(data)
-//                                    data['back_cover'].push(new_max)
-//
-//                                 }
+                                 var n_max = max+inc+1
+                                 var new_max =n_max.toString()
+                                  data =window.localStorage.getItem('data')
+                                  data = JSON.parse(data)
+
+                                 if(key == "front"){
+
+
+                                  var len = data['front_cover'].length;
+                                  var parent_id = data['front_cover'][len-1];
+
+                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
+                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`);
+//                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
+//                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
+                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
+
+                                    data['front_cover'].push(new_max.toString())
+                                    data = JSON.stringify(data)
+                                    window.localStorage.setItem('data', data);
+
+                                 }
+                                  if(key == "back"){
+
+                                    var len = data['back_cover'].length;
+                                  var parent_id = data['back_cover'][len-1];
+                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
+                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`);
+//                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
+//                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
+                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
+
+
+                                    data['back_cover'].push(new_max)
+                                    data = JSON.stringify(data)
+                                    window.localStorage.setItem('data', data);
+
+                                 }
                                  if(inc%2==0)
                                    {
                                      $("#"+new_max).find("img").show();
@@ -127,7 +169,6 @@ var keys;
                                  $("#"+new_max).find("img").hide();
                                  }
                                  }
-
                                     },
                             error()
                                    {
@@ -180,33 +221,48 @@ var keys;
 
                        if(base64data.length == input.files.length){
 
-                           $('.images-ids').each(function()
-                            {
-                                var value = parseInt($(this).attr('id'));
-                                max=0;
-                                max = (value > max) ? value : max;
-                            });
-                            var formData1 ={'front_cover':base64data, 'id_max': max, 'action': 'add_image'}
+                          max1=0;
+                             $('.images-ids').each(function()
+                                {
+                                    var value = parseInt($(this).attr('id'));
+                                    max1 = (value > max1) ? value : max1;
+                                });
+
+                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image'}
                             console.log("formdata",formData1)
                             $.ajax('/images/', {
                             method: "POST",
                             data: JSON.stringify(formData1),
                             processData: false,
                             contentType: false,
-                            success(data) {
-                             console.log('Upload succes',data['img_url'].length);
-                             for(var inc=0;inc<data['img_url'].length;inc++)
+                            success(datas) {
+                             console.log('Upload succes',datas['img_url'].length);
+                             for(var inc=0;inc<datas['img_url'].length;inc++)
                                 {
 
-                                     var new_max = max+inc+1
+                                     //var new_max = max+inc+1
+                                     max=0;
+                                    $('.images-ids').each(function()
+                                     {
+                                    var value = parseInt($(this).attr('id'));
+
+                                    max = (value > max) ? value : max;
+                                     });
+                                     var n_max = max+inc+1
+                                 var new_max =n_max.toString()
+                                  data =window.localStorage.getItem('data')
+                                  data = JSON.parse(data)
 
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
+                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
 
 //                                    data =window.localStorage.getItem('data')
 //                                    data = JSON.parse(data)
 //                                    data['total_stacks'].push(new_max)
+                                       data['total_stacks'].push([new_max])
+                                    data = JSON.stringify(data)
+                                    window.localStorage.setItem('data', data);
 
 
 
@@ -278,32 +334,56 @@ var keys;
                          base64data.push(reader.result)
 
                        if(base64data.length == input.files.length){
-                           $('.images-ids').each(function()
-                            {
-                                var value = parseInt($(this).attr('id'));
-                                max=0;
-                                max = (value > max) ? value : max;
-                            });
-                            var formData1 ={'front_cover':base64data, 'id_max': max, 'action': 'add_image'}
+                            max1=0;
+                             $('.images-ids').each(function()
+                                {
+                                    var value = parseInt($(this).attr('id'));
+
+                                    max1 = (value > max1) ? value : max1;
+                                });
+
+                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image'}
                             console.log("formdata644",formData1)
                             $.ajax('/images/', {
                             method: "POST",
                             data: JSON.stringify(formData1),
                             processData: false,
                             contentType: false,
-                            success(data) {
-                             console.log('Upload succes',data['img_url'].length);
-                             for(var inc=0;inc<data['img_url'].length;inc++)
+                            success(datas) {
+                             console.log('Upload succes',datas['img_url'].length);
+                             for(var inc=0;inc<datas['img_url'].length;inc++)
                                 {
+//                                     var new_max = max+inc+1;
+                                 max=0;
+                                $('.images-ids').each(function()
+                                 {
+                                var value = parseInt($(this).attr('id'));
 
-                                     var new_max = max+inc+1
+                                max = (value > max) ? value : max;
+                                 });
+
+                                 var n_max = max+inc+1
+                                 var new_max =n_max.toString()
+                                  data =window.localStorage.getItem('data')
+                                  data = JSON.parse(data)
+
+
+//                                  var len = data['front_cover'].length;
+//                                  var parent_id = data['front_cover'][len-1];
+//                                    alert("parent_id"+parent_id)
+
+//                                    $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
+//                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`);
 
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
+                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
 //                                     data =window.localStorage.getItem('data')
 //                                     data = JSON.parse(data)
 //                                     data['total_tabs'].push(new_max)
+                                          data['total_tabs'].push([new_max])
+                                    data = JSON.stringify(data)
+                                    window.localStorage.setItem('data', data);
                                      if(inc%2==0)
                                        {
                                          $("#"+new_max).find("img").show();
@@ -316,7 +396,6 @@ var keys;
                                      $("#"+new_max).find("img").hide();
                                      }
                                  }
-
                                     },
                             error()
                                    {
@@ -329,13 +408,11 @@ var keys;
                      }
                 }
 
-
-
                  if (key== "edit"){
                     alert("clicked edit");
                     $("#next-button ").data("current-step","edit");
                     $("#lbl-step-title ").text("Step 7: Adjust Page");
-//       ton name="crop-save" class="orange-btn " data-current-step="drag" id="crop-save"> Save </button>`);
+
                      $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="back-button">Back</button>`);
 
                      $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="crop-save">Save</button>`);
@@ -413,7 +490,7 @@ var keys;
                           var crop_dict ={};
                           var cropped_images =[];
                           crop_dict[ids] = data['img_url'];
-                          console.log("dictttttttttt", crop_dict);
+
                           cropped_images.push(crop_dict)
                           window.localStorage.setItem('cropped-image',JSON.stringify(cropped_images))
 
@@ -506,7 +583,4 @@ var keys;
         $('.images-ids').on('click', function(e){
             console.log('clicked', this);
         })
-
-
-
     });

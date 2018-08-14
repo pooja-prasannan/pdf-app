@@ -154,3 +154,131 @@ box-sizing: border-box;
     border: 5px solid #00ee00;
 
 }*/
+.custom-books
+{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 80px;
+    padding:0px!important;
+}
+.paper-style
+{
+    width: 700px;
+    height: auto;
+    /*display: inline-block;*/
+    text-align: left;
+    position: relative;
+    margin-right: auto !important;
+    margin-left: auto!important;
+    padding:0px!important;
+}
+.paper
+{
+    width: 450px;
+    height: 600px;
+    background-color: #fff!important;
+    display: inline-block;
+    margin-left: 80px !important;
+}
+.page-items
+{
+    width: 90%;
+    display: inline-block;
+    margin-left: 5%!important;
+    border-bottom: 2px solid #fff!important;
+    padding-bottom: 10px!important;
+    margin-bottom: 10px!important;
+    font-size: 13px !important;
+    color: #fff;
+}
+.page-items input
+{
+    width: 50px;
+    display: inline-block;
+    margin-right: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.page-items select
+{
+    display: inline-block;
+    margin-right: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.paper.round
+{
+    border-radius: 25px;
+}
+.ring-hole.round
+{
+   border-radius: 10px;
+}
+.rings
+{
+    position: absolute;
+    width: 110px;
+    height: calc(100% - 30px);
+    top:0px;
+    left: 0px;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-top: 10px !important;
+    margin: 0px!important;
+    padding-right: 0px !important;
+    padding-bottom: 0px!important;
+    padding-left: 0px!important;
+}
+.ring-hole
+{
+    width: 20px;
+    height: 20px;
+    background-color: #000!important;
+    position: relative;
+    float: right;
+/*    margin-top: 15px;
+    margin-bottom: 15px;*/
+    margin-left: 100px!important;
+    margin-bottom: 0px!important;
+    margin-top: 0px!important;
+    margin-right: 0px!important;
+    padding:0px !important;
+}
+.ring-hole::after
+{
+    position: absolute;
+    content: "";
+    width: 110px;
+    height: 2px;
+    background-color: #fff;
+    top: calc(50% - 1px);
+    z-index: 999;
+    right: 10px;
+}
+.side
+{
+     width: 700px;
+    height: auto;
+    display: inline-block;
+    text-align: left;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    border-top: 2px solid #666;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.thickness
+{
+    width: 100%;
+    background-color: #fff!important;
+    display: inline-block;
+    padding: 0px!important;
+}

@@ -17,8 +17,8 @@
     -webkit-box-sizing: border-box;
     border: 5px solid #00ee00; }
   #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-  #sortable div { margin: 3px; padding: 0.4em; font-size: 1.4em;background:transparent!important;
-    border:none!important; }
+  #sortable div { margin: 3px; padding: 0.4em; font-size: 1.4em;background:transparent;
+    border:none; }
   #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
   #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
   #sortable li span { position: absolute; margin-left: -1.3em; }
@@ -72,6 +72,7 @@
 
     <script src="{% static 'js/pdf-step.js' %}"></script>
     <script src="{% static 'js/pdf-edit.js' %}"></script>
+    <script src="{% static 'js/book-attribute.js' %}"></script>
 
 
 {% block content %}

@@ -1,13 +1,10 @@
 var base64data=[];
+var temp_total_tabs =[];
+var temp_total_stacks =[];
 var max;
 var max1;
 var keys;
     $(function() {
-
-
-
-
-
         $.contextMenu({
             selector: '.context-menu-one',
             callback: function(key, options) {
@@ -94,7 +91,7 @@ var keys;
 
                             var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image'}
                             console.log("formdata",formData1)
-                            $.ajax('/images/', {
+                            $.ajax('/images/', { 
                             method: "POST",
                             data: JSON.stringify(formData1),
                             processData: false,
@@ -128,7 +125,19 @@ var keys;
 //                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
 //                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                  $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
-
+                                 $("#sortable").sortable({
+                                        disabled: false,
+                                        revert: true,
+                                        update: function( event, ui ) {
+                                            var image_ids = $("#sortable").sortable("toArray");
+                                            var data = window.localStorage.getItem('data');
+                                            data = JSON.parse(data)
+                                            data["new_order"] = image_ids
+                                            data = JSON.stringify(data)
+                                            window.localStorage.setItem('data', data);
+                                            console.log(window.localStorage.getItem('data'))
+                                        }
+                                     });
                                     data['front_cover'].push(new_max.toString())
                                     data = JSON.stringify(data)
                                     window.localStorage.setItem('data', data);
@@ -143,7 +152,19 @@ var keys;
 //                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
 //                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                  $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
-
+                                 $("#sortable").sortable({
+                                        disabled: false,
+                                        revert: true,
+                                        update: function( event, ui ) {
+                                            var image_ids = $("#sortable").sortable("toArray");
+                                            var data = window.localStorage.getItem('data');
+                                            data = JSON.parse(data)
+                                            data["new_order"] = image_ids
+                                            data = JSON.stringify(data)
+                                            window.localStorage.setItem('data', data);
+                                            console.log(window.localStorage.getItem('data'))
+                                        }
+                                     });
 
                                     data['back_cover'].push(new_max)
                                     data = JSON.stringify(data)
@@ -183,7 +204,7 @@ var keys;
 
                  if( key== "stack")
                 {
-
+                temp_total_stacks=[];
                 $("#back").empty()
                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
                 var fileList =[];
@@ -250,19 +271,27 @@ var keys;
                                      });
                                      var n_max = max+inc+1
                                  var new_max =n_max.toString()
-                                  data =window.localStorage.getItem('data')
-                                  data = JSON.parse(data)
+//                                  data =window.localStorage.getItem('data')
+//                                  data = JSON.parse(data)
 
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                      $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
-
-//                                    data =window.localStorage.getItem('data')
-//                                    data = JSON.parse(data)
-//                                    data['total_stacks'].push(new_max)
-                                       data['total_stacks'].push([new_max])
-                                    data = JSON.stringify(data)
-                                    window.localStorage.setItem('data', data);
+                                    temp_total_stacks.push(new_max)
+                                     $("#sortable").sortable({
+                                        disabled: false,
+                                        revert: true,
+                                        update: function( event, ui ) {
+                                            var image_ids = $("#sortable").sortable("toArray");
+                                            var data = window.localStorage.getItem('data');
+                                            data = JSON.parse(data)
+                                            data["new_order"] = image_ids
+                                            data = JSON.stringify(data)
+                                            window.localStorage.setItem('data', data);
+                                            console.log(window.localStorage.getItem('data'))
+                                            }
+                                         });
+//
 
 
 
@@ -277,6 +306,12 @@ var keys;
                                      }
                                  }
 
+                                 data =window.localStorage.getItem('data')
+                                 data = JSON.parse(data)
+                                 data['total_stacks'].push(temp_total_stacks)
+                                 data = JSON.stringify(data)
+                                 window.localStorage.setItem('data', data);
+
                                     },
                             error()
                                    {
@@ -286,10 +321,12 @@ var keys;
                              }
                            };
                      }
+
                 }
 
                  if( key== "tab")
                 {
+                  temp_total_tabs =[];
                  $("#back").empty()
                 keys=key;
                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
@@ -310,12 +347,10 @@ var keys;
                     {
 
                         if ( input.files.length==2) {
-
                         console.log("imp",input.files)
                         var base64data=[];
                         var filesAmount = input.files.length;
                         for(var i=0;i<filesAmount;i++){
-
                           console.log("length",input.files[i])
                           getBase64_stack(keys,input, input.files[i])
 
@@ -351,9 +386,10 @@ var keys;
                             contentType: false,
                             success(datas) {
                              console.log('Upload succes',datas['img_url'].length);
+                            
                              for(var inc=0;inc<datas['img_url'].length;inc++)
                                 {
-//                                     var new_max = max+inc+1;
+//
                                  max=0;
                                 $('.images-ids').each(function()
                                  {
@@ -364,26 +400,31 @@ var keys;
 
                                  var n_max = max+inc+1
                                  var new_max =n_max.toString()
-                                  data =window.localStorage.getItem('data')
-                                  data = JSON.parse(data)
-
-
-//                                  var len = data['front_cover'].length;
-//                                  var parent_id = data['front_cover'][len-1];
-//                                    alert("parent_id"+parent_id)
-
-//                                    $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
-//                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`);
+//
 
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
                                      $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
-//                                     data =window.localStorage.getItem('data')
-//                                     data = JSON.parse(data)
-//                                     data['total_tabs'].push(new_max)
-                                          data['total_tabs'].push([new_max])
-                                    data = JSON.stringify(data)
-                                    window.localStorage.setItem('data', data);
+//
+//                                       $("#sortable").sortable({  });
+
+                                         $("#sortable").sortable({
+                                            disabled: false,
+                                            revert: true,
+                                            update: function( event, ui ) {
+                                                var image_ids = $("#sortable").sortable("toArray");
+                                                var data = window.localStorage.getItem('data');
+                                                data = JSON.parse(data)
+                                                data["new_order"] = image_ids
+                                                data = JSON.stringify(data)
+                                                window.localStorage.setItem('data', data);
+                                                console.log(window.localStorage.getItem('data'))
+                                            }
+                                         });
+//
+                                       temp_total_tabs.push(new_max)
+                                       alert("temp_total_tabs"+temp_total_tabs)
+//
                                      if(inc%2==0)
                                        {
                                          $("#"+new_max).find("img").show();
@@ -396,6 +437,11 @@ var keys;
                                      $("#"+new_max).find("img").hide();
                                      }
                                  }
+                                 data =window.localStorage.getItem('data')
+                                 data = JSON.parse(data)
+                                 data['total_tabs'].push(temp_total_tabs)
+                                 data = JSON.stringify(data)
+                                 window.localStorage.setItem('data', data);
                                     },
                             error()
                                    {
@@ -504,7 +550,8 @@ var keys;
         })
 
             $('#back-button').on('click', function(e){
-                $("#"+ids).show();
+//                $("#"+ids).show();
+                    $(".preview").find("img").hide();
                var data= window.localStorage.getItem('data');
                data = JSON.parse(data)
                $("#"+data["front_cover"][0]).show();
@@ -549,6 +596,7 @@ var keys;
                 $("#"+data["back_cover"][0]).show();
 
                 var cropped_image = window.localStorage.getItem('cropped-image');
+                alert("cropped_image"+cropped_image);
 
                  var result = JSON.parse(cropped_image);
 
@@ -557,12 +605,14 @@ var keys;
                     var cropped_images= result[r];
                     for( var key in cropped_images){
 
+                        console.log(">>>>>>>>>>>>>>>>>>>>",key,cropped_images[key])
 
                         $("#"+key).find("img").attr('src',cropped_images[key]);
                         $("#"+key).removeClass('cropper-face')
 //                        $("#"+key).show();
                         }
                 }
+                $('#back-button').hide();
                    })
 
 

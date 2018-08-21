@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
         if($(".images img").length >0)
         {
             $(".upload-box").hide();
@@ -240,17 +241,10 @@ $(document).ready(function() {
                 $("#next-button ").data("current-step","refine-components");
                 $("#lbl-step-title ").text("Step 6: Refine Components")
                 $(".images-ids").addClass("context-menu-one");
-//                $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="save-button">Save</button>`);
-//                $("#next-button").html(`<button name="build" class="orange-btn " data-current-step="drag" id="build">Build Book</button>`);
-
+                $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
+                $("#next-button").hide();
 
             }
-
-
-
-
-
-
 
             if (current_step == "refine-components") {
 

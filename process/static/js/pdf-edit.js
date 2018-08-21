@@ -17,30 +17,24 @@ var keys;
                 {
                 keys = key;
                  base64data=[];
-//                alert("intial click"+keys);
+
                  $("#back").empty()
-//                if( $("#back").find("input").length){
-//                 $('#imgInp').hide();
-//                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
-//                }
-//                else{
+
                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
-//                }
+
 
 
                 var fileList =[];
                 $("#back").off().on('change','#imgInp',function() {
                     $('#imgInp').hide();
                     if(this.files.length>2){
-//                    var abc = $("#imgInp").length();
-//                    alert("abc"+abc)
+
                     alert("only 2 files can be uploaded"+this.files.length)}
                     else{
                     readURL(this,keys);
                     base64data.length=0;
                     }
-//                    readURL(this,keys);
-//                    base64data.length=0;
+
 
 
                 });
@@ -48,7 +42,7 @@ var keys;
                 function readURL(input,keys)
                     {
                         if ( input.files.length<=2) {
-//                        alert(" readURL"+keys)
+
                         console.log("imp",input.files)
                         var base64data=[];
                         var filesAmount = input.files.length;
@@ -66,8 +60,7 @@ var keys;
                     }
 
                 function getBase64(keys ,input, file){
-//                alert("func"+keys)
-//                alert("getBase64"+base64data.length);
+
                    var reader = new FileReader();
                    reader.readAsDataURL(file);
                    reader.onload = function () {
@@ -75,9 +68,6 @@ var keys;
 
                        if(base64data.length == input.files.length){
 
-
-//                            var data = window.localStorage.getItem('data');
-//                            data = JSON.parse(data);
                             max1=0;
                              $('.images-ids').each(function()
                                 {
@@ -86,12 +76,12 @@ var keys;
                                     max1 = (value > max1) ? value : max1;
                                 });
 
-                                alert("max value"+max1)
+
 
 
                             var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image'}
                             console.log("formdata",formData1)
-                            $.ajax('/images/', { 
+                            $.ajax('/images/', {
                             method: "POST",
                             data: JSON.stringify(formData1),
                             processData: false,
@@ -109,7 +99,7 @@ var keys;
                                 max = (value > max) ? value : max;
                                  });
 
-                                 var n_max = max+inc+1
+                                 var n_max = max+1
                                  var new_max =n_max.toString()
                                   data =window.localStorage.getItem('data')
                                   data = JSON.parse(data)
@@ -138,6 +128,15 @@ var keys;
                                             console.log(window.localStorage.getItem('data'))
                                         }
                                      });
+
+                                     var image_ids = $("#sortable").sortable("toArray");
+                                     var data = window.localStorage.getItem('data');
+                                     data = JSON.parse(data)
+                                     data["new_order"] = image_ids
+                                     data = JSON.stringify(data)
+                                     window.localStorage.setItem('data', data);
+                                     console.log(window.localStorage.getItem('data'))
+
                                     data['front_cover'].push(new_max.toString())
                                     data = JSON.stringify(data)
                                     window.localStorage.setItem('data', data);
@@ -165,6 +164,14 @@ var keys;
                                             console.log(window.localStorage.getItem('data'))
                                         }
                                      });
+
+                                     var image_ids = $("#sortable").sortable("toArray");
+                                     var data = window.localStorage.getItem('data');
+                                     data = JSON.parse(data)
+                                     data["new_order"] = image_ids
+                                     data = JSON.stringify(data)
+                                     window.localStorage.setItem('data', data);
+                                     console.log(window.localStorage.getItem('data'))
 
                                     data['back_cover'].push(new_max)
                                     data = JSON.stringify(data)
@@ -269,7 +276,7 @@ var keys;
 
                                     max = (value > max) ? value : max;
                                      });
-                                     var n_max = max+inc+1
+                                     var n_max = max+1
                                  var new_max =n_max.toString()
 //                                  data =window.localStorage.getItem('data')
 //                                  data = JSON.parse(data)
@@ -291,6 +298,14 @@ var keys;
                                             console.log(window.localStorage.getItem('data'))
                                             }
                                          });
+
+                                         var image_ids = $("#sortable").sortable("toArray");
+                                         var data = window.localStorage.getItem('data');
+                                         data = JSON.parse(data)
+                                         data["new_order"] = image_ids
+                                         data = JSON.stringify(data)
+                                         window.localStorage.setItem('data', data);
+                                         console.log(window.localStorage.getItem('data'))
 //
 
 
@@ -386,7 +401,7 @@ var keys;
                             contentType: false,
                             success(datas) {
                              console.log('Upload succes',datas['img_url'].length);
-                            
+
                              for(var inc=0;inc<datas['img_url'].length;inc++)
                                 {
 //
@@ -398,7 +413,7 @@ var keys;
                                 max = (value > max) ? value : max;
                                  });
 
-                                 var n_max = max+inc+1
+                                 var n_max = max+1
                                  var new_max =n_max.toString()
 //
 
@@ -421,9 +436,17 @@ var keys;
                                                 console.log(window.localStorage.getItem('data'))
                                             }
                                          });
+
+                                         var image_ids = $("#sortable").sortable("toArray");
+                                         var data = window.localStorage.getItem('data');
+                                         data = JSON.parse(data)
+                                         data["new_order"] = image_ids
+                                         data = JSON.stringify(data)
+                                         window.localStorage.setItem('data', data);
+                                         console.log(window.localStorage.getItem('data'))
 //
                                        temp_total_tabs.push(new_max)
-                                       alert("temp_total_tabs"+temp_total_tabs)
+
 //
                                      if(inc%2==0)
                                        {
@@ -455,9 +478,12 @@ var keys;
                 }
 
                  if (key== "edit"){
-                    alert("clicked edit");
+
+
                     $("#next-button ").data("current-step","edit");
                     $("#lbl-step-title ").text("Step 7: Adjust Page");
+
+                    $("#lbl-step-title").append(`&nbsp  <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
 
                      $("#lbl-step-title").append(`&nbsp <button name="save" class="orange-btn" id="back-button">Back</button>`);
 
@@ -483,10 +509,30 @@ var keys;
                       },
                     });
 
+
+                    $("#"+ids).append(`<div class ="tab-leaf"></div>`)
                    $("#back").append(`&nbsp <div name="save" id="preview-section" class="preview"  ></div>`);
                    setTimeout(function(){
                         $(".preview").find("img").hide();
+
+
                    }, 100);
+
+                   $(".tab-leaf").resizable();
+                   $(".tab-leaf").draggable();
+
+
+
+//                   $("#"+ids).resizable({
+//    autoHide: true,
+//    stop: function(e, ui) {
+//        var parent = ui.element.parent();
+//        ui.element.css({
+//            width: ui.element.width()/parent.width()*100+"%",
+//            height: ui.element.height()/parent.height()*100+"%"
+//        });
+//    }
+//});
 
 
                     $('#preview-btn').on('click', function(e){
@@ -550,8 +596,15 @@ var keys;
         })
 
             $('#back-button').on('click', function(e){
+             $(".tab-leaf").hide();
 //                $("#"+ids).show();
                     $(".preview").find("img").hide();
+                       if($(".cropper-crop-box").length = 1)
+                        {
+                        $(".cropper-crop-box").remove();
+                        }
+                        $(".cropper-canvas").css({"transform":"translateX(1.59883px) translateY(21.913px)!important"})
+                        console.log($(".cropper-crop-box").length)
                var data= window.localStorage.getItem('data');
                data = JSON.parse(data)
                $("#"+data["front_cover"][0]).show();
@@ -594,25 +647,26 @@ var keys;
                 }
             }
                 $("#"+data["back_cover"][0]).show();
-
-                var cropped_image = window.localStorage.getItem('cropped-image');
-                alert("cropped_image"+cropped_image);
-
-                 var result = JSON.parse(cropped_image);
-
-                for( var r=0;  r<result.length ;r++ ){
-
-                    var cropped_images= result[r];
-                    for( var key in cropped_images){
-
-                        console.log(">>>>>>>>>>>>>>>>>>>>",key,cropped_images[key])
-
-                        $("#"+key).find("img").attr('src',cropped_images[key]);
-                        $("#"+key).removeClass('cropper-face')
-//                        $("#"+key).show();
-                        }
-                }
+//                var cropped_image = window.localStorage.getItem('cropped-image');
+//
+//
+//                 var result = JSON.parse(cropped_image);
+//
+//                for( var r=0;  r<result.length ;r++ ){
+//
+//                    var cropped_images= result[r];
+//                    for( var key in cropped_images){
+//
+//                        console.log(">>>>>>>>>>>>>>>>>>>>",key,cropped_images[key])
+//
+//                        $("#"+key).find("img").attr('src',cropped_images[key]);
+//                        $("#"+key).removeClass('cropper-face')
+////                        $("#"+key).show();
+//                        }
+//                }
                 $('#back-button').hide();
+                $("#crop-save").hide();
+                $("#preview-btn").hide();
                    })
 
 

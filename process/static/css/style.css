@@ -165,7 +165,7 @@ box-sizing: border-box;
 .paper-style
 {
     width: 700px;
-    height: auto;
+    height: 660px;
     /*display: inline-block;*/
     text-align: left;
     position: relative;
@@ -281,4 +281,104 @@ box-sizing: border-box;
     background-color: #fff!important;
     display: inline-block;
     padding: 0px!important;
+}
+.tabs-tags
+{
+    position: absolute;
+    right: 145px;
+    top: 0px;
+    height: 100%;
+    width: 25px!important;
+    overflow: hidden;
+}
+.tabs-tags .tab-tag
+{
+    width: 25px;
+    height: 100px;
+    border-radius: 0px 10px 10px 0px;
+    position: relative;
+    float: right;
+    background-color: #ddd;
+    box-shadow: 0px -2px 4px 0px #6b6b6b;
+    z-index: 99;
+    border: 1px solid #999;
+}
+.tag12:first-child
+{
+    margin-top:0px;
+}
+.tag12
+{
+     margin-top: -56.7px;
+}
+.tag6
+{
+    margin-top: -2px;
+}
+.tag7:first-child
+{
+    margin-top: 0px;
+}
+.tag7
+{
+    margin-top: -19px;
+}
+.tag8:first-child
+{
+    margin-top: 0px;
+}
+.tag8
+{
+    margin-top: -30.8px;
+}
+.tag9:first-child
+{
+    margin-top: 0px;
+}
+.tag9
+{
+    margin-top: -39.8px;
+}
+.tag10:first-child
+{
+    margin-top: 0px;
+}
+.tag10
+{
+ margin-top: -46.7px;
+}
+.tag11:first-child
+{
+    margin-top: 0px;
+}
+.tag11
+{
+    margin-top: -52.1px;
+}
+.cropper-container
+{
+    overflow:visible!important;
+    position:relative;
+    margin: 0px!important;
+
+
+}
+.tab-leaf
+{
+    width: 20px;
+    height: 80px;
+    position: absolute;
+    content: "";
+    background: #ccc !important;
+    border-radius: 0px 10px 10px 0px;
+    z-index: 99;
+    left: 246px;
+    top: 85px;
+    padding: 0px!important;
+}
+.cropper-wrap-box, .cropper-canvas {
+    overflow: hidden;
+    padding: 0px!important;
+    transform: translateY(0px)!important;
+
 }

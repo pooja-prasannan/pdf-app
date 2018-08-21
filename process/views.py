@@ -15,26 +15,26 @@ class CovertView(View):
         return render(request, 'process/index.html')
 
     def post(self, request):
-        try :
+        # try :
 
-            file = request.FILES['file']
-            images = convert_from_bytes(file.read())
-            img_path_list = []
-            i = 1
-            for image in images:
-                img_path = os.path.join('images',  "image{}.png".format(i))
+        file = request.FILES['file']
+        images = convert_from_bytes(file.read())
+        img_path_list = []
+        i = 1
+        for image in images:
+            img_path = os.path.join('images',  "image{}.png".format(i))
 
-                i=i+1
-                image.save(os.path.join(settings.MEDIA_ROOT, img_path))
-                img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
+            i=i+1
+            image.save(os.path.join(settings.MEDIA_ROOT, img_path))
+            img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
 
-            return render(request, 'process/index.html', {
-                'images': img_path_list,
-                'json_images': json.dumps(img_path_list)
-            })
-        except:
-            print("no file selected")
-            return render(request, 'process/index.html')
+        return render(request, 'process/index.html', {
+            'images': img_path_list,
+            'json_images': json.dumps(img_path_list)
+        })
+        # except:
+        #     print("no file selected")
+        return render(request, 'process/index.html')
 
 
 class Base64ImageView(View):

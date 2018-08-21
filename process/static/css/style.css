@@ -372,7 +372,7 @@ box-sizing: border-box;
     background: #ccc !important;
     border-radius: 0px 10px 10px 0px;
     z-index: 99;
-    left: 246px;
+    left: 155px;
     top: 85px;
     padding: 0px!important;
 }
@@ -381,4 +381,14 @@ box-sizing: border-box;
     padding: 0px!important;
     transform: translateY(0px)!important;
 
+}
+.cropper-container img
+{
+    width:150px!important;
+    height:250px!important;
+}
+.cropper-container
+{
+    width:150px!important;
+    height:220px!important;
 }

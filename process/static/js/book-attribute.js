@@ -175,10 +175,6 @@ $(document).ready(function() {
         })
 
         $(document).on("click", '#build-back-btn', function(e){
-
-
-
-
         })
 
         $(document).on("click", '#book_save', function(e){

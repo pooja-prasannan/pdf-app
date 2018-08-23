@@ -382,13 +382,33 @@ box-sizing: border-box;
     transform: translateY(0px)!important;
 
 }
-.cropper-container img
-{
-    width:150px!important;
-    height:250px!important;
-}
+
 .cropper-container
 {
     width:150px!important;
     height:220px!important;
 }
+
+
+  
+  .wrapper {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    width: 844px;
+  }
+  
+  canvas {
+    margin: 10px;
+    padding: 0;
+    border: 1px solid #333;
+    display: inline-block;
+  }
+  .wrapper #c1
+  {
+    background-size: contain!important;
+    width: 300px !important;
+    height: 400px!important;
+  }
+
+ 

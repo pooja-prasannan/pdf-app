@@ -11,6 +11,7 @@ $(document).ready(function() {
             $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="book_save">Save</button>`);
 
             $(".images-ids").hide();
+            $(".wrapper").hide();
             $("#next-button").hide();
             $("#sortable").html(
                 `<div class="page-items">

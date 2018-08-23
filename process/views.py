@@ -15,26 +15,26 @@ class CovertView(View):
         return render(request, 'process/index.html')
 
     def post(self, request):
-        # try :
+        try :
 
-        file = request.FILES['file']
-        images = convert_from_bytes(file.read())
-        img_path_list = []
-        i = 1
-        for image in images:
-            img_path = os.path.join('images',  "image{}.png".format(i))
+            file = request.FILES['file']
+            images = convert_from_bytes(file.read())
+            img_path_list = []
+            i = 1
+            for image in images:
+                img_path = os.path.join('images',  "image{}.png".format(i))
 
-            i=i+1
-            image.save(os.path.join(settings.MEDIA_ROOT, img_path))
-            img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
+                i=i+1
+                image.save(os.path.join(settings.MEDIA_ROOT, img_path))
+                img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
 
-        return render(request, 'process/index.html', {
-            'images': img_path_list,
-            'json_images': json.dumps(img_path_list)
-        })
-        # except:
-        #     print("no file selected")
-        return render(request, 'process/index.html')
+            return render(request, 'process/index.html', {
+                'images': img_path_list,
+                'json_images': json.dumps(img_path_list)
+            })
+        except:
+            print("no file selected")
+            return render(request, 'process/index.html')
 
 
 class Base64ImageView(View):
@@ -48,11 +48,12 @@ class Base64ImageView(View):
             json_data = json.loads(request.body.decode('utf-8'))
 
             if json_data.get('action') == 'edit_image':
+                print("edit image")
                 image_url = json_data.get('croppedImage')
                 image_id = "image{}".format(json_data.get('image_ids'))
                 encoded_image = image_url.split(',')[-1]
                 imgdata = base64.standard_b64decode(encoded_image)
-                image_result = open(os.path.join(settings.MEDIA_ROOT, image_id + '.png'), 'wb')
+                image_result = open(os.path.join(settings.MEDIA_ROOT, 'images', image_id + '.png'), 'wb')
                 img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
                 image_result.write(imgdata)
                 image_result.seek(0, 0)

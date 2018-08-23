@@ -35,6 +35,7 @@ $(document).ready(function() {
           window.localStorage.setItem('data', data);
       }
       $( function() {
+          $(".wrapper").hide();
           $("#sortable").sortable({
                 revert: true,
                 update: function( event, ui ) {
@@ -88,6 +89,7 @@ $(document).ready(function() {
                 // reset selection
                 window.selected = new Array();
                 $("#lbl-step-title ").text("Step 4: Select Back Cover Images")
+                $(".wrapper").hide();
             }
             if (current_step == "back_cover") {
 
@@ -112,10 +114,12 @@ $(document).ready(function() {
                 // reset selection
                 window.selected = new Array();
                 $("#lbl-step-title ").text("Step 5: Select Tabs");
+                $(".wrapper").hide();
 
             }
 
             if (current_step == "tabs") {
+                $(".wrapper").hide();
 
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Tabs")
@@ -247,6 +251,7 @@ $(document).ready(function() {
             }
 
             if (current_step == "refine-components") {
+                $(".wrapper").hide();
 
                 if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Stack")

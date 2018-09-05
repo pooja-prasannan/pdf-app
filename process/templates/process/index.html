@@ -17,7 +17,7 @@
     -webkit-box-sizing: border-box;
     border: 5px solid #00ee00; }
   #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-  #sortable div { margin: 3px; padding: 0.4em; font-size: 1.4em;background:transparent;
+  #sortable div { margin: 3px; padding: 0.4em; font-size: 1.1em;background:transparent;
     border:none; }
   #sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
   #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
@@ -35,16 +35,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.css">
     <link rel="stylesheet" href="{% static 'scripts/contextmenu/jquery.contextMenu.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" >
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/cropper.css' %}"/>
     <script type="text/javascript">
         var jsonData = {{json_images |safe }};
+
         var img_url = '';
         {% if img_url %}
             img_url = {{img_url }};
         {% endif %}
 
+        var upload_id = '';
+        {% if upload_id %}
+            upload_id = '{{upload_id }}';
+        {% endif %}
 
+        var height ='';
+        var width ='';
+
+        {% if height %}
+            height = '{{height }}';
+        {% endif %}
+
+        {% if width %}
+            width = '{{width }}';
+        {% endif %}
+        var dimension=250*(height/width)
+        var ratios = height/width;
     </script>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -71,13 +89,15 @@
 
 
     <script src="{% static 'js/pdf-step.js' %}"></script>
-    <script src="{% static 'js/pdf-edit.js' %}"></script>
-    <!-- <script src="{% static 'js/pdf-edit-new.js' %}"></script> -->
+     <!--<script src="{% static 'js/pdf-edit.js' %}"></script>-->
+    <!--<script src="{% static 'js/pdf-edit-new.js' %}"></script>-->
+   <script src="{% static 'js/pdf-add.js' %}"></script>
     <script src="{% static 'js/book-attribute.js' %}"></script>
 
 
 {% block content %}
 <div>
+    <!--<input type="text" id="selected-images-id" >-->
     <h2 id="lbl-step-title">Step 1: Upload PDF</h2>
 
     <div>
@@ -86,21 +106,27 @@
            <div class="upload-box">
                <input type="file" name="file" id="fileupload">
                     <img src="{% static 'img/upload.svg' %}"><br/>
-                    <label>Browse PDF</label><br/>
-                    <button type="submit">Upload</button>
+                    <!-- <label>Browse PDF</label><br/> -->
+                    <button type="submit" id>Upload PDF </button>
                     <div id="filename"></div>
                     <div id="progress"></div>
                     <div id="progressBar"></div>
+               <script>
+                   $('#fileupload').change(function() {
+                    $('#form_pdfconvert').submit();
+                    });
+               </script>
            </div>
+           
             <div id="steps" style="display:none">
                 <!--<div id="info_box">Organise</div>-->
                 <div class="dem">
-
                     <div id="sortable" class="ui-state-default images">
 
                         {% for img in images %}
                             <div id = "{{forloop.counter}}"  class="images-ids"  class="ui-state-default">
-                                <img src="{{img}}"  width="150px" height="250px" class="img-responsive" alt="">
+                                <img src="{{img}}"  width="250px"  class="img-responsive" alt="">
+                                <div class="con-menu"><button type="button">Delete</button></div>
                             </div>
                         {% endfor %}
                     </div>
@@ -114,17 +140,51 @@
                         <canvas id='c1'></canvas>
                       <canvas id='c2'></canvas>
                         <p id="output"></p>
-                       
                       </div>
 
-                   
                 </div>
             </div>
       </form>
     </div>
 
 </div>
+<script>
+    $(document).ready(function()
+    {
+        var ratio = height/width;
+        console.log(height,width);
+        var imghgt = 250*ratio
+        $(".img-responsive").css({"height":(250*ratio)})
 
+        var css = ".add-btn-div { margin-top: " + (imghgt - 150)/2 + "px!important }",
+      head = document.head || document.getElementsByTagName("head")[0],
+      style = document.createElement("style");
+
+    style.type = "text/css";
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    }
+    else {
+      style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+    });
+
+      var imghgts = 250*ratios
+      var css1 = ".con-menu { top: " + (imghgts/2) + "px!important }",
+      head = document.head || document.getElementsByTagName("head")[0],
+      style1 = document.createElement("style");
+
+    style1.type = "text/css";
+    if (style1.styleSheet) {
+      style1.styleSheet.cssText = css1;
+    } else {
+      style1.appendChild(document.createTextNode(css1));
+    }
+
+    head.appendChild(style1);
+</script>
 {% endblock %}
 </body>
 </html>

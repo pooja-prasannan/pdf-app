@@ -1,7 +1,25 @@
+html
+{
+    height:100%;
+}
 body
 {
-    background:#111;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#010101+0,38383a+100 */
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#010101+0,38383a+100 */
+background: #010101; /* Old browsers */
+background: -moz-linear-gradient(top, #010101 0%, #38383a 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #010101 0%,#38383a 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #010101 0%,#38383a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010101', endColorstr='#38383a',GradientType=0 ); /* IE6-9 */
     color:#fff;
+    font-family: 'Quattrocento Sans';
+    height:100%;
+    background-attachment: fixed;
+}
+:focus
+{
+outline:none!important;
+box-shadow: none!important;
 }
 .in-content
 {
@@ -24,10 +42,11 @@ h2
     font-size:20px;
     width:100%;
     float:left;
-    margin-bottom:10px;
-    margin-top:20px;
+    margin-top:0px;
     border-bottom:2px solid #fff;
-    padding-bottom:5px;
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
 .upload-box
 {
@@ -45,7 +64,7 @@ h2
 position: absolute;
     opacity: 0.001;
     width: 100%;
-    height: 100px;
+    height: 150px;
     cursor: pointer;
     left: 0px;
     top: 0px;
@@ -65,12 +84,13 @@ position: absolute;
 {
     width:90px;
     height:25px;
-    background:orange;
+    background:#f57300;
     font-size:12px;
     color:#fff;
     border:none;
     cursor:pointer;
-    font-weight:bold;
+    font-weight:normal;
+    border-radius: 3px;
 }
 .images
 {
@@ -113,12 +133,17 @@ position: absolute;
 {
     width: auto;
     height: 20px;
-    background: orange;
-    font-size: 16px;
+    background: #f57300;
+    font-size: 14px;
     color: #fff;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: normal;
+    border-radius: 3px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-transform: capitalize;
+    cursor:pointer;
 }
 .next
 {
@@ -389,15 +414,13 @@ box-sizing: border-box;
     height:220px!important;
 }
 
-
-  
   .wrapper {
     display: block;
     margin: 0 auto;
     padding: 0;
     width: 844px;
   }
-  
+
   canvas {
     margin: 10px;
     padding: 0;
@@ -410,5 +433,96 @@ box-sizing: border-box;
     width: 300px !important;
     height: 400px!important;
   }
+.context-menu-list
+{
+    background:#404040!important;
+    min-width: auto!important;
+    width: auto!important;
+    padding-left: 15px;
+    padding-right: 15px;
+    /*top: 255px!important;*/
+    white-space: nowrap;
+}
+.context-menu-item
+{
+    display:inline-block;
+    background:transparent!important;
+    color:#fff!important;
+    text-align:center;
+    width:auto;
+    padding-left: 10px;
+    padding-right: 5px;
+    font-size:12px;
 
- 
+}
+.context-menu-item:hover
+{
+    background:transparent!important;
+}
+.context-menu-item.context-menu-hover{color:#fff;cursor:pointer;background-color:transparent!important}
+.context-menu-list li::after
+{
+   position: absolute;
+    content: "";
+    left: 7%;
+    width: 1px;
+    height: 14px;
+    background: #fff;
+    top: 3px;
+}
+.context-menu-list li:first-child::after
+{
+    display:none;
+}
+.images-ids label {
+    font-size: .9em;
+    color: #fff;
+    top: 5px;
+    position: relative;
+    left: -10px;
+}
+.add-btn-div
+{
+    /*margin-top:107px!important;*/
+}
+.add-btn-div button
+{
+    color: #fff;
+    font-size: 15px;
+    padding: 25px;
+    background: #767676;
+    border: none;
+    border-radius: 5px;
+    width: 150px;
+    height: 150px;
+    cursor:pointer;
+}
+.con-menu
+{
+    display:none;
+    position: absolute !important;
+    left: calc(50% - 35px);
+    padding: 0px!important;
+    top: 43%;
+    z-index: 9999;
+    margin: 0px!important;
+}
+.con-menu button
+{
+    background: #404040!important;
+    min-width: auto!important;
+    width: auto!important;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid #bebebe;
+    color: #ffffff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: .2em;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.5);
+}
+.images-ids
+{
+position:relative;
+}

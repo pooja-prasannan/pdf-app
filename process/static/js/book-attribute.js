@@ -49,13 +49,15 @@ $(document).ready(function() {
                 Hole Cuout Height <input type="text" name="hole_height" value="1" id="hole_height">
 
                 Corner Type <select name="corner_type" id="corner_type">
-                    <option   value="square" id="square_id">square</option>
-                    <option   value="round" id="round_id">Round</option>
+                    <option   value="round" id="round_id">Rounded</option>
+                    <option   value="square" id="square_id">Square</option>
+                    <option   value="square" id="none">None</option>
 
                 </select>
 
                 Cover Type <select name="cover_type" id="cover_type">
                   <option id="cover_type">Leather</option>
+                  <option id="cover_type">Paper</option>
                 </select>
 
                 Ring Type <select name="ring_type" id="ring_type2">

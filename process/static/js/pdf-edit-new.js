@@ -111,10 +111,10 @@ var keys;
                                   var parent_id = data['front_cover'][len-1];
 
                                  $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
-                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`);
+                                  <img src="#"  width="150px" height="210px" class="img-responsive" alt=""> </div>`);
 //                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
-//                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
+//                                  <img src="#"  width="150px" height="210px" class="img-responsive" alt=""> </div>`)
+                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(210);
                                  $("#sortable").sortable({
                                         disabled: false,
                                         revert: true,
@@ -147,10 +147,10 @@ var keys;
                                     var len = data['back_cover'].length;
                                   var parent_id = data['back_cover'][len-1];
                                  $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
-                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`);
+                                  <img src="#"  width="150px" height="210px" class="img-responsive" alt=""> </div>`);
 //                                 $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
-//                                  <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
+//                                  <img src="#"  width="150px" height="210px" class="img-responsive" alt=""> </div>`)
+                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(210);
                                  $("#sortable").sortable({
                                         disabled: false,
                                         revert: true,
@@ -282,8 +282,8 @@ var keys;
 //                                  data = JSON.parse(data)
 
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
-                                      <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
+                                      <img src="#"  width="150px" height="210px" class="img-responsive" alt=""> </div>`)
+                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(210);
                                     temp_total_stacks.push(new_max)
                                      $("#sortable").sortable({
                                         disabled: false,
@@ -418,8 +418,8 @@ var keys;
 //
 
                                      $("#sortable").append(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
-                                      <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(250);
+                                      <img src="#"  width="150px" height="210px" class="img-responsive" alt=""> </div>`)
+                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(150) .height(210);
 //
 //                                       $("#sortable").sortable({  });
 

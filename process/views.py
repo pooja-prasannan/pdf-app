@@ -1,13 +1,13 @@
-import json
-import random
 import os
 import base64
+import uuid
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.views import View
 from django.shortcuts import render
 from django.http import JsonResponse
 from pdf2image import convert_from_bytes
+from django.core.files.images import get_image_dimensions
 
 
 class CovertView(View):
@@ -15,26 +15,54 @@ class CovertView(View):
         return render(request, 'process/index.html')
 
     def post(self, request):
-        try :
+        try:
 
             file = request.FILES['file']
             images = convert_from_bytes(file.read())
+
+            width, height = images[0].size
             img_path_list = []
             i = 1
-            for image in images:
-                img_path = os.path.join('images',  "image{}.png".format(i))
+            upload_id = uuid.uuid4()
+            folder = "{}/upload/{}".format(settings.MEDIA_ROOT, str(upload_id))
 
-                i=i+1
-                image.save(os.path.join(settings.MEDIA_ROOT, img_path))
-                img_path_list.append(os.path.join(settings.MEDIA_URL, img_path))
+            try:
+                os.mkdir(folder)
+            except Exception as e:
+                print(e)
+            for image in images:
+                img_path = os.path.join(folder, "image{}.png".format(i))
+
+
+                image.save(os.path.join(img_path))
+                img_path_list.append(os.path.join(settings.MEDIA_URL, "upload/{}/image{}.png".format(str(upload_id),i)))
+                i = i + 1
 
             return render(request, 'process/index.html', {
                 'images': img_path_list,
-                'json_images': json.dumps(img_path_list)
+                'json_images': json.dumps(img_path_list),
+                'upload_id': upload_id,
+                'height':height,
+                'width':width
             })
-        except:
-            print("no file selected")
+        except Exception as e:
+            print(e)
             return render(request, 'process/index.html')
+
+
+class EditorView(View):
+    def get(self, request, pk):
+        image_list = []
+        folder = "{}/upload/{}".format(settings.MEDIA_ROOT, pk)
+
+        for filename in os.listdir(folder):
+            image_list.append(os.path.join(settings.MEDIA_URL, "upload/{}{}".format(pk, filename)))
+
+        return render(request, 'process/index.html', {
+            'images': image_list,
+            'json_images': json.dumps(image_list),
+            'upload_id': pk
+        })
 
 
 class Base64ImageView(View):
@@ -48,7 +76,6 @@ class Base64ImageView(View):
             json_data = json.loads(request.body.decode('utf-8'))
 
             if json_data.get('action') == 'edit_image':
-                print("edit image")
                 image_url = json_data.get('croppedImage')
                 image_id = "image{}".format(json_data.get('image_ids'))
                 encoded_image = image_url.split(',')[-1]
@@ -70,17 +97,16 @@ class Base64ImageView(View):
                         image_type = '.png'
                     if 'jpeg' in img_url:
                         image_type = '.jpg'
-                    image_result = open(os.path.join(settings.MEDIA_ROOT, 'images', image_id + image_type), 'wb')
-                    url = "{}images/{}{}".format(settings.MEDIA_URL, image_id, image_type)
+                    upload_id = json_data.get('upload_id')
+                    image_result = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id + image_type), 'wb')
+                    url = "{}upload/{}/{}{}".format(settings.MEDIA_URL, upload_id, image_id, image_type)
+
                     img_lis.append(url)
                     image_result.write(imgdata)
                     image_result.seek(0, 0)
-
                 img_url = img_lis
 
-
         except Exception as e:
-
             img_url = ''
         return JsonResponse({'img_url': img_url})
 

@@ -51,7 +51,8 @@ $(document).ready(function() {
                     console.log(window.localStorage.getItem('data'))
                 }
             });
-        $( "#next-button, #build" ).click(function(e) {
+        $( "#next-button, #book_save" ).click(function(e) {
+
            console.log("jp", window.selected)
            //window.selected = new Array()
            console.log(window.localStorage.getItem('data'));
@@ -130,7 +131,7 @@ $(document).ready(function() {
             }
 
             if (current_step == "tabs") {
-                 alert("window.selected"+window.selected);
+
                 //$(".wrapper").hide();
 
                 if (window.selected.length % 2 != 0) {
@@ -161,8 +162,8 @@ $(document).ready(function() {
             var is_stack =false
 
 
-           var ele=  $('.ui-selected').attr('id');
-           alert(ele+"ws")
+//           var ele= $('.ui-selected').attr('id');
+//           alert(ele+"ws")
 
             for(var i =0; i< current_order.length; i++)
             {

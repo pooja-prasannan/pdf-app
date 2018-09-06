@@ -1,13 +1,13 @@
 import os
 import base64
 import uuid
+import json
+from PIL import Image
 from django.conf import settings
-from django.views.generic import TemplateView
 from django.views import View
 from django.shortcuts import render
 from django.http import JsonResponse
 from pdf2image import convert_from_bytes
-from django.core.files.images import get_image_dimensions
 
 
 class CovertView(View):
@@ -16,10 +16,8 @@ class CovertView(View):
 
     def post(self, request):
         try:
-
             file = request.FILES['file']
             images = convert_from_bytes(file.read())
-
             width, height = images[0].size
             img_path_list = []
             i = 1
@@ -32,8 +30,6 @@ class CovertView(View):
                 print(e)
             for image in images:
                 img_path = os.path.join(folder, "image{}.png".format(i))
-
-
                 image.save(os.path.join(img_path))
                 img_path_list.append(os.path.join(settings.MEDIA_URL, "upload/{}/image{}.png".format(str(upload_id),i)))
                 i = i + 1
@@ -111,14 +107,6 @@ class Base64ImageView(View):
         return JsonResponse({'img_url': img_url})
 
 
-
-class DemoView(TemplateView):
-    template_name = "process/demo.html"
-
-
-from PIL import Image
-import json
-
 class MergeImageView(View):
 
     def post(self, request):
@@ -126,7 +114,8 @@ class MergeImageView(View):
         img_lis = []
         components = ['front_cover', 'back_cover', 'total_tabs', 'total_stacks']
         book_attr_data = json_data.get('book_attribute')
-        save_book_attributes(book_attr_data)
+        upload_id = json_data.get('upload_id')
+        save_book_attributes(book_attr_data, upload_id)
         merge_img_data = eval(json_data.get('merge_image'))
         for cmp in components[:2]:
             data = merge_img_data.get(cmp)
@@ -135,15 +124,15 @@ class MergeImageView(View):
             for id, x in enumerate(it):
                 image_id = "{}{}.png".format(cmp, id)
                 try:
-                    merge_image([x, next(it)], image_id)
-                    url = "{}images/{}".format(settings.MEDIA_URL, image_id)
+                    merge_image([x, next(it)], image_id, upload_id)
+                    url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
                     img_lis.append(url)
                 except Exception as e:
                     image_id = "{}{}.png".format(cmp, id)
-                    old_image = open(os.path.join(settings.MEDIA_ROOT, 'images', "image{}.png".format(x)), 'rb').read()
-                    new_img = open(os.path.join(settings.MEDIA_ROOT, 'images', image_id), 'wb')
+                    old_image = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, "image{}.png".format(x)), 'rb').read()
+                    new_img = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id), 'wb')
                     new_img.write(old_image)
-                    url = "{}images/{}".format(settings.MEDIA_URL, image_id)
+                    url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
                     img_lis.append(url)
 
         for cmp in components[2:]:
@@ -155,23 +144,23 @@ class MergeImageView(View):
 
                     image_id = "{}{}_{}.png".format(cmp, i, id)
                     try:
-                        merge_image([x, next(it)], image_id)
-                        url = "{}images/{}".format(settings.MEDIA_URL, image_id)
+                        merge_image([x, next(it)], image_id, upload_id)
+                        url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
                         img_lis.append(url)
                     except Exception as e:
                         image_id = "{}{}_{}.png".format(cmp, i, id)
-                        old_image = open(os.path.join(settings.MEDIA_ROOT, 'images', "image{}.png".format(x)), 'rb').read()
-                        new_img = open(os.path.join(settings.MEDIA_ROOT, 'images', image_id), 'wb')
+                        old_image = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, "image{}.png".format(x)), 'rb').read()
+                        new_img = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id), 'wb')
                         new_img.write(old_image)
-                        url = "{}images/{}".format(settings.MEDIA_URL, image_id)
+                        url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
                         img_lis.append(url)
 
         return JsonResponse({'img_url': img_lis})
 
 
-def merge_image(image_merge_list, image_id):
+def merge_image(image_merge_list, image_id, upload_id):
 
-    image_path_list = list(map(lambda x: os.path.join(settings.MEDIA_ROOT, 'images', "image"+str(x))+".png", image_merge_list))
+    image_path_list = list(map(lambda x: os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, "image"+str(x))+".png", image_merge_list))
     images = list(map(Image.open, list(image_path_list)))
 
     widths, heights = zip(*(i.size for i in images))
@@ -186,11 +175,11 @@ def merge_image(image_merge_list, image_id):
         new_im.paste(im, (x_offset, 0))
         x_offset += im.size[0]
 
-    new_im.save(os.path.join(settings.MEDIA_ROOT, 'images', image_id))
+    new_im.save(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id))
 
 
-def save_book_attributes(book_attr_data):
-    json_file = open('book_attribute_data.json', 'a')
+def save_book_attributes(book_attr_data, upload_id):
+    json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'book_attribute_data.json'), 'a')
     json.dump(book_attr_data, json_file)
     json_file.write("\n")
 

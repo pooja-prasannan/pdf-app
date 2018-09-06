@@ -1,4 +1,5 @@
 $(document).ready(function() {
+alert("ws"+selected)
 
 
     $(document).on("click", '#define_book', function(e){
@@ -8,79 +9,88 @@ $(document).ready(function() {
             $("#lbl-step-title ").text("Set Book Attribute");
 
            // $("#next-button").html(`<button name="build-back" class="orange-btn "  id="build-back-btn">Back</button>`);
-            $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="book_save">Save</button>`);
+            $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="book_save">Back</button>`);
 
             $(".images-ids").hide();
             $(".wrapper").hide();
             $("#next-button").hide();
             $("#sortable").html(
                 `<div class="page-items">
-                Book Thickness <input type="text" name="book_thickness" value=".5" id="book_thickness">
-                Book Height <input type="text" name="book_height" value="11" id="book_height">
-                Book Width <input type="text" name="book_width" value="8.5" id="book_width">
+                 Book Thickness <input type="text" name="book-thickness" value=".5" id="book-thickness">
+                Book Height <input type="text" name="book_height" value="11" id="book-height">
+                Book Width <input type="text" name="book_width" value="8.5" id="book-width">
                 #Tabs <input type="text" name="tabs" value="12" id="tabs">
                 Tab Rows <input type="text" name="tab_rows" value="2" id="tab_rows">
-                Ring Compression <input type="text" name="ring_compression" value="12" id="ring_compression">
-                Set Offset <input type="text" name="set_offset" value="12" id="set_offset">
-                Cluster Space <input type="text" name="cluster_space" value="12" id="cluster_space">
-                </div>
-                <div class="page-items">
-                Number of Rings <input type="text" name="no_of_rings" value="12" id="no_of_rings">
-                Number of Rings Set <input type="text" name="no_of_rings_set" value="1" id="no_of_rings_set">
-                Ring Squeeze <input type="text" name="ring_squeeze" value=".2" id="ring_squeeze">
-                Ring Pairs <input type="text" name="ring_pair" value="1" id="ring_pair">
 
-                Ring Type <select name="ring_type1">
-                  <option id="copper1">Copper</option>
+                Cover Type <select name="cover_type" id="cover_type">
+                  <option id="leather">Leather</option>
+                  <option id="paper">Paper</option>
                 </select>
-
-                Offset <input type="text" name="offset" value="1" id="offset">
-                Thickness <input type="text" name="thickness" value="1" id="thickness">
-                Space <input type="text" name="space" value="1" id="space">
-                </div>
-                <div class="page-items">
-                Cuout Type <select name="cuout_type" id="cuout_type">
-                <option   value="square">Square</option>
-                  <option   value="round">Round</option>
-
-                </select>
-
-                Hole Cuout Width <input type="text" name="hole_width" value="1" id="hole_width">
-                Hole Cuout Height <input type="text" name="hole_height" value="1" id="hole_height">
 
                 Corner Type <select name="corner_type" id="corner_type">
                     <option   value="round" id="round_id">Rounded</option>
                     <option   value="square" id="square_id">Square</option>
                     <option   value="square" id="none">None</option>
-
                 </select>
 
-                Cover Type <select name="cover_type" id="cover_type">
-                  <option id="cover_type">Leather</option>
-                  <option id="cover_type">Paper</option>
+                Material Type <select name="material_type" id="material_type">
+                    <option   value="gold" id="gold">Gold</option>
+                    <option   value="silver" id="silver">Silver</option>
+                    <option   value="brass" id="brass">Brass</option>
+                </select>
+                </div>
+
+
+                <div class="page-items">
+                # of Rings <input type="text" name="no_of_rings" value="12" id="no_of_rings">
+                 # of Rings Set <input type="text" name="no_of_rings_set" value="1" id="no_of_rings_set">
+
+                Ring Type <select name="ring_type1">
+                  <option id="metal">Metal</option>
+                  <option id="plastic">Plastic</option>
                 </select>
 
-                Ring Type <select name="ring_type" id="ring_type2">
-                  <option value ="plastic" id="plastic2">Plastic</option>
-                  <option id="copper2">Copper</option>
+                 Ring Material <select name="ring_material">
+                  <option id="gold">Gold</option>
+                  <option id="silver">Silver</option>
+                  <option id="black">Matte Black</option>
                 </select>
+
+                Hole Type <select name="hole_type" id="hole_type">
+                  <option   value="square">Square</option>
+                  <option   value="circle">Circle</option>
+                </select>
+
+                Hole  Width <input type="text" name="hole_width" value="1" id="hole_width">
+                Hole  Height <input type="text" name="hole_height" value="1" id="hole_height">
+                </div>
+
+                <div class="page-items">
+                # offset from edge <input type="text" name="offset" value="1" id="offset">
+                Thickness <input type="text" name="thickness" value="1" id="thickness">
+
+                Pairs <input type="text" name="ring_pair" value="1" id="ring_pair">
+                Pair Separation <input type="text" name="pair_separation" value="12" id="pair_separation">
+                Compression <input type="text" name="ring_compression" value="12" id="ring_compression">
+                Set Offset <input type="text" name="set_offset" value="12" id="set_offset">
+
+                R1 <input type="text" name="r1" value="0" id="r1">
+                R2 <input type="text" name="r2" value="0" id="r2">
+                R3 <input type="text" name="r3" value="0" id="r3">
+                R4 <input type="text" name="r4" value="0" id="r4">
 
                 </div>
                 <div class="custom-books">
 
                         <div class="paper-style">
-                            <div class="paper">
-
-                            </div>
-                            <div class="rings">
-
-                            </div>
-
+                            <div class="paper"></div>
+                            <div class="rings"></div>
                         </div>
+
                         <div class="side">
-                                <h2>Side</h2>
-                                <div class="thickness"></div>
-                            </div>
+                             <h2>Side</h2>
+                             <div class="thickness"></div>
+                        </div>
 
                 </div>`);
                     setTimeout(function(){
@@ -90,7 +100,7 @@ $(document).ready(function() {
             var paperhgt = $(".paper").height();
             var numOfRings = $("#no_of_rings").val();
             var numOfRingset = $("#no_of_rings_set").val();
-            var ringHoleType =$("#cuout_type").val();
+            var ringHoleType =$("#hole_type").val();
             var paperCornerType =$("#corner_type").val();
             var bookWidth = $("#book-width").val();
             $(".thickness").height(bookthick*50);
@@ -114,7 +124,7 @@ $(document).ready(function() {
                 var numOfRingset = $("#no_of_rings_set").val();
                 var totalRings = numOfRings*numOfRingset;
                 var ringHgt = paperhgt/totalRings;
-                var ringHoleType =$("#cuout_type").val();
+                var ringHoleType =$("#hole_type").val();
                 var paperCornerType =$("#corner_type").val();
                 var bookthick = $("#book-thickness").val();
                 $(".thickness").height(bookthick*50);
@@ -142,7 +152,7 @@ $(document).ready(function() {
             });
             $("select").change(function()
             {
-                var ringHoleType =$("#cuout_type").val();
+                var ringHoleType =$("#hole_type").val();
             var paperCornerType =$("#corner_type").val();
                 $(".rings .ring-hole").removeClass("round");
                 $(".rings .ring-hole").removeClass("square");
@@ -157,7 +167,7 @@ $(document).ready(function() {
             var numOfRingset = $("#no_of_rings_set").val();
             var totalRings = numOfRings*numOfRingset;
             var ringHgt = paperhgt/totalRings;
-            var ringHoleType =$("#cuout_type").val();
+            var ringHoleType =$("#hole_type").val();
             var paperCornerType =$("#corner_type").val();
             $(".rings").css("line-height", ringHgt);
                 var ringmgnTop = 5
@@ -178,23 +188,20 @@ $(document).ready(function() {
         })
 
         $(document).on("click", '#build-back-btn', function(e){
+        alert("build button");
         })
 
         $(document).on("click", '#book_save', function(e){
 
 
-
-
         var bookDimenstions = [];
-             var book_width =$("#book_width").val();
-             var book_height =$("#book_height").val();
-             var book_thickness = $('#book_thickness').val();
+             var book_width =$("#book-width").val();
+             var book_height =$("#book-height").val();
+             var book_thickness = $('#book-thickness').val();
              var tab_rows = $('#tab_rows').val();
 
-             bookDimenstions.push(book_width);
-             bookDimenstions.push(book_height);
-             bookDimenstions.push(book_thickness);
-             bookDimenstions.push(tab_rows);
+             bookDimenstions.push(book_width,book_height);
+             bookDimenstions.push(book_thickness,tab_rows);
              console.log(bookDimenstions);
 
 
@@ -282,7 +289,6 @@ $(document).ready(function() {
             arrays.push([max,"0"])
             }
             }
-
             else{
                         var cut = new_order.splice(pos,2);
                         var elementss = new_order.splice(0,pos)
@@ -293,11 +299,7 @@ $(document).ready(function() {
                         else{
                         arrays.push([elementss.length,"1"])
                         }
-
-
-
-            }
-
+             }
             }
             var month_values={};
             for( var k=0;k<arrays.length;k++){
@@ -316,6 +318,7 @@ $(document).ready(function() {
                    };
 
             var formdata ={ "book_attribute":book_attribute,
+                            "upload_id":upload_id,
                             "merge_image":window.localStorage.getItem('data')
             }
           $("#sortable").empty();
@@ -331,17 +334,13 @@ $(document).ready(function() {
               for(var inc =0;inc< data['img_url'].length;inc++){
              $("#sortable").append(` <div  id=${inc} class="images-ids"  class="ui-state-default">
               <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-              $("#"+inc).find('img').attr('src', data['img_url'][inc]).width(150) .height(250);
+              $("#"+inc).find('img').attr('src', data['img_url'][inc]).width(250).height(dimension);
               }
             },
             error() {
               console.log('Upload error');
             },
           });
-
-
-
-
         });
 
 

@@ -1,6 +1,6 @@
 $(document).ready(function() {
-alert("ws"+selected)
 
+var clone_div;
 
     $(document).on("click", '#define_book', function(e){
 
@@ -9,12 +9,14 @@ alert("ws"+selected)
             $("#lbl-step-title ").text("Set Book Attribute");
 
            // $("#next-button").html(`<button name="build-back" class="orange-btn "  id="build-back-btn">Back</button>`);
-            $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="book_save">Back</button>`);
+            $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="back_to_refine">Back</button>`);
 
-            $(".images-ids").hide();
             $(".wrapper").hide();
+            $("#next-button").attr("id","build-book");
             $("#next-button").hide();
-            $("#sortable").html(
+            $("#sortable").hide();
+
+            $("#copy").html(
                 `<div class="page-items">
                  Book Thickness <input type="text" name="book-thickness" value=".5" id="book-thickness">
                 Book Height <input type="text" name="book_height" value="11" id="book-height">
@@ -187,14 +189,9 @@ alert("ws"+selected)
             },500)
         })
 
-        $(document).on("click", '#build-back-btn', function(e){
-        alert("build button");
-        })
+         $(document).on("click", '#build-book', function(e){
 
-        $(document).on("click", '#book_save', function(e){
-
-
-        var bookDimenstions = [];
+                 var bookDimenstions = [];
              var book_width =$("#book-width").val();
              var book_height =$("#book-height").val();
              var book_thickness = $('#book-thickness').val();
@@ -341,6 +338,24 @@ alert("ws"+selected)
               console.log('Upload error');
             },
           });
+
+
+
+
+         });
+
+
+        $(document).on("click", '#back_to_refine', function(e){
+
+          $(".page-items").hide();
+          $(".custom-books").hide();
+          $("#lbl-step-title ").text("Refine Components");
+          $("#next-button").show();;
+          $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
+          $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
+          $("#sortable").show();
+
+
         });
 
 

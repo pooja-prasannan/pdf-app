@@ -76,8 +76,10 @@ class Base64ImageView(View):
                 image_id = "image{}".format(json_data.get('image_ids'))
                 encoded_image = image_url.split(',')[-1]
                 imgdata = base64.standard_b64decode(encoded_image)
-                image_result = open(os.path.join(settings.MEDIA_ROOT, 'images', image_id + '.png'), 'wb')
-                img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
+                upload_id = json_data.get('upload_id')
+                image_result = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id + '.png'), 'wb')
+                # img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
+                img_url = "{}upload/{}/{}.png".format(settings.MEDIA_URL, upload_id, image_id)
                 image_result.write(imgdata)
                 image_result.seek(0, 0)
 

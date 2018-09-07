@@ -36,8 +36,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.css">
     <link rel="stylesheet" href="{% static 'scripts/contextmenu/jquery.contextMenu.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" >
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/cropper.css' %}"/>
+    <link rel="stylesheet"  href="{% static 'css/imgareaselect-default.css' %}" />
+     <link rel="stylesheet" href="{% static 'css/lightslider.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}"/>
+
     <script type="text/javascript">
         var jsonData = {{json_images |safe }};
 
@@ -85,11 +90,26 @@
     <script src="{% static 'scripts/contextmenu/jquery.ui.position.min.js' %}"></script>
     <script src="{% static 'js/cropper.js' %}"></script>
     <script src="{% static 'js/jquery-cropper.js' %}"></script>
+    <script src="{% static 'js/lightslider.min.js' %}"></script>
+   <!--<script src="{% static 'js/jquery.min.js' %}"></script>-->
+    <script src="{% static 'js/jquery.imgareaselect.pack.js' %}"></script>
+
+
+
+<!--<link rel="stylesheet" type="text/css" href="/home/pooja/Desktop/imgareaselect-default.css" />-->
+<!--<script  src="/home/pooja/Desktop/jquery.min.js"></script>-->
+
+<!--<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>-->
+<!--<script src="/home/pooja/Desktop/lightslider.min.js"></script>-->
+<!--<link rel="stylesheet" href="/home/pooja/Desktop/lightslider.min.css"/>-->
+<!--<link rel="stylesheet" href="/home/pooja/Desktop/slider.css"/>-->
+<!--<script  src="/home/pooja/Desktop/jquery.imgareaselect.pack.js"></script>-->
+
 
 
 
     <script src="{% static 'js/pdf-step.js' %}"></script>
-     <!--<script src="{% static 'js/pdf-edit.js' %}"></script>-->
+     <script src="{% static 'js/pdf-edit.js' %}"></script>
     <!--<script src="{% static 'js/pdf-edit-new.js' %}"></script>-->
    <script src="{% static 'js/pdf-add.js' %}"></script>
     <script src="{% static 'js/book-attribute.js' %}"></script>
@@ -126,25 +146,16 @@
                         {% for img in images %}
                             <div id = "{{forloop.counter}}"  class="images-ids"  class="ui-state-default">
                                 <img src="{{img}}"  width="250px"  class="img-responsive" alt="">
-                                <div class="con-menu"><button type="button">Delete</button></div>
+                                <div class="con-menu"><button type="button" class="del-btn">Delete</button> | <button type="button" id ="crop-btn">Crop</button> </div>
                             </div>
                         {% endfor %}
                     </div>
 
                     <button name="next" class="orange-btn next" data-current-step="drag" id="next-button">next</button>
-                    <div id="back">
-
-                    </div>
-                    <div id="copy">
-
-                    </div>
-                    <div class="wrapper">
-  
-                        <canvas id='c1'></canvas>
-                      <canvas id='c2'></canvas>
-                        <p id="output"></p>
-                      </div>
-
+                    <div id="back"> </div>
+                    <div id="copy"> </div>
+                    <div id= "crop"></div>
+                    <div id="slide-crop"></div>
                 </div>
             </div>
       </form>

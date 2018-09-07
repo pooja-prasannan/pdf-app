@@ -18,75 +18,84 @@ var clone_div;
 
             $("#copy").html(
                 `<div class="page-items">
-                 Book Thickness <input type="text" name="book-thickness" value=".5" id="book-thickness">
-                Book Height <input type="text" name="book_height" value="11" id="book-height">
-                Book Width <input type="text" name="book_width" value="8.5" id="book-width">
-                #Tabs <input type="text" name="tabs" value="12" id="tabs">
-                Tab Rows <input type="text" name="tab_rows" value="2" id="tab_rows">
+                 <span>Book Thickness <input type="text" name="book-thickness" value=".5" id="book-thickness"></span>
+                 <span>Book Height <input type="text" name="book_height" value="11" id="book-height"></span>
+                 <span>Book Width <input type="text" name="book_width" value="8.5" id="book-width"></span>
+                 <span>#Tabs <input type="text" name="tabs" value="12" id="tabs"></span>
+                 <span>Tab Rows <input type="text" name="tab_rows" value="2" id="tab_rows"></span>
 
-                Cover Type <select name="cover_type" id="cover_type">
+                 <span>Cover Type <select name="cover_type" id="cover_type">
                   <option id="leather">Leather</option>
                   <option id="paper">Paper</option>
-                </select>
+                </select></span>
 
-                Corner Type <select name="corner_type" id="corner_type">
+                 <span>Corner Type <select name="corner_type" id="corner_type">
                     <option   value="round" id="round_id">Rounded</option>
                     <option   value="square" id="square_id">Square</option>
                     <option   value="square" id="none">None</option>
-                </select>
+                </select></span>
 
-                Material Type <select name="material_type" id="material_type">
+                 <span>Material Type <select name="material_type" id="material_type">
                     <option   value="gold" id="gold">Gold</option>
                     <option   value="silver" id="silver">Silver</option>
                     <option   value="brass" id="brass">Brass</option>
-                </select>
+                </select></span>
                 </div>
 
 
                 <div class="page-items">
-                # of Rings <input type="text" name="no_of_rings" value="12" id="no_of_rings">
-                 # of Rings Set <input type="text" name="no_of_rings_set" value="1" id="no_of_rings_set">
+                 <span># of Rings <input type="text" name="no_of_rings" value="12" id="no_of_rings"></span>
+                  <span># of Rings Set <input type="text" name="no_of_rings_set" value="1" id="no_of_rings_set"></span>
 
-                Ring Type <select name="ring_type1">
+                <span> Ring Type <select name="ring_type1">
                   <option id="metal">Metal</option>
                   <option id="plastic">Plastic</option>
-                </select>
+                </select></span>
 
-                 Ring Material <select name="ring_material">
+                 <span> Ring Material <select name="ring_material">
                   <option id="gold">Gold</option>
                   <option id="silver">Silver</option>
                   <option id="black">Matte Black</option>
-                </select>
+                </select></span>
 
-                Hole Type <select name="hole_type" id="hole_type">
+                 <span>Hole Type <select name="hole_type" id="hole_type">
                   <option   value="square">Square</option>
                   <option   value="circle">Circle</option>
-                </select>
+                </select></span>
 
-                Hole  Width <input type="text" name="hole_width" value="1" id="hole_width">
-                Hole  Height <input type="text" name="hole_height" value="1" id="hole_height">
+                 <span>Hole  Width <input type="text" name="hole_width" value="1" id="hole_width"></span>
+                 <span>Hole  Height <input type="text" name="hole_height" value="1" id="hole_height"></span>
                 </div>
 
                 <div class="page-items">
-                # offset from edge <input type="text" name="offset" value="1" id="offset">
-                Thickness <input type="text" name="thickness" value="1" id="thickness">
+                <span> # offset from edge <input type="text" name="offset" value="1" id="offset"></span>
+                 <span>Thickness <input type="text" name="thickness" value="1" id="thickness"></span>
 
-                Pairs <input type="text" name="ring_pair" value="1" id="ring_pair">
-                Pair Separation <input type="text" name="pair_separation" value="12" id="pair_separation">
-                Compression <input type="text" name="ring_compression" value="12" id="ring_compression">
-                Set Offset <input type="text" name="set_offset" value="12" id="set_offset">
+                 <span>Pairs <input type="text" name="ring_pair" value="1" id="ring_pair"></span>
+                 <span>Pair Separation <input type="text" name="pair_separation" value="12" id="pair_separation"></span>
+                 <span>Compression <input type="text" name="ring_compression" value="12" id="ring_compression"></span>
+                 <span>Set Offset <input type="text" name="set_offset" value="12" id="set_offset"></span>
 
-                R1 <input type="text" name="r1" value="0" id="r1">
-                R2 <input type="text" name="r2" value="0" id="r2">
-                R3 <input type="text" name="r3" value="0" id="r3">
-                R4 <input type="text" name="r4" value="0" id="r4">
+                <span> R1 <input type="text" name="r1" value="0" id="r1"></span>
+                 <span>R2 <input type="text" name="r2" value="0" id="r2"></span>
+                 <span>R3 <input type="text" name="r3" value="0" id="r3"></span>
+                 <span>R4 <input type="text" name="r4" value="0" id="r4"></span>
 
                 </div>
                 <div class="custom-books">
-
+                        <div class="tab-settings">
+                            <h2>Tab Settings</h2>
+                            <span>Width <br/><input type="text" id="tab-width"/></span>
+                            <span>Height <input type="text" id="tab-height"/></span>
+                            <div>Corner 1 : <input type="text" id="tab-c1-type"/> <input type="text" id="tab-c1-br"/>%</div>
+                            <div>Corner 2 : <input type="text" id="tab-c2-type"/> <input type="text" id="tab-c2-br"/>%</div>
+                            <div>Corner 3 : <input type="text" id="tab-c3-type"/> <input type="text" id="tab-c3-br"/>%</div>
+                            <div>Corner 4 : <input type="text" id="tab-c4-type"/> <input type="text" id="tab-c4-br"/>%</div>
+                        </div>
                         <div class="paper-style">
                             <div class="paper"></div>
                             <div class="rings"></div>
+                            <div class="tabs-tags"></div>
                         </div>
 
                         <div class="side">
@@ -117,9 +126,9 @@ var clone_div;
                 rings();
             }
             var tabs = $("#tabs").val();
-            for (var i =0; i < tabs; i++) {
+
             tabbs(tabs)
-            }
+
             $("input").bind("keyup",function(){
                 var paperhgt = $(".paper").height();
                 var numOfRings = $("#no_of_rings").val();
@@ -135,9 +144,9 @@ var clone_div;
                 $(".rings").empty();
                 $(".tabs-tags").empty();
                 var tabs = $("#tabs").val();
-                for (var i =0; i < tabs; i++) {
+
                 tabbs(tabs)
-                }
+
                 for (var i =0; i < totalRings; i++) {
                 rings();
                 }
@@ -191,59 +200,109 @@ var clone_div;
 
          $(document).on("click", '#build-book', function(e){
 
-                 var bookDimenstions = [];
+//             var bookDimenstions = [];
              var book_width =$("#book-width").val();
              var book_height =$("#book-height").val();
              var book_thickness = $('#book-thickness').val();
+             var tabs = $('#tabs').val();
              var tab_rows = $('#tab_rows').val();
+             var cover_type = $("#cover_type option:selected").val();
+             var corner_type = $("#corner_type option:selected").val();
+             var material_type = $("#material_type option:selected").val();
 
-             bookDimenstions.push(book_width,book_height);
-             bookDimenstions.push(book_thickness,tab_rows);
-             console.log(bookDimenstions);
+             var no_of_rings = $("#no_of_rings").val();
+             var no_of_ringset = $("#no_of_rings_set").val();
+             var ring_type = $("#ring_type2 option:selected").val();
+
+             var ring_material = $("#ring_material option:selected").val();
+             var hole_type = $("#hole_type option:selected").val();
+             var hole_width = $("#hole_width").val();
+             var hole_height = $("#hole_height").val();
+             var offset= $("#offset").val();
+             var thickness = $("#thickness").val();
+             var ring_pair = $("#ring_pair").val();
+             var pair_separation = $("#pair_separation").val();
+             var ring_compression = $("#ring_compression").val();
+             var set_offset = $("#set_offset").val();
+             var r1 = $("#r1").val();
+             var r2 = $("#r2").val();
+             var r3 = $("#r3").val();
+             var r4 = $("#r4").val();
+
+             var final_data={
+             "book_width":book_width,
+             "book_height":book_height,
+             "book_thickness":book_thickness,
+             "tabs":tabs,
+             "tab_rows":tab_rows,
+             "cover_type":cover_type,
+             "corner_type":corner_type,
+             "material_type":material_type,
+             "no_of_rings":no_of_rings,
+             "no_of_ringset":no_of_ringset,
+             "ring_type":ring_type,
+             "ring_material":ring_material,
+             "hole_type":hole_type,
+             "hole_width":hole_width,
+             "hole_height":hole_height,
+             "offset":offset,
+             "thickness":thickness,
+             "ring_pair":ring_pair,
+             "pair_separation":pair_separation,
+             "ring_compression":ring_compression,
+             "set_offset":set_offset,
+             "r1":r1,
+             "r2":r2,
+             "r3":r3,
+             "r4":r4
+             }
 
 
-            var corner_type = $("#corner_type option:selected").val();
-            var ring_type = $("#ring_type2 option:selected").val();
-            var metalCorners = {};
-            var ring_type_list=[];
-            ring_type_list.push(ring_type);
-            metalCorners[corner_type] = ring_type_list
-            console.log("metalCorners",metalCorners);
+//             bookDimenstions.push(book_width,book_height);
+//             bookDimenstions.push(book_thickness,tab_rows);
+//             console.log(bookDimenstions);
 
 
-            var no_of_rings = $("#no_of_rings").val();
-            var cluster_space = $("#cluster_space").val();
-            var cuout_type = $("#cuout_type option:selected").val();
-            var hole_width = $("#hole_width").val();
-            var hole_height = $("#hole_height").val();
-            var offset= $("#offset").val();
-            var thickness = $("#thickness").val();
-            var space = $("#space").val();
-            var cluster_space = $("#cluster_space").val();
-            var ring_compression = $("#ring_compression").val();
-            var set_offset = $("#set_offset").val();
-            var ringSets = {};
-            var ring_set_list=[];
-            ring_set_list.push(corner_type,ring_type,no_of_rings,cluster_space,cuout_type,hole_width,hole_height);
-            ring_set_list.push(offset,thickness,space,cluster_space,ring_compression,set_offset)
-            ringSets["ringSet1"]= ring_set_list;
-            console.log("ringSets",ringSets);
+//            var corner_type = $("#corner_type option:selected").val();
+//
+//            var metalCorners = {};
+//            var ring_type_list=[];
+//            ring_type_list.push(ring_type);
+//            metalCorners[corner_type] = ring_type_list
+//            console.log("metalCorners",metalCorners);
 
 
-            var tab_values = {};
-            var tab_values_list=[];
-            // hardcoding 2 values- width and height for tabValues as 20px and 80xp
-            tab_values_list.push("20px","80px");
-            tab_values["tabValues"]=tab_values_list;
-            console.log("tabValues",tab_values);
+//
+//            var cluster_space = $("#cluster_space").val();
+//            var cuout_type = $("#cuout_type option:selected").val();
+
+
+//            var space = $("#space").val();
+//            var cluster_space = $("#cluster_space").val();
+//            var ring_compression = $("#ring_compression").val();
+//            var set_offset = $("#set_offset").val();
+//            var ringSets = {};
+//            var ring_set_list=[];
+//            ring_set_list.push(corner_type,ring_type,no_of_rings,cluster_space,cuout_type,hole_width,hole_height);
+//            ring_set_list.push(offset,thickness,space,cluster_space,ring_compression,set_offset)
+//            ringSets["ringSet1"]= ring_set_list;
+//            console.log("ringSets",ringSets);
+
+
+//            var tab_values = {};
+//            var tab_values_list=[];
+//            // hardcoding 2 values- width and height for tabValues as 20px and 80xp
+//            tab_values_list.push("20px","80px");
+//            tab_values["tabValues"]=tab_values_list;
+//            console.log("tabValues",tab_values);
 
 
 
-            var cover_type = $("#cover_type option:selected").val();
-            var width = "20px";
-            var cover_values=[]
-            cover_values.push(cover_type,width,"True")
-            console.log("cover_values",cover_values);
+//            var cover_type = $("#cover_type option:selected").val();
+//            var width = "20px";
+//            var cover_values=[]
+//            cover_values.push(cover_type,width,"True")
+//            console.log("cover_values",cover_values);
 
 
 
@@ -306,15 +365,15 @@ var clone_div;
             console.log(month_values)
 
 
-            var book_attribute={"bookDimenstions":bookDimenstions,
-                                "monthValues":month_values,
-                                "tabValues":tab_values,
-                                "metalCorners":metalCorners,
-                                "ringSets":ringSets,
-                                "coverValues":cover_values
-                   };
+//            var book_attribute={"bookDimenstions":bookDimenstions,
+//                                "monthValues":month_values,
+//                                "tabValues":tab_values,
+//                                "metalCorners":metalCorners,
+//                                "ringSets":ringSets,
+//                                "coverValues":cover_values
+//                   };
 
-            var formdata ={ "book_attribute":book_attribute,
+            var formdata ={ "book_attribute":final_data,
                             "upload_id":upload_id,
                             "merge_image":window.localStorage.getItem('data')
             }

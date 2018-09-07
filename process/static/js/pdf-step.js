@@ -316,7 +316,7 @@ $(document).ready(function() {
 //                });
 
         });
-        $(".con-menu button").click(function()
+        $(".con-menu .del-btn").click(function()
         {
          $(this).parent().parent().hide();
         var del_element =  $(this).parent().parent().attr('id');

@@ -186,6 +186,7 @@ box-sizing: border-box;
     text-align: center;
     margin-top: 80px;
     padding:0px!important;
+    position:relative;
 }
 .paper-style
 {
@@ -311,7 +312,7 @@ box-sizing: border-box;
 {
     position: absolute;
     right: 145px;
-    top: 0px;
+    top: 25px;
     height: 100%;
     width: 25px!important;
     overflow: hidden;
@@ -501,28 +502,79 @@ box-sizing: border-box;
 {
     display:none;
     position: absolute !important;
-    left: calc(50% - 35px);
+    left: calc(50% - 60px);
     padding: 0px!important;
     top: 43%;
     z-index: 9999;
     margin: 0px!important;
+    background: #404040!important;
+    border: 1px solid #bebebe;
+    color:#fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.5);
+    border-radius: .2em;
+    font-size: 15px!important;
 }
 .con-menu button
 {
-    background: #404040!important;
+
     min-width: auto!important;
     width: auto!important;
     padding-left: 15px;
     padding-right: 15px;
-    border: 1px solid #bebebe;
     color: #ffffff;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-radius: .2em;
+    background:transparent;
+    border:none;
     font-size: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,.5);
+    cursor:pointer
+
+
 }
 .images-ids
 {
 position:relative;
+}
+.tab-settings
+{
+    position:absolute;
+    right:5%;
+    top:5%;
+    width:250px;
+    height:auto;
+    padding:10px;
+    border-radius:5px;
+    background:#000;
+    border:1px solid #fff;
+    color:#fff;
+}
+.tab-settings h2
+{
+    font-size:15px;
+    border-bottom:1px solid #fff;
+    margin-bottom:10px;
+}
+.tab-settings span
+{
+    width:50%;
+    padding-right:15px;
+    font-size:13px;
+    display:inline;
+
+}
+.tab-settings input
+{
+    width: 35px;
+    display: inline-block;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.tab-settings div {
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+    font-size:13px;
 }

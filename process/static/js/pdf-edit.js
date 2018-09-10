@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 
              var crop_element =  $(this).parent().parent().attr('id');
-             alert("crop"+crop_element)
+
              var data = window.localStorage.getItem('data');
              data = JSON.parse(data)
              if(data["front_cover"].includes(crop_element))
@@ -70,22 +70,64 @@ $(document).ready(function() {
             thumbItem: 9
             });
 
-            $('#lightSlider').imgAreaSelect({ x1: 120, y1: 90, x2: 280, y2: 210 });
+            var cc= $('#lightSlider').imgAreaSelect({
+             onSelectEnd: function (img, selection) {
+            alert('width: ' + selection.width + '; height: ' + selection.height);
+            var can = document.createElement("canvas");
+                      can.width = selection.width;
+                      can.height = selection.height;
 
+               var img = document.getElementById("lightSlider");
+               var ctx = can.getContext("2d");
+
+//               ctx.drawImage(img, 10, 10);
+               var dataURL = selection.toDataURL();
+               alert("dataURL"+dataURL)
+
+
+//                       let abc = document.getElementsByClassName("imgareaselect-selection");
+//                       console.log("jshkjshzqa",abc.toDataURL())
+
+
+//                      var ctx = canvas.getContext("2d");
+//                     ctx.drawImage(baseImage, 0, 0);
+//                      var dataURL = canvas.toDataURL();
+                      var formData ={'image_ids': crop_element, 'croppedImage':dataURL, 'action': 'edit_image'}
+
+                      // Use `jQuery.ajax` method
+                      $.ajax('/images/', {
+                        method: "POST",
+                        data: JSON.stringify(formData),
+
+                        processData: false,
+                        contentType: false,
+                        success(data) {
+                          console.log('Upload success', data);
+//                          var crop_dict ={};
+//                          var cropped_images =[];
+//                          crop_dict[ids] = data['img_url'];
+//
+//                          cropped_images.push(crop_dict)
+//                          window.localStorage.setItem('cropped-image',JSON.stringify(cropped_images))
+
+                        },
+                        error() {
+                          console.log('Upload error');
+                        },
+                      });
+            }
 });
 
 
+});
 
  $(document).on("click", '#crop_back', function(e){
-
           $("#lbl-step-title ").text("Refine Components");
           $("#next-button").show();
           $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
           $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
           $("#sortable").show();
           $("#slide-crop").hide();
-
-
         });
 
 });

@@ -24,6 +24,13 @@
   #sortable li span { position: absolute; margin-left: -1.3em; }
 
 #sortable > div { float: left; }
+.ui-sortable-helper img
+{
+box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 5px solid #00ee00;
+}
 .ui-state-default
 {
     background:transparent!important;
@@ -36,6 +43,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.1/cropper.min.css">
     <link rel="stylesheet" href="{% static 'scripts/contextmenu/jquery.contextMenu.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" >
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/cropper.css' %}"/>
@@ -152,10 +160,11 @@
                     </div>
 
                     <button name="next" class="orange-btn next" data-current-step="drag" id="next-button">next</button>
-                    <div id="back"> </div>
-                    <div id="copy"> </div>
+                    <div id="back"></div>
+                    <div id="copy"></div>
                     <div id= "crop"></div>
                     <div id="slide-crop"></div>
+                    <div id="tab-shows"></div>
                 </div>
             </div>
       </form>
@@ -167,10 +176,11 @@
     {
         var ratio = height/width;
         console.log(height,width);
-        var imghgt = 250*ratio
+        var imghgt = 250*ratio;
+        var tabImgHgt = 600*ratio
         $(".img-responsive").css({"height":(250*ratio)})
 
-        var css = ".add-btn-div { margin-top: " + (imghgt - 150)/2 + "px!important }",
+        var css = ".add-btn-div { margin-top: " + (imghgt - 150)/2 + "px!important } .tab-image img { height: " +tabImgHgt + "px!important }",
       head = document.head || document.getElementsByTagName("head")[0],
       style = document.createElement("style");
 

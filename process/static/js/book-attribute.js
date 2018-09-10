@@ -10,19 +10,20 @@ var clone_div;
 
            // $("#next-button").html(`<button name="build-back" class="orange-btn "  id="build-back-btn">Back</button>`);
             $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="back_to_refine">Back</button>`);
-
+            $("#lbl-step-title").append(`&nbsp <button id="tab-settings"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
             $(".wrapper").hide();
             $("#next-button").attr("id","build-book");
             $("#next-button").hide();
             $("#sortable").hide();
+            if( !$('#copy').html()){
 
-            $("#copy").html(
+             $("#copy").html(
                 `<div class="page-items">
-                 <span>Book Thickness <input type="text" name="book-thickness" value=".5" id="book-thickness"></span>
-                 <span>Book Height <input type="text" name="book_height" value="11" id="book-height"></span>
-                 <span>Book Width <input type="text" name="book_width" value="8.5" id="book-width"></span>
-                 <span>#Tabs <input type="text" name="tabs" value="12" id="tabs"></span>
-                 <span>Tab Rows <input type="text" name="tab_rows" value="2" id="tab_rows"></span>
+                 <span>Book Thickness <input type="text" name="book-thickness" value=".5" id="book-thickness" maxlength="4">%</span>
+                 <span>Book Height <input type="text" name="book_height" value="11" id="book-height" maxlength="4"></span>
+                 <span>Book Width <input type="text" name="book_width" value="8.5" id="book-width" maxlength="4"></span>
+                 <span>#Tabs <input type="text" name="tabs" value="12" id="tabs" max-length="4"></span>
+                 <span>Tab Rows <input type="text" name="tab_rows" value="2" id="tab_rows" maxlength="4"></span>
 
                  <span>Cover Type <select name="cover_type" id="cover_type">
                   <option id="leather">Leather</option>
@@ -44,8 +45,8 @@ var clone_div;
 
 
                 <div class="page-items">
-                 <span># of Rings <input type="text" name="no_of_rings" value="12" id="no_of_rings"></span>
-                  <span># of Rings Set <input type="text" name="no_of_rings_set" value="1" id="no_of_rings_set"></span>
+                 <span># of Rings <input type="text" name="no_of_rings" value="12" id="no_of_rings" maxlength="4"></span>
+                  <span># of Rings Set <input type="text" name="no_of_rings_set" value="1" id="no_of_rings_set" maxlength="4"></span>
 
                 <span> Ring Type <select name="ring_type1">
                   <option id="metal">Metal</option>
@@ -63,62 +64,69 @@ var clone_div;
                   <option   value="circle">Circle</option>
                 </select></span>
 
-                 <span>Hole  Width <input type="text" name="hole_width" value="1" id="hole_width"></span>
-                 <span>Hole  Height <input type="text" name="hole_height" value="1" id="hole_height"></span>
+                 <span>Hole  Width <input type="text" name="hole_width" value="1" id="hole_width" maxlength="4"></span>
+                 <span>Hole  Height <input type="text" name="hole_height" value="1" id="hole_height" maxlength="4"></span>
                 </div>
 
                 <div class="page-items">
-                <span> # offset from edge <input type="text" name="offset" value="1" id="offset"></span>
-                 <span>Thickness <input type="text" name="thickness" value="1" id="thickness"></span>
+                <span> # offset from edge <input type="text" name="offset" value="1" id="offset" maxlength="4"></span>
+                 <span>Thickness <input type="text" name="thickness" value="1" id="thickness" maxlength="4"></span>
 
-                 <span>Pairs <input type="text" name="ring_pair" value="1" id="ring_pair"></span>
-                 <span>Pair Separation <input type="text" name="pair_separation" value="12" id="pair_separation"></span>
-                 <span>Compression <input type="text" name="ring_compression" value="12" id="ring_compression"></span>
-                 <span>Set Offset <input type="text" name="set_offset" value="12" id="set_offset"></span>
+                 <span>Pairs <input type="text" name="ring_pair" value="1" id="ring_pair" maxlength="4"></span>
+                 <span>Pair Separation <input type="text" name="pair_separation" value="12" id="pair_separation" maxlength="4"></span>
+                 <span>Compression <input type="text" name="ring_compression" value="12" id="ring_compression" maxlength="4"></span>
+                 <span>Set Offset <input type="text" name="set_offset" value="12" id="set_offset" max-length="4"></span>
 
-                <span> R1 <input type="text" name="r1" value="0" id="r1"></span>
-                 <span>R2 <input type="text" name="r2" value="0" id="r2"></span>
-                 <span>R3 <input type="text" name="r3" value="0" id="r3"></span>
-                 <span>R4 <input type="text" name="r4" value="0" id="r4"></span>
+                <span> R1 <input type="text" name="r1" value="0" id="r1" maxlength="4"></span>
+                 <span>R2 <input type="text" name="r2" value="0" id="r2" maxlength="4"></span>
+                 <span>R3 <input type="text" name="r3" value="0" id="r3" maxlength="4"></span>
+                 <span>R4 <input type="text" name="r4" value="0" id="r4" maxlength="4"></span>
 
                 </div>
                 <div class="custom-books">
-                        <div class="tab-settings">
-                            <h2>Tab Settings</h2>
-                            <span>Width <br/><input type="text" id="tab-width"/></span>
-                            <span>Height <input type="text" id="tab-height"/></span>
-                            <div>Corner 1 : <input type="text" id="tab-c1-type"/> <input type="text" id="tab-c1-br"/>%</div>
-                            <div>Corner 2 : <input type="text" id="tab-c2-type"/> <input type="text" id="tab-c2-br"/>%</div>
-                            <div>Corner 3 : <input type="text" id="tab-c3-type"/> <input type="text" id="tab-c3-br"/>%</div>
-                            <div>Corner 4 : <input type="text" id="tab-c4-type"/> <input type="text" id="tab-c4-br"/>%</div>
-                        </div>
+
                         <div class="paper-style">
                             <div class="paper"></div>
                             <div class="rings"></div>
-                            <div class="tabs-tags"></div>
-                        </div>
 
+                        </div>
+                    <hr/>
                         <div class="side">
                              <h2>Side</h2>
                              <div class="thickness"></div>
                         </div>
 
                 </div>`);
-                    setTimeout(function(){
+             }
+             else{
+
+             $("#copy").show();
+             }
+
+             setTimeout(function(){
              $(".rings").empty();
              $(".tabs-tags").empty();
             var bookthick = $("#book-thickness").val();
             var paperhgt = $(".paper").height();
+            var bookWdth = $("#book-width").val();
+            var bookHgt = $("#book-height").val();
             var numOfRings = $("#no_of_rings").val();
             var numOfRingset = $("#no_of_rings_set").val();
             var ringHoleType =$("#hole_type").val();
             var paperCornerType =$("#corner_type").val();
-            var bookWidth = $("#book-width").val();
             $(".thickness").height(bookthick*50);
-            $(".paper").css({"width": bookWidth*52.9})
+            $(".paper").css({"width": (bookWdth)*50})
+            $(".side").css({"width": bookWdth*50})
+            $(".paper").css({"height": bookHgt*50})
+            $(".paper-style").css({"height": bookHgt*50});
+            $(".thickness").css({"width": bookWdth*50});
+            var r1 = $("#r1").val();
+             var r2 = $("#r2").val();
+             var r3 = $("#r3").val();
+             var r4 = $("#r4").val();
             var totalRings = numOfRings*numOfRingset;
             $(".rings .ring-hole").addClass(ringHoleType);
-                $(".paper").addClass(paperCornerType);
+                // $(".paper").addClass(paperCornerType);
                 var ringHgt = paperhgt/totalRings;
                 $(".rings").css("line-height", ringHgt);
                 var ringmgnTop = 5;
@@ -130,14 +138,24 @@ var clone_div;
             tabbs(tabs)
 
             $("input").bind("keyup",function(){
+                var r1 = $("#r1").val();
+                var r2 = $("#r2").val();
+                var r3 = $("#r3").val();
+                var r4 = $("#r4").val();
+                var bookWdth = $("#book-width").val();
+                var bookHgt = $("#book-height").val();
                 var paperhgt = $(".paper").height();
                 var numOfRings = $("#no_of_rings").val();
                 var numOfRingset = $("#no_of_rings_set").val();
                 var totalRings = numOfRings*numOfRingset;
                 var ringHgt = paperhgt/totalRings;
-                var ringHoleType =$("#hole_type").val();
                 var paperCornerType =$("#corner_type").val();
                 var bookthick = $("#book-thickness").val();
+                $(".paper").css({"width": (bookWdth)*50})
+                $(".side").css({"width": bookWdth*50})
+                $(".paper").css({"height": bookHgt*50})
+                $(".paper-style").css({"height": bookHgt*50});
+                $(".thickness").css({"width": (bookWdth*50)});
                 $(".thickness").height(bookthick*50);
                 var ringmgnTop = 5
                 $(".rings").css({"line-height": ringHgt+"px"});
@@ -151,26 +169,26 @@ var clone_div;
                 rings();
                 }
                 var bookWidth = $("#book-width").val();
-            $(".paper").css({"width": bookWidth*52.9})
-            var paperCornerType =$("#corner_type").val();
+
+            // var paperCornerType =$("#corner_type").val();
             var bookWidth = $("#book-width").val();
-                $(".rings .ring-hole").removeClass("round");
-                $(".rings .ring-hole").removeClass("square");
-                $(".paper").removeClass("round");
-                $(".paper").removeClass("square");
+                // $(".rings .ring-hole").removeClass("round");
+                // $(".rings .ring-hole").removeClass("square");
+                // $(".paper").removeClass("round");
+                // $(".paper").removeClass("square");
                 $(".rings .ring-hole").addClass(ringHoleType);
-                $(".paper").addClass(paperCornerType);
+                // $(".paper").addClass(paperCornerType);
             });
             $("select").change(function()
             {
                 var ringHoleType =$("#hole_type").val();
-            var paperCornerType =$("#corner_type").val();
+            // var paperCornerType =$("#corner_type").val();
                 $(".rings .ring-hole").removeClass("round");
                 $(".rings .ring-hole").removeClass("square");
-                $(".paper").removeClass("round");
-                $(".paper").removeClass("square");
+                // $(".paper").removeClass("round");
+                // $(".paper").removeClass("square");
                 $(".rings .ring-hole").addClass(ringHoleType);
-                $(".paper").addClass(paperCornerType);
+                // $(".paper").addClass(paperCornerType);
             });
 
             var paperhgt = $(".paper").height();
@@ -191,9 +209,10 @@ var clone_div;
             function tabbs(tabs)
             {
 
-                $(".tabs-tags").append('<div class="tab-tag tag'+tabs+'"></div>');
+                //$(".tabs-tags").append('<div class="tab-tag tag'+tabs+'"></div>');
 
             }
+
 
             },500)
         })
@@ -378,6 +397,7 @@ var clone_div;
                             "merge_image":window.localStorage.getItem('data')
             }
           $("#sortable").empty();
+          $("#copy").hide();
           // Use `jQuery.ajax` method
           $.ajax('/merge-images/', {
             method: "POST",
@@ -398,16 +418,112 @@ var clone_div;
             },
           });
 
-
-
-
          });
 
 
         $(document).on("click", '#back_to_refine', function(e){
 
-          $(".page-items").hide();
-          $(".custom-books").hide();
+//          $(".page-items").hide();
+//          $(".custom-books").hide();
+            $("#build-book").show();
+            $("#build-book").html("Build Book");
+              $("#next-button").attr("id","build-book");
+           $("#copy").hide();
+          $("#lbl-step-title ").text("Refine Components");
+          $("#next-button").show();
+          $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
+          $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
+          $("#sortable").show();
+        });
+
+
+        $(document).on('click','#tab_to_attribute', function(e) {
+
+
+//          if($(this).hasClass("tab-to-refine") ) {
+          $("#tab-shows").hide();
+          $("#lbl-step-title ").text("Set Book Attribute");
+          $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="back_to_refine">Back</button>`);
+            $("#lbl-step-title").append(`&nbsp <button id="tab-settings"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
+           $("#copy").show();
+             $("#build-book").show();
+           $("#build-book").html("Build Book");
+            $("#next-button").attr("id","build-book");
+//          $("#next-button").show();
+//          $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
+//          $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
+//          $("#copy").show();
+
+//          }
+//          else{
+//          alert("no class ")
+//          }
+        });
+
+        var tabs_nos;
+        var tabs_rows_nos;
+        $(document).on("click", '#tab-settings', function(e){
+
+          $("#lbl-step-title ").text("Set Tab Dimensions");
+          $("#tab-shows").show();
+//          $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
+//          $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
+          $("#copy").hide();
+           $("#lbl-step-title").append(`&nbsp <button name="back_to_attribute" class="orange-btn" id="tab_to_attribute">Back</button>`);
+          $("#build-book").hide();
+//          $("#build-book").addClass("tab-to-refine");
+          var data = window.localStorage.getItem('data');
+          data = JSON.parse(data)
+          var tab_page=data["front_cover"][0];
+          var tab_page_src= $("#"+tab_page ).find('img').attr("src");
+           tabs_nos = $(".page-items #tabs").val();
+           tabs_rows_nos = $(".page-items #tab_rows").val();
+          $("#tab-shows").html(`<div class="tab-settings-container">
+                                  <div class="tab-settings">
+                                                    <h2>Tab Settings</h2>
+                                                    <span>Width <input type="number" id="tab-width" max-length="4" value="20"/>%</span>
+                                                    <span>Height <input type="number" id="tab-height" max-length="4" value="8"/>%</span>
+                                                    <div>Corner 1 : <input type="number" id="tab-c1-type" value="0"/> <input type="number" id="tab-c1-br" maxlength="4" value="50"/>%</div>
+                                                    <div>Corner 2 : <input type="number" id="tab-c2-type" value="0"/> <input type="number" id="tab-c2-br" maxlength="4" value="50"/>%</div>
+                                                    <div>Corner 3 : <input type="number" id="tab-c3-type" value="0"/> <input type="number" id="tab-c3-br" maxlength="4" value="0"/>%</div>
+                                                    <div>Corner 4 : <input type="number" id="tab-c4-type" value="0"/> <input type="number" id="tab-c4-br" maxlength="4" value="0"/>%</div>
+                                  </div>
+                                <div class="tab-image" id= "tab_eg">
+                                    <div class="tab"></div>
+                                     <img src= "#"  width="250px"  class="img-responsive" alt="">
+
+                                </div></div>`);
+             $("#tab_eg").find('img').attr('src',tab_page_src);
+            $('.tab').draggable({
+                containment: "parent"
+            }).filter('.tab').draggable("option", "axis", "y");
+            var imgHeight_tabset = $(".tab-image img").height();
+            $(".tab-image .tab").css({"height": (imgHeight_tabset)/(tabs_nos/tabs_rows_nos)});
+            $(".tab-settings input").bind("keyup",function(){
+                var tWwidth = $("#tab-width").val();
+                var tWheight = $("#tab-height").val();
+                var tabImgeHt = $(".tab-image img").height();
+                var tabImgeWdt = $(".tab-image img").width();
+                var tabBR1 = $("#tab-c1-br").val();
+                var tabBR2 = $("#tab-c2-br").val();
+                var tabBR3 = $("#tab-c3-br").val();
+                var tabBR4 = $("#tab-c4-br").val();
+                $(".tab-image .tab").css({"height": tabImgeHt/100 * tWwidth});
+                $(".tab-image .tab").css({"width": tabImgeWdt/100 * tWheight});
+                $(".tab-image .tab").css({"border-top-right-radius": (tabImgeWdt/100 * tWheight)/100 * tabBR1 +"px"});
+                $(".tab-image .tab").css({"border-bottom-right-radius":(tabImgeWdt/100 * tWheight)/100 * tabBR2 +"px"});
+                $(".tab-image .tab").css({"border-top-left-radius": (tabImgeWdt/100 * tWheight)/100 * tabBR3 +"px"});
+                $(".tab-image .tab").css({"border-bottom-left-radius":(tabImgeWdt/100 * tWheight)/100 * tabBR4+"px"});
+
+            });
+
+
+        });
+
+        $(document).on("click", '#build-book', function(e){
+
+          $("#tab-shows").hide();
+
           $("#lbl-step-title ").text("Refine Components");
           $("#next-button").show();;
           $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);

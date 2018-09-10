@@ -39,6 +39,16 @@ $(document).ready(function() {
       }
       $( function() {
           $(".wrapper").hide();
+          var order=[];
+          $('#sortable > div').map(function() {
+              order.push(this.id)
+            })
+            var data = window.localStorage.getItem('data');
+            data = JSON.parse(data)
+            data["order"] = order
+            data = JSON.stringify(data)
+            window.localStorage.setItem('data', data);
+
           $("#sortable").sortable({
 //                revert: true,
                 update: function( event, ui ) {
@@ -59,7 +69,7 @@ $(document).ready(function() {
 
             e.preventDefault();
             var current_step = $("#next-button ").data("current-step");
-            console.log("jp, current step", current_step)
+
             if (current_step == "drag") {
 
                $("#sortable" ).sortable( "disable" )
@@ -298,22 +308,32 @@ $(document).ready(function() {
         $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
         $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
         $("#next-button").html("Build Book");
-
+//        $("#next-button").attr("id","build-book");
         $("#sortable").append(`<div class="add-btn-div"><button name="add_btn" id="add_btn"> Add + </button></div>`);
         $("#add_btn").addClass("context-menu-two");
         $(".images-ids").bind("contextmenu",function(e){
         $(".images-ids").find(".con-menu").hide();
         $(this).find(".con-menu").show();
-//                    $(document).mouseup(function(e)
-//{
-//                    var container = $(".con-menu");
-//
-//                    // if the target of the click isn't the container nor a descendant of the container
-//                    if (!container.is(e.target) && container.has(e.target).length === 0)
-//                    {
-//                        container.hide();
-//                    }
-//                });
+                   $(document).mouseup(function(e)
+                    {
+                        var container = $(".con-menu");
+
+                        // if the target of the click isn't the container nor a descendant of the container
+                        if (!container.parent().is(e.target) && container.parent().has(e.target).length === 0)
+                        {
+                            container.hide();
+                        }
+                    });
+                    $(".images-ids").click(function(e)
+                    {
+                        var container = $(".con-menu");
+
+                        // if the target of the click isn't the container nor a descendant of the container
+                        if (!container.is(e.target) && container.has(e.target).length === 0)
+                        {
+                            container.hide();
+                        }
+                    });
 
         });
         $(".con-menu .del-btn").click(function()
@@ -329,7 +349,4 @@ $(document).ready(function() {
         data = JSON.stringify(data)
         window.localStorage.setItem('data', data);
         });
-
-
-
          }

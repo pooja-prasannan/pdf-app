@@ -190,9 +190,9 @@ box-sizing: border-box;
 }
 .paper-style
 {
-    width: 700px;
+    width: auto;
     height: 660px;
-    /*display: inline-block;*/
+    display: inline-block;
     text-align: left;
     position: relative;
     margin-right: auto !important;
@@ -213,16 +213,31 @@ box-sizing: border-box;
     display: inline-block;
     margin-left: 5%!important;
     border-bottom: 2px solid #fff!important;
-    padding-bottom: 10px!important;
+    padding-bottom: 0px!important;
     margin-bottom: 10px!important;
     font-size: 13px !important;
     color: #fff;
+    text-align: left;
+}
+.page-items span {
+    margin-right: 10px;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    display: inline-block;
+    
+}
+.custom-books hr
+{
+    width: 100%;
+    display: inline-block;
+    border: none;
+
 }
 .page-items input
 {
-    width: 50px;
+    width: 35px;
     display: inline-block;
-    margin-right: 20px;
+    margin-right: 3px;
     padding-left: 5px;
     padding-right: 5px;
     border: none;
@@ -249,7 +264,7 @@ box-sizing: border-box;
 {
     position: absolute;
     width: 110px;
-    height: calc(100% - 30px);
+    height: calc(100% - 20px);
     top:0px;
     left: 0px;
     text-align: right;
@@ -290,13 +305,13 @@ box-sizing: border-box;
 }
 .side
 {
-     width: 700px;
+     /* width: 700px; */
     height: auto;
     display: inline-block;
     text-align: left;
     position: relative;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 80px;
     border-top: 2px solid #666;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -577,4 +592,36 @@ position:relative;
     display: inline-block;
     margin-top: 5px;
     font-size:13px;
+}
+.tab-settings-container
+{
+    width:100%;
+    display:inline-block;
+    position:relative;
+    text-align:center;
+}
+.tab-image
+{
+    width:auto;
+    height:auto;
+    display:inline-block;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+}
+.tab-image img
+{
+    width:600px;
+}
+.tab-image .tab
+{
+    position:absolute;
+    width:25px;
+    height:100px;
+    background:rgba(204, 204, 204, .7);
+    right:0px!important;
+   left:auto!important;
+    border-radius: 0px 16px 16px 0px;
+    top:15px;
+    border:1px solid rgba(255,130,0,.9);
 }

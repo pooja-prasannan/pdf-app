@@ -38,8 +38,8 @@ class CovertView(View):
                 'images': img_path_list,
                 'json_images': json.dumps(img_path_list),
                 'upload_id': upload_id,
-                'height':height,
-                'width':width
+                'height': height,
+                'width': width
             })
         except Exception as e:
             print(e)
@@ -66,20 +66,22 @@ class Base64ImageView(View):
         return render(request, 'process/index.html')
 
     def post(self, request):
-
         try:
-
             json_data = json.loads(request.body.decode('utf-8'))
 
             if json_data.get('action') == 'edit_image':
+
                 image_url = json_data.get('croppedImage')
+
                 image_id = "image{}".format(json_data.get('image_ids'))
                 encoded_image = image_url.split(',')[-1]
                 imgdata = base64.standard_b64decode(encoded_image)
+                print("imgurlllllllllllll", encoded_image)
                 upload_id = json_data.get('upload_id')
                 image_result = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id + '.png'), 'wb')
                 # img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
                 img_url = "{}upload/{}/{}.png".format(settings.MEDIA_URL, upload_id, image_id)
+
                 image_result.write(imgdata)
                 image_result.seek(0, 0)
 

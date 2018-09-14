@@ -22,7 +22,7 @@
 	-ms-user-select: none;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
-	width:500px;
+	width:100%;
 }
 
 .lSSlideOuter .lSPager.lSGallery:after,
@@ -33,7 +33,7 @@
 .lSSlideOuter {
 	overflow: hidden;
 	user-select: none;
-	width:500px;
+	width:100%;
 }
 
 .lightSlider:after,
@@ -50,7 +50,7 @@
 .lSSlideWrapper {
 	max-width: 100%;
 	overflow: hidden;
-	width:500px;
+	width:100%;
 }
 
 .lSSlideWrapper .lSSlide {

@@ -63,7 +63,6 @@ $(document).ready(function() {
             });
         $( "#next-button, #book_save" ).click(function(e) {
 
-           console.log("jp", window.selected)
            //window.selected = new Array()
            console.log(window.localStorage.getItem('data'));
 
@@ -120,7 +119,18 @@ $(document).ready(function() {
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
                 data["back_cover"] = window.selected
-
+                var ws =0;
+                var loops=0
+               while(loops< window.selected.length)
+                {
+                 if(data["front_cover"].includes(data["back_cover"][ws]))
+                 {
+                  data["back_cover"].remove(data["back_cover"][ws])
+//                  loops++;
+                 }
+                 loops++;
+                }
+                console.log("bccccccccccccc",data["back_cover"])
                 var back_cover = data["back_cover"];
                  for (i = 0; i < back_cover.length; i++) {
                         $("#"+back_cover[i]).hide();
@@ -142,10 +152,7 @@ $(document).ready(function() {
 
             if (current_step == "tabs") {
             name();
-
-
             }
-
             if (current_step == "refine-components") {
                 $(".wrapper").hide();
 
@@ -153,6 +160,7 @@ $(document).ready(function() {
                     alert("Please select EVEN number Stack")
                     return false;
                 }
+                $("#next-button").attr("id","build-book");
 
             }
             window.selected.length = 0;
@@ -164,7 +172,6 @@ $(document).ready(function() {
 
 
        function name(){
-
         if (window.selected.length % 2 != 0) {
             alert("Please select EVEN number Tabs")
             return false;
@@ -180,8 +187,30 @@ $(document).ready(function() {
           }
           for (i = 0; i < data["front_cover"].length; i++) {
               current_order.remove(data["front_cover"][i])
-
           }
+
+
+        var ws1 =0;
+        var loops1=0
+
+       while(loops1< window.selected.length)
+        {
+         if(window.selected.includes(data["back_cover"][ws1]))
+         {
+          window.selected.remove(data["back_cover"][ws1])
+//                  loops++;
+         }
+
+         if(window.selected.includes(data["front_cover"][ws1]))
+         {
+         window.selected.remove(data["front_cover"][ws1])
+//                  loops++;
+         }
+         loops1++;
+         ws1++;
+        }
+        console.log("tabbbbbbbbbbbbbbbbb",window.selected)
+
     var j=0;
     var l = 0;
     var k = 0;
@@ -193,14 +222,12 @@ $(document).ready(function() {
     var is_stack =false
 
 
-//           var ele= $('.ui-selected').attr('id');
-//           alert(ele+"ws")
-
     for(var i =0; i< current_order.length; i++)
     {
     if (current_order[i] == window.selected[j]){
-            if (is_stack){
-                new_tab.push(tab)
+            if (is_stack || tab.length == 2){
+                if (tab.length >= 1){
+                new_tab.push(tab)}
                 tab =[]
                 is_stack=false}
             tab.push(current_order[i])
@@ -209,17 +236,21 @@ $(document).ready(function() {
     }
     else{
         if (is_tab){
+           if (stack.length >= 1){
             new_stack.push(stack)
+            }
             stack =[]
             is_tab = false
             is_stack = true
         }
         stack.push(current_order[i])
     }
-    if ( i == current_order.length - 1){
-            new_tab.push(tab)
-            new_stack.push(stack)
-    }
+if ( i == current_order.length - 1){
+        if (tab.length >= 1){
+        new_tab.push(tab)}
+        if (stack.length >= 1){
+        new_stack.push(stack)}
+}
     }
     data["total_tabs"] = new_tab;
     data["total_stacks"] = new_stack
@@ -256,8 +287,6 @@ $(document).ready(function() {
                 var a= data["total_tabs"]
                 for(var i=0,j=0;i<a.length;i++)
     {
-//
-
 
          $("#"+a[i][0]).show();
          $("#"+a[i][0]).append(`<div><label for="name">Tab ${j+1} </label></div>`);
@@ -336,6 +365,7 @@ $(document).ready(function() {
                     });
 
         });
+
         $(".con-menu .del-btn").click(function()
         {
          $(this).parent().parent().hide();
@@ -345,7 +375,7 @@ $(document).ready(function() {
         data = JSON.parse(data)
 
         var del_index = data['order'].indexOf(del_element);
-        data['order'].splice(del_index,1)
+        data['order'].splice(del_index,2)
         data = JSON.stringify(data)
         window.localStorage.setItem('data', data);
         });

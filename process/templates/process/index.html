@@ -74,6 +74,16 @@ box-sizing: border-box;
         {% if width %}
             width = '{{width }}';
         {% endif %}
+
+         var attributes = '';
+        {% if attributes %}
+            attributes = '{{attributes }}';
+        {% endif %}
+       var json_datas =JSON.parse(attributes.replace(/&quot;/g,'"'));
+       console.log("json_datas",json_datas)
+
+        status = '{{status }}';
+
         var dimension=250*(height/width)
         var ratios = height/width;
     </script>
@@ -101,7 +111,7 @@ box-sizing: border-box;
     <script src="{% static 'js/lightslider.min.js' %}"></script>
    <!--<script src="{% static 'js/jquery.min.js' %}"></script>-->
     <script src="{% static 'js/jquery.imgareaselect.pack.js' %}"></script>
-
+    <script src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Panning-Zooming-Any-Elements-panzoom/dist/jquery.panzoom.js"></script>
 
 
 <!--<link rel="stylesheet" type="text/css" href="/home/pooja/Desktop/imgareaselect-default.css" />-->
@@ -165,6 +175,7 @@ box-sizing: border-box;
                     <div id= "crop"></div>
                     <div id="slide-crop"></div>
                     <div id="tab-shows"></div>
+                    <div id="merge"></div>
                 </div>
             </div>
       </form>

@@ -26,6 +26,7 @@ class CovertView(View):
 
             try:
                 os.mkdir(folder)
+                os.mkdir(folder+"/finalOutput")
             except Exception as e:
                 print(e)
             for image in images:
@@ -50,14 +51,18 @@ class EditorView(View):
     def get(self, request, pk):
         image_list = []
         folder = "{}/upload/{}".format(settings.MEDIA_ROOT, pk)
-
+        json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', pk, 'finalOutput', 'book_attribute_data.json'), 'r')
+        book_attribute_data = json.load(json_file)
+        print("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", type(book_attribute_data))
         for filename in os.listdir(folder):
-            image_list.append(os.path.join(settings.MEDIA_URL, "upload/{}{}".format(pk, filename)))
+            image_list.append(os.path.join(settings.MEDIA_URL, "upload/{}/{}".format(pk, filename)))
 
         return render(request, 'process/index.html', {
             'images': image_list,
             'json_images': json.dumps(image_list),
-            'upload_id': pk
+            'upload_id': pk,
+            'attributes': json.dumps(book_attribute_data),
+            'status': True
         })
 
 
@@ -76,7 +81,7 @@ class Base64ImageView(View):
                 image_id = "image{}".format(json_data.get('image_ids'))
                 encoded_image = image_url.split(',')[-1]
                 imgdata = base64.standard_b64decode(encoded_image)
-                print("imgurlllllllllllll", encoded_image)
+
                 upload_id = json_data.get('upload_id')
                 image_result = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id + '.png'), 'wb')
                 # img_url = '%s%s.png' % (settings.MEDIA_URL, image_id)
@@ -119,6 +124,8 @@ class MergeImageView(View):
         components = ['front_cover', 'back_cover', 'total_tabs', 'total_stacks']
         book_attr_data = json_data.get('book_attribute')
         upload_id = json_data.get('upload_id')
+        tab_settings_data = json_data.get('tab_settings')
+        hello_world(book_attr_data, tab_settings_data)
         save_book_attributes(book_attr_data, upload_id)
         merge_img_data = eval(json_data.get('merge_image'))
         for cmp in components[:2]:
@@ -129,14 +136,14 @@ class MergeImageView(View):
                 image_id = "{}{}.png".format(cmp, id)
                 try:
                     merge_image([x, next(it)], image_id, upload_id)
-                    url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
+                    url = "{}upload/{}/finalOutput/{}".format(settings.MEDIA_URL, upload_id, image_id)
                     img_lis.append(url)
                 except Exception as e:
                     image_id = "{}{}.png".format(cmp, id)
                     old_image = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, "image{}.png".format(x)), 'rb').read()
-                    new_img = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id), 'wb')
+                    new_img = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', image_id), 'wb')
                     new_img.write(old_image)
-                    url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
+                    url = "{}upload/{}/finalOutput/{}".format(settings.MEDIA_URL, upload_id, image_id)
                     img_lis.append(url)
 
         for cmp in components[2:]:
@@ -149,14 +156,14 @@ class MergeImageView(View):
                     image_id = "{}{}_{}.png".format(cmp, i, id)
                     try:
                         merge_image([x, next(it)], image_id, upload_id)
-                        url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
+                        url = "{}upload/{}/finalOutput/{}".format(settings.MEDIA_URL, upload_id, image_id)
                         img_lis.append(url)
                     except Exception as e:
                         image_id = "{}{}_{}.png".format(cmp, i, id)
                         old_image = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, "image{}.png".format(x)), 'rb').read()
-                        new_img = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id), 'wb')
+                        new_img = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', image_id), 'wb')
                         new_img.write(old_image)
-                        url = "{}upload/{}/{}".format(settings.MEDIA_URL, upload_id, image_id)
+                        url = "{}upload/{}/finalOutput/{}".format(settings.MEDIA_URL, upload_id, image_id)
                         img_lis.append(url)
 
         return JsonResponse({'img_url': img_lis})
@@ -179,11 +186,15 @@ def merge_image(image_merge_list, image_id, upload_id):
         new_im.paste(im, (x_offset, 0))
         x_offset += im.size[0]
 
-    new_im.save(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, image_id))
+    new_im.save(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', image_id))
 
 
 def save_book_attributes(book_attr_data, upload_id):
-    json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'book_attribute_data.json'), 'a')
+    json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', 'book_attribute_data.json'), 'a')
     json.dump(book_attr_data, json_file)
     json_file.write("\n")
 
+
+def hello_world(book_attr_data, tab_settings_data):
+    print("HELLOOOOOOOOOO WORLDDDDDDDDDDDDDDDDDDDDD")
+    print(book_attr_data, tab_settings_data)

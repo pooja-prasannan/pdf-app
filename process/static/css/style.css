@@ -191,7 +191,7 @@ box-sizing: border-box;
 .paper-style
 {
     width: auto;
-    height: 660px;
+    height: 600px;
     display: inline-block;
     text-align: left;
     position: relative;
@@ -205,7 +205,7 @@ box-sizing: border-box;
     height: 600px;
     background-color: #fff!important;
     display: inline-block;
-    margin-left: 80px !important;
+    margin-left: 100px !important;
 }
 .page-items
 {
@@ -224,7 +224,7 @@ box-sizing: border-box;
     white-space: nowrap;
     margin-bottom: 20px;
     display: inline-block;
-    
+
 }
 .custom-books hr
 {
@@ -256,26 +256,33 @@ box-sizing: border-box;
 {
     border-radius: 25px;
 }
-.ring-hole.round
+.ring-hole.circle
 {
-   border-radius: 10px;
+   border-radius: 50%;;
 }
 .rings
 {
     position: absolute;
     width: 110px;
-    height: calc(100% - 20px);
+    height: 100%;
     top:0px;
     left: 0px;
     text-align: right;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    padding-top: 10px !important;
+    padding-top: 0px !important;
     margin: 0px!important;
     padding-right: 0px !important;
     padding-bottom: 0px!important;
     padding-left: 0px!important;
+}
+.rings div
+{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    position: relative;
 }
 .ring-hole
 {
@@ -286,22 +293,49 @@ box-sizing: border-box;
     float: right;
 /*    margin-top: 15px;
     margin-bottom: 15px;*/
-    margin-left: 100px!important;
+    margin-left: 90px!important;
     margin-bottom: 0px!important;
     margin-top: 0px!important;
     margin-right: 0px!important;
     padding:0px !important;
+    top:0px!important;
+    bottom: 0px!important;
+    display: flex !important;
+    justify-content: space-evenly !important;
+flex-direction: column !important;
 }
-.ring-hole::after
+.ring-hole .pairs
+{
+
+    position: relative;
+    width: 100%;
+    display: block;
+}
+.ring-hole .pairs::after
 {
     position: absolute;
     content: "";
     width: 110px;
     height: 2px;
     background-color: #fff;
-    top: calc(50% - 1px);
+    top: 0px;
     z-index: 999;
-    right: 10px;
+    right: 50%;
+}
+.ring-set
+{
+    top:0px!important;
+    bottom: 0px!important;
+}
+.zoom-buttons
+{
+    position: absolute;
+    right: 3%;
+    z-index:99;
+}
+.move-page
+{
+    transform: matrix(1, 0, 0, 1, 0, 0)!important;
 }
 .side
 {
@@ -501,6 +535,12 @@ box-sizing: border-box;
 {
     /*margin-top:107px!important;*/
 }
+.ui-sortable-placeholder
+{
+    border: 1px dashed #666;
+    background: #999;
+    visibility: visible!important;
+}
 .add-btn-div button
 {
     color: #fff;
@@ -553,7 +593,7 @@ position:relative;
 .tab-settings
 {
     position:absolute;
-    right:5%;
+    right:3%;
     top:5%;
     width:250px;
     height:auto;
@@ -562,6 +602,7 @@ position:relative;
     background:#000;
     border:1px solid #fff;
     color:#fff;
+    z-index: 99;
 }
 .tab-settings h2
 {
@@ -618,10 +659,82 @@ position:relative;
     position:absolute;
     width:25px;
     height:100px;
-    background:rgba(204, 204, 204, .7);
+    background:rgba(204, 204, 204, 0);
     right:0px!important;
    left:auto!important;
     border-radius: 0px 16px 16px 0px;
     top:15px;
-    border:1px solid rgba(255,130,0,.9);
+    border:1px solid rgba(255,130,0,1);
+}
+#merge
+{
+    float: left;
+    width: calc(100% - 20px);
+    margin-top: 26px;
+    padding-left: 20px;
+}
+#merge .images-ids
+{
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.img-pre {
+    position: absolute;
+    top: 0px;
+}
+.inbxs {
+    width: auto;
+    float: right;
+    margin-left:15px;
+}
+.inbxs input
+{
+    width:40px;
+    margin-right:10px;
+    margin-left:5px;
+}
+.img-preview
+{
+    position:absolute;
+    top:25px;
+    width:300px;
+    height:300px;
+    left:0px;
+    display:none;
+
+}
+.img-preview img
+{
+    max-width: initial!important;
+}
+.left-arrow
+{
+    position:absolute;
+    top:calc(50% - 30px);
+    width:20px;
+    height:120px;
+    cursor:pointer;
+    left:20px;
+     background:url(../img/left-arrow.png) center center no-repeat;
+     background-size: 100%;
+}
+.right-arrow
+{
+    position:absolute;
+    top:calc(50% - 30px);
+    width:20px;
+    height:120px;
+    cursor:pointer;
+    right:20px;
+    background:url(../img/right-arrow.png) center center no-repeat;
+    background-size: 100%;
+}
+.lSAction
+{
+    display:none!important;
+}
+.lSGallery
+{
+    display:none;
 }

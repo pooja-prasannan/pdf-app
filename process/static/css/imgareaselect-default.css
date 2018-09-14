@@ -4,18 +4,22 @@
 
 .imgareaselect-border1 {
 	background: url(border-v.gif) repeat-y left top;
+	border: 2px solid orange;
 }
 
 .imgareaselect-border2 {
     background: url(border-h.gif) repeat-x left top;
+    border: 2px solid orange;
 }
 
 .imgareaselect-border3 {
     background: url(border-v.gif) repeat-y right top;
+    border: 2px solid orange;
 }
 
 .imgareaselect-border4 {
     background: url(border-h.gif) repeat-x left bottom;
+    border: 2px solid orange;
 }
 
 .imgareaselect-border1, .imgareaselect-border2,
@@ -25,16 +29,23 @@
 }
 
 .imgareaselect-handle {
-    background-color: #fff;
-    border: solid 1px #000;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
+    opacity: 1;
+    background: orange;
+    border: 1px solid orange;
+    width: 7px !important;
+    height: 7px!important;
 }
 
 .imgareaselect-outer {
-    background-color: #000;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
+    background: #010101;
+    background: -moz-linear-gradient(top, #010101 0%, #38383a 100%);
+    background: -webkit-linear-gradient(top, #010101 0%,#38383a 100%);
+    background: linear-gradient(to bottom, #010101 0%,#38383a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#010101', endColorstr='#38383a',GradientType=0 );
+    color: #fff;
+    font-family: 'Quattrocento Sans';
+    height: 100%;
+    background-attachment: fixed;
 }
 
 .imgareaselect-selection {  

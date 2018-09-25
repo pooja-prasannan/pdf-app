@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PDF Editor</title>
+</head>
+<body>
+{% load static %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="{% static 'css/jquery.steps.css' %}?ver1.0.1" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    <script type="text/javascript">
+        var data = {{json_images |safe }};
+    </script>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="{% static 'js/jquery.steps.js' %}"></script>
+    <script src="{% static 'js/jquery.steps.min.js' %}"></script>
+    <script src="{% static 'js/process.js' %}"></script>
+    <script src="{% static 'js/pdf_tool.js' %}"></script>
+
+{% block content %}
+<div class="in-content">
+    <h2 id="lbl-step-1">Step 1: Upload PDF</h2>
+    <div class="in-box">
+      <form method="post" enctype="multipart/form-data" id="form_pdfconvert">
+        {% csrf_token %}
+           <div class="upload-box">
+               <input type="file" name="file" id="fileupload">
+                    <img src="{% static 'img/upload.svg' %}"><br/>
+                    <label>Browse PDF</label><br/>
+                    <button type="submit">Upload</button>
+                    <div id="filename"></div>
+                    <div id="progress"></div>
+                    <div id="progressBar"></div>
+           </div>
+          
+           <div class="dem">
+               <div id="sortable" class="ui-state-default">
+                    {% for img in data %}
+                       <div class="ui-state-default"><img src="{{img}}"  width="150px" height="250px" id="{{forloop.counter}}"></div>
+                       {% endfor %}
+                    </div>
+       </div>
+      </form>
+    </div>
+  
+
+{% endblock %}
+</body>
+</html>
+
+

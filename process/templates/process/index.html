@@ -50,6 +50,7 @@ box-sizing: border-box;
     <link rel="stylesheet"  href="{% static 'css/imgareaselect-default.css' %}" />
      <link rel="stylesheet" href="{% static 'css/lightslider.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/slider.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/perfect-scrollbar.css' %}"/>
 
     <script type="text/javascript">
         var jsonData = {{json_images |safe }};
@@ -75,14 +76,13 @@ box-sizing: border-box;
             width = '{{width }}';
         {% endif %}
 
-         var attributes = '';
-        {% if attributes %}
-            attributes = '{{attributes }}';
-        {% endif %}
-       var json_datas =JSON.parse(attributes.replace(/&quot;/g,'"'));
-       console.log("json_datas",json_datas)
+        var attributes = '';
+         {% if attributes %}
+             attributes = '{{attributes }}';
+          {% endif %}
 
-        status = '{{status }}';
+          var json_datas =JSON.parse(attributes.replace(/&quot;/g,'"'));
+          console.log("json_datas",json_datas)
 
         var dimension=250*(height/width)
         var ratios = height/width;
@@ -112,6 +112,7 @@ box-sizing: border-box;
    <!--<script src="{% static 'js/jquery.min.js' %}"></script>-->
     <script src="{% static 'js/jquery.imgareaselect.pack.js' %}"></script>
     <script src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Panning-Zooming-Any-Elements-panzoom/dist/jquery.panzoom.js"></script>
+    <script src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
 
 
 <!--<link rel="stylesheet" type="text/css" href="/home/pooja/Desktop/imgareaselect-default.css" />-->
@@ -188,7 +189,7 @@ box-sizing: border-box;
         var ratio = height/width;
         console.log(height,width);
         var imghgt = 250*ratio;
-        var tabImgHgt = 600*ratio
+        var tabImgHgt = 900*ratio
         $(".img-responsive").css({"height":(250*ratio)})
 
         var css = ".add-btn-div { margin-top: " + (imghgt - 150)/2 + "px!important } .tab-image img { height: " +tabImgHgt + "px!important }",

@@ -17,11 +17,18 @@ class CovertView(View):
     def post(self, request):
         try:
             file = request.FILES['file']
-            images = convert_from_bytes(file.read())
+            images = convert_from_bytes(file.read(), dpi=72, fmt='png')
             width, height = images[0].size
             img_path_list = []
             i = 1
-            upload_id = uuid.uuid4()
+            
+            uniqueID = str(uuid.uuid4())[:5]
+
+            upload_id = (os.path.splitext(file.name)[0]) + "_" + uniqueID
+            
+            
+
+
             folder = "{}/upload/{}".format(settings.MEDIA_ROOT, str(upload_id))
 
             try:
@@ -53,7 +60,6 @@ class EditorView(View):
         folder = "{}/upload/{}".format(settings.MEDIA_ROOT, pk)
         json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', pk, 'finalOutput', 'book_attribute_data.json'), 'r')
         book_attribute_data = json.load(json_file)
-        print("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", type(book_attribute_data))
         for filename in os.listdir(folder):
             image_list.append(os.path.join(settings.MEDIA_URL, "upload/{}/{}".format(pk, filename)))
 
@@ -125,7 +131,7 @@ class MergeImageView(View):
         book_attr_data = json_data.get('book_attribute')
         upload_id = json_data.get('upload_id')
         tab_settings_data = json_data.get('tab_settings')
-        hello_world(book_attr_data, tab_settings_data)
+        hello_world(book_attr_data, tab_settings_data,upload_id)
         save_book_attributes(book_attr_data, upload_id)
         merge_img_data = eval(json_data.get('merge_image'))
         for cmp in components[:2]:
@@ -195,6 +201,6 @@ def save_book_attributes(book_attr_data, upload_id):
     json_file.write("\n")
 
 
-def hello_world(book_attr_data, tab_settings_data):
+def hello_world(book_attr_data, tab_settings_data,upload_id):
     print("HELLOOOOOOOOOO WORLDDDDDDDDDDDDDDDDDDDDD")
-    print(book_attr_data, tab_settings_data)
+    print(book_attr_data, tab_settings_data,upload_id)

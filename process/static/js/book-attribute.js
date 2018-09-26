@@ -8,16 +8,12 @@ $(document).ready(function() {
 
                 $("#next-button ").data("current-step","set-book-attributes");
                 $("#lbl-step-title ").text("Set Book Attribute");
-//                  $("#build-book").show();
-    //              $("#merge").hide();
-    
-    
-               // $("#next-button").html(`<button name="build-back" class="orange-btn "  id="build-back-btn">Back</button>`);
+
                 $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="back_to_refine">Back</button>`);
                 $("#lbl-step-title").append(`&nbsp <button id="tab-settings" class="orange-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
                 $(".wrapper").hide();
                 $("#next-button").attr("id","build-book");
-                $("#next-button").hide();
+                $("#build-book").hide();
                 $("#sortable").hide();
     
                  if(status && !$('#copy').html()){
@@ -244,18 +240,14 @@ $(document).ready(function() {
                 $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
                 $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
                 $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
-                // $(".paper").css({"height": bookHgt*50})
-                // $(".paper-style").css({"height": bookHgt*50});
-                
+
                 var r1 = $("#r1").val();
                  var r2 = $("#r2").val();
                  var r3 = $("#r3").val();
                  var r4 = $("#r4").val();
                 var totalRings = numOfRings*numOfRingset;
                 $(".holes").addClass(ringHoleType);
-                    // $(".paper").addClass(paperCornerType);
                     var ringHgt = paperhgt/totalRings;
-                    // $(".rings").css("line-height", ringHgt);
                     var ringmgnTop = 5;
                     for(var j=0; j<numOfRingset; j++)
                     {
@@ -268,7 +260,6 @@ $(document).ready(function() {
                         {
 
                             content = content+ '<div class="ring-hole"><div class="holes"></div></div>';
-                            // $(".rings .ring-hole").addClass(ringHoleType);
                         }
                         content = content + '</div>';
                         div.innerHTML = content;
@@ -278,9 +269,6 @@ $(document).ready(function() {
                     $(".holes").css({"height": (600*hole_hgt)/100});
                     $(".pairs").css({"margin-top":((6*hole_hgt)/pairs) - (pair_thick*pairs)+"px"})
                     $(".thickness").height((600*bookthick)/100);
-                    // $(".pairs").css({"margin-top":((((6*hole_hgt)/pairs)-(6)*pair_thick)/(pair_separation*6))+"px"})
-                    // $(".ring-hole .pairs").css({"margin-top":((((600*hole_hgt)/100))/pairs)-((6*pair_thick)*pairs) +"px"})
-                // $(".ring-hole .pairs").css({"margin-top":(((600*hole_hgt)/100)/pairs)+"px"})
                 for (k=1; k<=pairs; k++)
                 {
                     var className = "ringPairs" + k.toString()
@@ -314,8 +302,6 @@ $(document).ready(function() {
                     $(".side").css({"width": (bookWdth/bookHgt)*600});
                     $(".rings").css({"left" : (((bookWdth/bookHgt)*600)*offset)/100})
     
-                    // $(".paper").css({"height": bookHgt*50})
-                    // $(".paper-style").css({"height": bookHgt*50});
                     $(".thickness").css({"width": (bookWdth/bookHgt)*600})
                     $(".thickness").height((600*bookthick)/100);
                     $(".paper").css({"border-top-right-radius": 6 * r1 +"px"});
@@ -323,7 +309,6 @@ $(document).ready(function() {
                     $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
                     $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
                     var ringmgnTop = 5
-                    // $(".rings").css({"line-height": ringHgt+"px"});
                     $(".rings").empty();
                     $(".tabs-tags").empty();
                     var tabs = $("#tabs").val();
@@ -358,7 +343,6 @@ $(document).ready(function() {
                     }
     
                     var bookWidth = $("#book-width").val();
-                       // var paperCornerType =$("#corner_type").val();
                 var bookWidth = $("#book-width").val();
                 $(".rings div div.ring-set").css({"height":(600/numOfRingset)+ "px"});
                 $(".holes").css({"width": (600*hole_width)/100});
@@ -374,11 +358,7 @@ $(document).ready(function() {
                 $('.pairs:after').css({"height":"3px"})
                 $(".holes").removeClass("circle");
                 $(".holes").removeClass("square");
-                // $(".paper").removeClass("round");
-                // $(".paper").removeClass("square");
                 $(".holes").addClass(ringHoleType);
-                //$(".ring-hole").css({"left":-((((600*hole_width)/100)-((600*3)/100)))/2});
-                // $(".ring-set").height(((600/numOfRingset)-((6*ring_comp)*2)));
                 var ringsetHgt = (600/numOfRingset)-((6*ring_comp)*2);
                 $(".ring-set").css({
                     "height":ringsetHgt+"px",
@@ -418,8 +398,6 @@ $(document).ready(function() {
                     })
                 }
                     
-                    // $(".pairs").css({"margin-top":(((((600*hole_hgt)/100)/pairs)/(6)*pair_thick)/(pair_separation*6))+"px"})
-                    // $(".ring-hole .pairs").css({"margin-top":((((600*hole_hgt)/100))/pairs)-((6*pair_thick)*pairs) +"px"})
                     if($("#ring_pair").val() > 3)
                     {
                         alert("Allowed pairs is 3");
@@ -438,13 +416,10 @@ $(document).ready(function() {
                 $("select").change(function()
                 {
                     var ringHoleType =$("#hole_type").val();
-                // var paperCornerType =$("#corner_type").val();
                     $(".holes").removeClass("circle");
                     $(".holes").removeClass("square");
-                    // $(".paper").removeClass("round");
-                    // $(".paper").removeClass("square");
+
                     $(".holes").addClass(ringHoleType);
-                    // $(".paper").addClass(paperCornerType);
                 });
     
                 var paperhgt = $(".paper").height();
@@ -455,7 +430,6 @@ $(document).ready(function() {
                 var ringHoleType =$("#hole_type").val();
                 var paperCornerType =$("#corner_type").val();
                
-                // $(".rings").css("line-height", ringHgt);
                     var ringmgnTop = 5
                 function rings()
                 {
@@ -571,13 +545,7 @@ $(document).ready(function() {
                  "corner3B":$("#tab-c3-br").val(),
                  "corner4B":$("#tab-c4-br").val()
                  }
-    
-    
-    //             $("#merge").show()
-    
-    
-    
-    
+
     
                 var datas = window.localStorage.getItem('data');
                 datas = JSON.parse(datas)
@@ -647,7 +615,7 @@ $(document).ready(function() {
                                 "upload_id":upload_id,
                                 "merge_image":window.localStorage.getItem('data')
                 }
-    //          $("#sortable").empty();
+
               // Use `jQuery.ajax` method
               $.ajax('/merge-images/', {
                 method: "POST",
@@ -657,12 +625,7 @@ $(document).ready(function() {
                 contentType: false,
                 success(data) {
                 console.log(data);
-    //              console.log('Upload success', data['img_url']);
-    //              for(var inc =0;inc< data['img_url'].length;inc++){
-    //             $("#merge").append(` <div  id=${inc} class="images-ids"  class="ui-state-default">
-    //              <img src="#"  width="150px" height="250px" class="img-responsive" alt=""> </div>`)
-    //              $("#"+inc).find('img').attr('src', data['img_url'][inc]).width(250).height(dimension);
-    //              }
+
                     $('#sortable').show()
                 },
                 error() {
@@ -708,13 +671,8 @@ $(document).ready(function() {
               $("#lbl-step-title ").text("Set Tab Dimensions");
               $("#tab-shows").show();
               $("#build-book").hide();
-    //          $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
-    //          $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
               $("#copy").hide();
                $("#lbl-step-title").append(`&nbsp <button name="back_to_attribute" class="orange-btn" id="tab_to_attribute">Back</button>`);
-//              $("#build-book").html("");
-//              $("#build-book").html("");
-    //          $("#build-book").addClass("tab-to-refine");
               var data = window.localStorage.getItem('data');
               data = JSON.parse(data)
               var tab_page=data["total_tabs"][0][0];
@@ -760,8 +718,6 @@ $(document).ready(function() {
 
               </div>
           </div>`);
-
-
                }
 
                else{
@@ -821,7 +777,6 @@ $(document).ready(function() {
                     var tWheight = $("#tab-height").val();
                     var tabImgeHt = $(".tab-image img").height();
                     var tabImgeWdt = $(".tab-image img").width();
-                $(".tab-image .tab").css({"height": (tabImgeHt/(tabs/tab_rows))});
                 $(".tab-image .tabs-attrs").css({
                     "height": (tabImgeHt)
                 });
@@ -848,18 +803,11 @@ $(document).ready(function() {
                 }
     
                 head.appendChild(style);
-                // var widthInput = $('width');
-                // var heightInput = $('height');
-                // var button = $('button');
+
 
                 var ps = new PerfectScrollbar('.tab-image');
                 ps.update();
-                // button.addEventListener('click', function () {
-                // demoDiv.style.width = (widthInput.value || 600) + 'px';
-                // demoDiv.style.height = (heightInput.value || 400) + 'px';
 
-               
-                // });
                     },200)  
                     
                 $(".tab-settings input").bind("keyup",function(){
@@ -878,9 +826,7 @@ $(document).ready(function() {
                     var tabpad = $("#tab-pad").val();
                     var tabPos = $("#tab-position").val();
                     var hgttt = (tabImgeHt/100) * (tWwidth);
-                        // var gghttt = (tabImgeHt/100 ) * (tWwidth+1);
-                        // var toppp = gghttt - hgttt;
-                      
+
                        var tabbshgt = (tabImgeHt/(tabs/tab_rows));
                        var tabPosition = tabbshgt/2
 
@@ -889,19 +835,14 @@ $(document).ready(function() {
                         curTop = growEl.offset().top,
                         newHeight = tabbshgt,
                         newMargin = (newHeight -curHeight)/2;
-                    // $(".tab-image .tab").css({"margin-top":(((((tabImgeHt-hgttt)/100)*tabPos)/2)+((tabImgeHt-hgttt)/4))+"px",
-                    //         })
+
                    
                     $(".tab-image .tab").css({"margin-top":    ((tabImgeHt/100) * tabPos)        + "px"})
 
-                    
-                        // if(newMargin < 0){
-                        // newMargin = 0;   
-                        // }
+
 
                     $(".tab-image .tab").css({"height":hgttt+"px", "top":(newMargin) + 'px'});
-                        // console.log({tabImgeHt, tWwidth, hgttt, gghttt});
-                   
+
                     $(".tab-image .tab").css({"width": (tabImgeWdt/100 * tWheight)});
                     $(".tab-image .tab .tab-padding").css({"width": (tabImgeWdt/100 * tabpad)});
 
@@ -1209,22 +1150,7 @@ $(document).ready(function() {
                     $(".tab-image").addClass("move-page");
                     $(".tab-image .tab").css({"box-shadow":"0px 0px 0px 1px rgba(255,130,0,.4)"})
                 });
-                // var $section = $('.tab-settings-container');
-                // $section.find('.zooming').panzoom({
-                //     contain: 'invert',
-                //     which: 1,
-                //     minScale: .25,
-                //     maxScale: 3,
-                //     disableXAxis: true,
-                //     disableYAxis: false,
-                //     focal: {clientX:100, clientY:0},
-                //   $zoomIn: $section.find(".zoom-in"),
-                //   $reset: $section.find(".reset"),
-                //   $zoomOut: $section.find(".zoom-out")
-                // });
-                // $('.tab').draggable({
-                //     containment: $('.selector').parent().parent()
-                // }).filter('.tab').draggable("option", "axis", "y");
+
             });
     
             $(document).on("click", '#build-book', function(e){
@@ -1233,7 +1159,6 @@ $(document).ready(function() {
               $("#copy").hide();
     
               $("#lbl-step-title ").text("Refine Components");
-//              $("#next-button").show();
               $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
               $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
               $("#sortable").show();

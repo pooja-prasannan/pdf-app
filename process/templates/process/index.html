@@ -54,7 +54,7 @@ box-sizing: border-box;
 
     <script type="text/javascript">
         var jsonData = {{json_images |safe }};
-
+        var ratio;
         var img_url = '';
         {% if img_url %}
             img_url = {{img_url }};
@@ -186,7 +186,7 @@ box-sizing: border-box;
 <script>
     $(document).ready(function()
     {
-        var ratio = height/width;
+        ratio = height/width;
         console.log(height,width);
         var imghgt = 250*ratio;
         var tabImgHgt = 900*ratio

@@ -220,7 +220,7 @@ $(document).ready(function() {
          loops1++;
          ws1++;
         }
-        console.log("tabbbbbbbbbbbbbbbbb",window.selected)
+
 
     var j=0;
     var l = 0;
@@ -265,12 +265,19 @@ if ( i == current_order.length - 1){
     }
     data["total_tabs"] = new_tab;
     data["total_stacks"] = new_stack
-//            for (i=0;i< data["total_tabs"].length;i++){
-//           for(j=0; j< data["total_tabs"][i].length;j++){
-//                console.log("ffff",data["total_tabs"][i][0][0])
-//
-//              }
-//            }
+           for (var i=0;i< data["total_stacks"].length;i++){
+
+        if (data["total_stacks"][i].length % 2 != 0) {
+            alert("Stacks must be been EVEN number")
+            return false;
+        }
+
+
+
+          }
+
+
+
     console.log("order",current_order)
 
     // enabling sortable before adding
@@ -283,10 +290,6 @@ if ( i == current_order.length - 1){
                                     var drag_data = ui.item.attr('data-order')
                                     var drag_id = ui.item.attr('id')
                                     var data_src = ui.item.find('img').attr('src')
-                                     console.log("1",drag_data);
-
-                                     console.log("sunil",drag_data,drag_id,data_src);
-
                                     var data = window.localStorage.getItem('data');
                                     data = JSON.parse(data)
                                     data["new_order"] = image_ids
@@ -339,7 +342,9 @@ if ( i == current_order.length - 1){
                                              $("#"+data["total_stacks"][last_char][stacks]).remove();
                                              $("#"+drag_id).after(`<div id = ${data["total_stacks"][last_char][stacks]} class="images-ids" data-order=${drag_data} class="ui-state-default" style="display: none">
                                             <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
-//                                             $("#"+drag_id).find('img').attr('src', data_src).width(250).height(dimension);
+                                             $("#"+drag_id).find('img').attr('src', data_src).width(250).height(dimension);
+                                            drag_id = data["total_stacks"][last_char][stacks]
+
 
                                          }
 

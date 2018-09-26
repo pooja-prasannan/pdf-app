@@ -533,10 +533,14 @@ span.pairs.separation {
 
 .cropper-container
 {
-    width:150px!important;
-    height:220px!important;
+    /* width:150px!important;
+    height:220px!important; */
 }
-
+.czoom-buttons
+{
+    position: absolute;
+    right: 3px;
+}
   .wrapper {
     display: block;
     margin: 0 auto;
@@ -805,7 +809,7 @@ position:relative;
 {
     position:absolute;
     width:25px;
-    height:100px;
+    height:100%;
     background:rgba(204, 204, 204, 0);
     right:0px!important;
    left:auto!important;

@@ -18,8 +18,7 @@ var keys;
             selector: '.context-menu-two',
             trigger: 'left',
           determinePosition: function($menu){
-        // Position using jQuery.ui.position
-        // http://api.jqueryui.com/position/
+
         $menu.css('display', 'block')
             .position({ my: "center top", at: "center bottom", of: this, offset: "0 5"})
             .css('display', 'none');
@@ -106,7 +105,7 @@ var keys;
                                   var len = data['front_cover'].length;
                                   var parent_id = data['front_cover'][len-1];
 
-                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
+                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="front_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);
                                  $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(dimension);
 
@@ -142,7 +141,7 @@ var keys;
 
                                     var len = data['back_cover'].length;
                                   var parent_id = data['back_cover'][len-1];
-                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids"  class="ui-state-default">
+                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="back_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);
                                  $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(dimension);
                                  $("#sortable").sortable({

@@ -40,7 +40,8 @@ box-sizing: border-box;
     </style>
     <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}"/>
     <link rel="stylesheet" href="{% static 'scripts/contextmenu/jquery.contextMenu.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" >
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans" >-->
+    <link rel="stylesheet" href="{% static 'css/font.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/cropper.css' %}"/>
@@ -97,17 +98,15 @@ box-sizing: border-box;
     <!--<script src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Panning-Zooming-Any-Elements-panzoom/dist/jquery.panzoom.js"></script>-->
     <script src="{% static 'js/jquery.panzoom.js' %}"></script>
     <script src="{% static 'js/perfect-scrollbar.min.js' %}"></script>
-
     <script src="{% static 'js/pdf-step.js' %}"></script>
-     <script src="{% static 'js/pdf-edit.js' %}"></script>
-   <script src="{% static 'js/pdf-add.js' %}"></script>
+    <script src="{% static 'js/pdf-edit.js' %}"></script>
+    <script src="{% static 'js/pdf-add.js' %}"></script>
     <script src="{% static 'js/book-attribute.js' %}"></script>
 
 
 {% block content %}
-<div>
-    <h2 id="lbl-step-title">Step 1: Upload PDF</h2>
-
+    <div>
+        <h2 id="lbl-step-title">Step 1: Upload PDF</h2>
     <div>
       <form method="post" enctype="multipart/form-data" id="form_pdfconvert" style="text-align:center">
         {% csrf_token %}
@@ -127,7 +126,6 @@ box-sizing: border-box;
            </div>
            
             <div id="steps" style="display:none">
-                <!--<div id="info_box">Organise</div>-->
                 <div class="dem">
                     <div id="sortable" class="ui-state-default images">
 
@@ -152,44 +150,44 @@ box-sizing: border-box;
     </div>
 
 </div>
-<script>
-    $(document).ready(function()
-    {
-        ratio = height/width;
-        console.log(height,width);
-        var imghgt = 250*ratio;
-        var tabImgHgt = 900*ratio
-        $(".img-responsive").css({"height":(250*ratio)})
+    <script>
+        $(document).ready(function()
+        {
+            ratio = height/width;
+            console.log(height,width);
+            var imghgt = 250*ratio;
+            var tabImgHgt = 900*ratio
+            $(".img-responsive").css({"height":(250*ratio)})
 
-        var css = ".add-btn-div { margin-top: " + (imghgt - 150)/2 + "px!important } .tab-image img { height: " +tabImgHgt + "px!important }",
-      head = document.head || document.getElementsByTagName("head")[0],
-      style = document.createElement("style");
+            var css = ".add-btn-div { margin-top: " + (imghgt - 150)/2 + "px!important } .tab-image img { height: " +tabImgHgt + "px!important }",
+          head = document.head || document.getElementsByTagName("head")[0],
+          style = document.createElement("style");
 
-    style.type = "text/css";
-    if (style.styleSheet) {
-      style.styleSheet.cssText = css;
-    }
-    else {
-      style.appendChild(document.createTextNode(css));
-    }
+        style.type = "text/css";
+        if (style.styleSheet) {
+          style.styleSheet.cssText = css;
+        }
+        else {
+          style.appendChild(document.createTextNode(css));
+        }
 
-    head.appendChild(style);
-    });
+        head.appendChild(style);
+        });
 
-      var imghgts = 250*ratios
-      var css1 = ".con-menu { top: " + (imghgts/2) + "px!important }",
-      head = document.head || document.getElementsByTagName("head")[0],
-      style1 = document.createElement("style");
+          var imghgts = 250*ratios
+          var css1 = ".con-menu { top: " + (imghgts/2) + "px!important }",
+          head = document.head || document.getElementsByTagName("head")[0],
+          style1 = document.createElement("style");
 
-    style1.type = "text/css";
-    if (style1.styleSheet) {
-      style1.styleSheet.cssText = css1;
-    } else {
-      style1.appendChild(document.createTextNode(css1));
-    }
+        style1.type = "text/css";
+        if (style1.styleSheet) {
+          style1.styleSheet.cssText = css1;
+        } else {
+          style1.appendChild(document.createTextNode(css1));
+        }
 
-    head.appendChild(style1);
-</script>
+        head.appendChild(style1);
+    </script>
 {% endblock %}
 </body>
 </html>

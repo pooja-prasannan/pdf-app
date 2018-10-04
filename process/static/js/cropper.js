@@ -138,7 +138,7 @@
     zoomOnTouch: true,
 
     // Enable to zoom the image by wheeling mouse
-    zoomOnWheel: true,
+    zoomOnWheel: false,
 
     // Define zoom ratio when zoom the image by wheeling mouse
     wheelZoomRatio: 0.1,
@@ -789,7 +789,8 @@
 
     var end = {
       endX: pageX,
-      endY: pageY
+      endY: pageY,
+
     };
 
     return endOnly ? end : assign({
@@ -1212,6 +1213,7 @@
       };
 
       this.containerData = containerData;
+
 
       setStyle(cropper, {
         width: containerData.width,
@@ -2631,7 +2633,7 @@
      * @returns {Cropper} this
      */
     moveTo: function moveTo(x) {
-      var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : x;
+      /**var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : x;
       var canvasData = this.canvasData;
 
       var changed = false;
@@ -2655,7 +2657,7 @@
         }
       }
 
-      return this;
+      return this;*/
     },
 
 

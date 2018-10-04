@@ -1,8 +1,7 @@
 .demo {
     max-width:600px;
-    width: 100%;
+    width:90%;
     height:500px;
-        margin-top: 40px;
 }
 ul {
     list-style: none outside none;

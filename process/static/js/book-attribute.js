@@ -1141,7 +1141,6 @@ $(document).ready(function() {
                 });
                 $('.reset').click(function() {
                     counter = 1;
-                    $(".zooming").css({"zoom":counter});
                     $(".zooming").css({
                         "transform":"scale("+counter+")",
                         "transform-origin": "900px 0px 0px"

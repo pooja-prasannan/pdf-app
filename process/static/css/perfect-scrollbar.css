@@ -39,8 +39,8 @@
 .ps--active-x > .ps__rail-x,
 .ps--active-y > .ps__rail-y {
   display: block;
-  background-color:rgba(72,72,72,.9);
-  border-radius: 10px;
+  background-color:rgba(72,72,72,0);
+  border-radius: 0px;
 }
 
 .ps:hover > .ps__rail-x,
@@ -66,25 +66,28 @@
  * Scrollbar thumb styles
  */
 .ps__thumb-x {
-  background-color: #aaa;
-  border-radius: 10px;
-  transition: background-color .2s linear, height .2s ease-in-out;
-  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
-  height: 6px;
-  /* there must be 'bottom' for ps__thumb-x */
-  bottom: 2px;
+    background-color: #f77300;
+  border-radius: 3px;
+  transition: background-color .2s linear, width .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, width .2s ease-in-out;
+  width: 5px;
+  /* there must be 'right' for ps__thumb-y */
+  right: 0px;
   /* please don't change 'position' */
   position: absolute;
+  opacity:0;
+
 }
 
 .ps__thumb-y {
-  background-color: #fff;
-  border-radius: 10px;
+  background-color: #f77300;
+  border-radius: 3px;
   transition: background-color .2s linear, width .2s ease-in-out;
   -webkit-transition: background-color .2s linear, width .2s ease-in-out;
-  width: 10px;
+  width: 5px;
   /* there must be 'right' for ps__thumb-y */
   right: 0px;
+  opacity:0;
   /* please don't change 'position' */
   position: absolute;
 }
@@ -93,6 +96,7 @@
 .ps__rail-x:focus > .ps__thumb-x,
 .ps__rail-x.ps--clicking .ps__thumb-x {
   background-color:#fff;
+  opacity: 0;
   height: 11px;
 }
 
@@ -100,7 +104,8 @@
 .ps__rail-y:focus > .ps__thumb-y,
 .ps__rail-y.ps--clicking .ps__thumb-y {
   background-color:#fff;
-  width: 10px;
+  opacity: 0;
+  width: 3px;
 }
 
 /* MS supports */

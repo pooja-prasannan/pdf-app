@@ -186,6 +186,7 @@ def merge_image(image_merge_list, image_id, upload_id):
     max_height = max(heights)
 
     new_im = Image.new('RGB', (total_width, max_height))
+    new_im = new_im.resize((1024, 1024), Image.ANTIALIAS)#this resize the image to 1024 px
 
     x_offset = 0
     for im in images:

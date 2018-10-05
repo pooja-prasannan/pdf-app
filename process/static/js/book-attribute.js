@@ -106,13 +106,12 @@ $(document).ready(function() {
                  $("#copy").show();
                  }
 
-                 var data = window.localStorage.getItem('data');
-                 data = JSON.parse(data)
-                 var tab_value = data['total_tabs'].length;
+
     
     
                 if( !$('#copy').html()){
-                    // ${tab_value}
+
+
                  $("#copy").html(
                     `<div class="page-items">
                      <span>Book Thickness <input type="number" name="book-thickness" value="10" id="book-thickness" maxlength="4">%</span>
@@ -202,6 +201,14 @@ $(document).ready(function() {
     
     
                  setTimeout(function(){
+                 var data = window.localStorage.getItem('data');
+                data = JSON.parse(data)
+                var front_page = data["front_cover"][0];
+                var front_page_src = $("#"+front_page ).find('img').attr("src");
+
+                $(".paper").css({
+                    "background-image":"url("+front_page_src+")"
+                })
                  $(".rings").empty();
                  var ratio = height/width;
                  var roundedHeight = +(ratio*$("#book-width").val()).toFixed(2);
@@ -221,14 +228,14 @@ $(document).ready(function() {
                  var offset = $("#offset").val();
                  var hole_width = $("#hole_width").val();
                  var hole_hgt = $("#hole_height").val();
-                var bookthick = $("#book-thickness").val();
-                var paperhgt = $(".paper").height();
-                var bookWdth = $("#book-width").val();
-                var bookHgt = $("#book-height").val();
-                var numOfRings = $("#no_of_rings").val();
-                var numOfRingset = $("#no_of_rings_set").val();
-                var ringHoleType =$("#hole_type").val();
-                var paperCornerType =$("#corner_type").val();
+                 var bookthick = $("#book-thickness").val();
+                 var paperhgt = $(".paper").height();
+                 var bookWdth = $("#book-width").val();
+                 var bookHgt = $("#book-height").val();
+                 var numOfRings = $("#no_of_rings").val();
+                 var numOfRingset = $("#no_of_rings_set").val();
+                 var ringHoleType =$("#hole_type").val();
+                 var paperCornerType =$("#corner_type").val();
                 
                 $(".rings").css({"left" : (((bookWdth/bookHgt)*600)*offset)/100})
 
@@ -445,7 +452,7 @@ $(document).ready(function() {
                 }
     
     
-                },500)
+                },300)
             });
 
            

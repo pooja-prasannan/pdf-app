@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-alert("kdfjvdlk")
+
 
 
     var clone_div;

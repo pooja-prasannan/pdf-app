@@ -60,13 +60,13 @@ $(document).ready(function() {
                     data["order"] = image_ids
                     data = JSON.stringify(data)
                     window.localStorage.setItem('data', data);
-                    console.log(window.localStorage.getItem('data'))
+
                 }
             });
         $( "#next-button, #book_save" ).click(function(e) {
 
 
-           console.log(window.localStorage.getItem('data'));
+
 
             e.preventDefault();
             var current_step = $("#next-button ").data("current-step");
@@ -79,13 +79,13 @@ $(document).ready(function() {
 
                        if ((ui.selected.id) && (!window.selected.includes(ui.selected.id))) {
                            window.selected.push(ui.selected.id);
-                           console.log("selected--->", selected);
+
 
                        }
                    },
                    unselected: function(event, ui){
                        window.selected.remove(ui.unselected.id);
-                       console.log("remove--->", selected);
+
                    }
                });
                $("#next-button ").data("current-step","front_cover");
@@ -93,7 +93,7 @@ $(document).ready(function() {
             }
             if (current_step == "front_cover") {
 
-                console.log("--->", selected);
+
                  if (window.selected.length % 2 != 0) {
                     alert("Please select EVEN number Front Cover")
                     return false;
@@ -112,12 +112,12 @@ $(document).ready(function() {
                 window.localStorage.setItem('data', data);
                 $("#next-button ").data("current-step","back_cover");
                 // reset selection
-                //window.selected = new Array();
+
                 window.selected.length = 0;
                 $("div").removeClass("ui-selected");
 
                 $("#lbl-step-title ").text("Step 4: Select Back Cover Images")
-//                $(".wrapper").hide();
+
             }
 
 
@@ -136,7 +136,7 @@ $(document).ready(function() {
                  }
                  loops++;
                 }
-                console.log("bccccccccccccc",data["back_cover"])
+
                  if (data["back_cover"].length % 2 != 0) {
                     alert("Please select EVEN number Back Cover")
                     return false;
@@ -147,18 +147,15 @@ $(document).ready(function() {
                         $("#"+back_cover[i]).attr("data-order","back_cover")
                 }
                  //remove selected divs
-//                $("#sortable").children().removeClass("ui-selected");
+
                 $("div").removeClass("ui-selected");
                 data = JSON.stringify(data)
                 window.localStorage.setItem('data', data);
                  // reset selection
-                 //window.selected = new Array();
                  window.selected.length = 0;
-                 console.log("bcccccc",window.selected)
-
                 $("#next-button ").data("current-step","tabs");
                 $("#lbl-step-title ").text("Step 5: Select Tabs");
-//                $(".wrapper").hide();
+
             }
 
             if (current_step == "tabs") {
@@ -192,7 +189,7 @@ $(document).ready(function() {
         data = JSON.parse(data)
 
         var current_order =  data['order'];
-        console.log(current_order)
+
           for (i = 0; i < data["back_cover"].length; i++) {
               current_order.remove(data["back_cover"][i])
           }
@@ -215,7 +212,7 @@ $(document).ready(function() {
          if(window.selected.includes(data["front_cover"][ws1]))
          {
          window.selected.remove(data["front_cover"][ws1])
-//                  loops++;
+
          }
          loops1++;
          ws1++;
@@ -278,8 +275,6 @@ if ( i == current_order.length - 1){
 
 
 
-    console.log("order",current_order)
-
     // enabling sortable before adding
 
      $("#sortable").sortable({
@@ -293,9 +288,6 @@ if ( i == current_order.length - 1){
                                     var data = window.localStorage.getItem('data');
                                     data = JSON.parse(data)
                                     data["new_order"] = image_ids
-//                                    data = JSON.stringify(data)
-//                                    window.localStorage.setItem('data', data);
-//                                    console.log(window.localStorage.getItem('data'))
 
                                      if (drag_data=="front_cover") {
                                         for(var fc=1;fc<data["front_cover"].length;fc++)
@@ -304,7 +296,6 @@ if ( i == current_order.length - 1){
                                              $("#"+data["front_cover"][fc]).remove();
                                              $("#"+drag_id).after(`<div id = ${data["front_cover"][fc]} class="images-ids" data-order="front_cover" class="ui-state-default" style="display: none">
                                             <img src=${data_src} width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
-//                                             $("#"+data["front_cover"][fc]).find('img').attr('src', data_src).width(250).height(dimension);
 
                                          }
                                      }
@@ -316,7 +307,6 @@ if ( i == current_order.length - 1){
                                              $("#"+data["back_cover"][bc]).remove();
                                              $("#"+drag_id).after(`<div id = ${data["back_cover"][bc]} class="images-ids" data-order="back_cover" class="ui-state-default" style="display: none">
                                             <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
-//                                             $("#"+drag_id).find('img').attr('src', data_src).width(250).height(dimension);
 
                                          }
                                      }
@@ -329,7 +319,6 @@ if ( i == current_order.length - 1){
                                              $("#"+data["total_tabs"][last_char][tabs]).remove();
                                              $("#"+drag_id).after(`<div id = ${data["total_tabs"][last_char][tabs]} class="images-ids" data-order=${drag_data} class="ui-state-default" style="display: none">
                                             <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
-//                                             $("#"+drag_id).find('img').attr('src', data_src).width(250).height(dimension);
 
                                          }
 
@@ -403,7 +392,6 @@ if ( i == current_order.length - 1){
         $("#"+data["back_cover"][0]).show();
         $("#"+data["back_cover"][0]).append(`<div><label for="name">Back Cover</label></div>`);
 
-//                 $("#back").append(`<div><button type="button" id="add-btn" >Add </button></div>`)
 
         // remove selected divs
         $("div").removeClass("ui-selected");
@@ -411,7 +399,6 @@ if ( i == current_order.length - 1){
         window.localStorage.setItem('data', data);
         $("#next-button ").data("current-step","stack");
         // reset selection
-        //window.selected = new Array();
         window.selected.length = 0;
         $("#next-button ").data("current-step","refine-components");
         $("#lbl-step-title ").text("Refine Components")

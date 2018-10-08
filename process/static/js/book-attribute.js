@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+alert("kdfjvdlk")
 
 
     var clone_div;
@@ -115,8 +116,8 @@ $(document).ready(function() {
                  $("#copy").html(
                     `<div class="page-items">
                      <span>Book Thickness <input type="number" name="book-thickness" value="10" id="book-thickness" maxlength="4">%</span>
-                     <span>Book Height <input type="number" name="book_height" value="11" id="book-height" maxlength="4"></span>
-                     <span>Book Width <input type="number" name="book_width" value="8.5" id="book-width" maxlength="4"></span>
+                     <span>Book Height <input type="number" name="book_height" value="8.3" id="book-height" maxlength="4"></span>
+                     <span>Book Width <input type="number" name="book_width" value="11" id="book-width" maxlength="4"></span>
                      <span>#Tabs <input type="number" name="tabs" value="12" id="tabs" max-length="4"></span>
                      <span>Tab Rows <input type="number" name="tab_rows" value="1" id="tab_rows" maxlength="4"></span>
     
@@ -201,10 +202,10 @@ $(document).ready(function() {
     
     
                  setTimeout(function(){
-                 var data = window.localStorage.getItem('data');
-                data = JSON.parse(data)
-                var front_page = data["front_cover"][0];
-                var front_page_src = $("#"+front_page ).find('img').attr("src");
+                    var data = window.localStorage.getItem('data');
+                    data = JSON.parse(data);
+                    var front_page = data["front_cover"][0];
+                    var front_page_src = $("#"+front_page ).find('img').attr("src");
 
                 $(".paper").css({
                     "background-image":"url("+front_page_src+")"
@@ -239,14 +240,13 @@ $(document).ready(function() {
                 
                 $(".rings").css({"left" : (((bookWdth/bookHgt)*600)*offset)/100})
 
-                // $(".rings").append('<div class="ring-set'+numOfRingset+'"></div>');
-                $(".thickness").css({"width": 600/ratio});
-                $(".paper").css({"width": 600/ratio});
-                    $(".side").css({"width": 600/ratio});
-                $(".paper").css({"border-top-right-radius": 6 * r1 +"px"});
-                $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
-                $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
-                $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
+                 $(".thickness").css({"width": 600/ratio});
+                 $(".paper").css({"width": 600/ratio});
+                 $(".side").css({"width": 600/ratio});
+                 $(".paper").css({"border-top-right-radius": 6 * r1 +"px"});
+                 $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
+                 $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
+                 $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
 
                 var r1 = $("#r1").val();
                  var r2 = $("#r2").val();

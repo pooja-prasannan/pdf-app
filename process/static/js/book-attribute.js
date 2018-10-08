@@ -207,9 +207,9 @@ alert("kdfjvdlk")
                     var front_page = data["front_cover"][0];
                     var front_page_src = $("#"+front_page ).find('img').attr("src");
 
-                $(".paper").css({
-                    "background-image":"url("+front_page_src+")"
-                })
+                    $(".paper").css({
+                        "background-image":"url("+front_page_src+")"
+                    })
                  $(".rings").empty();
                  var ratio = height/width;
                  var roundedHeight = +(ratio*$("#book-width").val()).toFixed(2);

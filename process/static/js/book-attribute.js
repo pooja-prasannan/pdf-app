@@ -103,7 +103,6 @@ $(document).ready(function() {
                  }
     
                   else{
-    
                  $("#copy").show();
                  }
 
@@ -111,13 +110,11 @@ $(document).ready(function() {
     
     
                 if( !$('#copy').html()){
-
-
                  $("#copy").html(
                     `<div class="page-items">
                      <span>Book Thickness <input type="number" name="book-thickness" value="10" id="book-thickness" maxlength="4">%</span>
-                     <span>Book Height <input type="number" name="book_height" value="8.3" id="book-height" maxlength="4"></span>
-                     <span>Book Width <input type="number" name="book_width" value="11" id="book-width" maxlength="4"></span>
+                     <span>Book Height <input type="number" name="book_height" value="11" id="book-height" maxlength="4"></span>
+                     <span>Book Width <input type="number" name="book_width" value="8.5" id="book-width" maxlength="4"></span>
                      <span>#Tabs <input type="number" name="tabs" value="12" id="tabs" max-length="4"></span>
                      <span>Tab Rows <input type="number" name="tab_rows" value="1" id="tab_rows" maxlength="4"></span>
     
@@ -195,7 +192,6 @@ $(document).ready(function() {
                     </div>`);
                  }
                  else{
-    
                  $("#copy").show();
                  }
     
@@ -213,7 +209,7 @@ $(document).ready(function() {
                  $(".rings").empty();
                  var ratio = height/width;
                  var roundedHeight = +(ratio*$("#book-width").val()).toFixed(2);
-                 $("#book-height").val(roundedHeight);
+                 //$("#book-height").val(roundedHeight);
                  var datas = window.localStorage.getItem('data');
                  datas = JSON.parse(datas)
                  var len = datas["total_tabs"].length;
@@ -310,7 +306,7 @@ $(document).ready(function() {
                     $(".rings").css({"left" : (((bookWdth/bookHgt)*600)*offset)/100})
     
                     $(".thickness").css({"width": (bookWdth/bookHgt)*600})
-                    $(".thickness").height((600*bookthick)/100);
+                    //$(".thickness").height((600*bookthick)/100);
                     $(".paper").css({"border-top-right-radius": 6 * r1 +"px"});
                     $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
                     $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});

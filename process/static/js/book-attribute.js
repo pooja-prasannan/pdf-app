@@ -1,5 +1,6 @@
-
 $(document).ready(function() {
+
+
     var clone_div;
         $(document).on("click", '#define_book', function(e){
 
@@ -98,15 +99,27 @@ $(document).ready(function() {
 
                     </div>`);
                  }
+
                   else{
+
                  $("#copy").show();
                  }
+
+                 var data = window.localStorage.getItem('data');
+                 data = JSON.parse(data)
+                 var tab_value = data['total_tabs'].length;
+
+
                 if( !$('#copy').html()){
+                 var ratio = height/width;
+                 var roundedHeight = +(ratio*8.5).toFixed(2);
+//                 alert(roundedHeight)
+                 //$("#book-height").val(roundedHeight);
                  $("#copy").html(
                     `<div class="page-items">
                      <span>Book Thickness <input type="number" name="book-thickness" value="10" id="book-thickness" maxlength="4">%</span>
-                     <span>Book Height <input type="number" name="book_height" value= "11" id="book-height" maxlength="4"></span>
-                     <span>Book Width <input type="number" name="book_width" value= "8.5" id="book-width" maxlength="4"></span>
+                     <span>Book Height <input type="number" name="book_height" value=${roundedHeight} id="book-height" maxlength="4"></span>
+                     <span>Book Width <input type="number" name="book_width" value="8.5" id="book-width" maxlength="4"></span>
                      <span>#Tabs <input type="number" name="tabs" value="12" id="tabs" max-length="4"></span>
                      <span>Tab Rows <input type="number" name="tab_rows" value="1" id="tab_rows" maxlength="4"></span>
 
@@ -131,7 +144,7 @@ $(document).ready(function() {
 
                     <div class="page-items">
                      <span># of Rings <input type="number" name="no_of_rings" value="6" id="no_of_rings" maxlength="4"></span>
-                      <span># of Rings Set <input type="number" name="no_of_rings_set" value="2" id="no_of_rings_set" maxlength="4"></span>
+                     <span># of Rings Set <input type="number" name="no_of_rings_set" value="2" id="no_of_rings_set" maxlength="4"></span>
 
                     <span> Ring Type <select name="ring_type1">
                       <option id="metal">Metal</option>
@@ -182,26 +195,33 @@ $(document).ready(function() {
                             </div>
 
                     </div>`);
+                     setTimeout(function(){
+                        $(".thickness").css({"width": 600/ratio});
+                        $(".paper").css({"width": 600/ratio});
+                         $(".side").css({"width": 600/ratio});
+                     },500);
                  }
                  else{
                  $("#copy").show();
+                  setTimeout(function(){
+                        $(".thickness").css({"width": 600/$('book-height').val()/$('book-width').val()});
+                        $(".paper").css({"width": 600/$('book-height').val()/$('book-width').val()});
+                         $(".side").css({"width": 600/$('book-height').val()/$('book-width').val()});
+                     },500);
                  }
 
-
-
                  setTimeout(function(){
-                    var data = window.localStorage.getItem('data');
-                    data = JSON.parse(data);
-                    var front_page = data["front_cover"][0];
-                    var front_page_src = $("#"+front_page ).find('img').attr("src");
-
+                 var data = window.localStorage.getItem('data');
+                 data = JSON.parse(data);
+                 var front_page = data["front_cover"][0];
+                 var front_page_src = $("#"+front_page ).find('img').attr("src");
                     $(".paper").css({
                         "background-image":"url("+front_page_src+")"
                     })
                  $(".rings").empty();
                  var ratio = height/width;
                  var roundedHeight = +(ratio*$("#book-width").val()).toFixed(2);
-                  $("#book-height").val(roundedHeight);
+                 //$("#book-height").val(roundedHeight);
                  var datas = window.localStorage.getItem('data');
                  datas = JSON.parse(datas)
                  var len = datas["total_tabs"].length;
@@ -217,24 +237,23 @@ $(document).ready(function() {
                  var offset = $("#offset").val();
                  var hole_width = $("#hole_width").val();
                  var hole_hgt = $("#hole_height").val();
-                 var bookthick = $("#book-thickness").val();
-                 var paperhgt = $(".paper").height();
-                 var bookWdth = $("#book-width").val();
-                 var bookHgt = $("#book-height").val();
-                 var numOfRings = $("#no_of_rings").val();
-                 var numOfRingset = $("#no_of_rings_set").val();
-                 var ringHoleType =$("#hole_type").val();
-                 var paperCornerType =$("#corner_type").val();
+                var bookthick = $("#book-thickness").val();
+                var paperhgt = $(".paper").height();
+                var bookWdth = $("#book-width").val();
+                var bookHgt = $("#book-height").val();
+                var numOfRings = $("#no_of_rings").val();
+                var numOfRingset = $("#no_of_rings_set").val();
+                var ringHoleType =$("#hole_type").val();
+                var paperCornerType =$("#corner_type").val();
 
                 $(".rings").css({"left" : (((bookWdth/bookHgt)*600)*offset)/100})
 
-                 $(".thickness").css({"width": 600/ratio});
-                 $(".paper").css({"width": 600/ratio});
-                 $(".side").css({"width": 600/ratio});
-                 $(".paper").css({"border-top-right-radius": 6 * r1 +"px"});
-                 $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
-                 $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
-                 $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
+                // $(".rings").append('<div class="ring-set'+numOfRingset+'"></div>');
+
+                $(".paper").css({"border-top-right-radius": 6 * r1 +"px"});
+                $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
+                $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
+                $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
 
                 var r1 = $("#r1").val();
                  var r2 = $("#r2").val();
@@ -440,7 +459,7 @@ $(document).ready(function() {
                 }
 
 
-                },300)
+                },500)
             });
 
 
@@ -677,7 +696,6 @@ $(document).ready(function() {
                      if(!$("#tab-shows").html()){
 
                 $("#tab-shows").html(`<div class="tab-settings-container">
-
                 <div class="tab-settings">
                                   <h2>Tab Settings</h2>
                                   <div style="white-space:nowrap"><span>W <input type="number" id="tab-width" max-length="3" value="${100/(tabs/tab_rows)}" />%</span>
@@ -694,7 +712,6 @@ $(document).ready(function() {
                 </div>
                 <div class="orange-border">
               <div class="tab-image mCustomScrollbar" id= "tab_eg">
-
                       <div class="zooming">
                           <div class="tabs-attrs">
                               <div class="tab">
@@ -710,7 +727,6 @@ $(document).ready(function() {
                       </div>
                       <img src= "#" class="img-responsive" alt="">
                   </div>
-
               </div>
           </div>`);
                }
@@ -722,7 +738,6 @@ $(document).ready(function() {
                if(status && !$("#tab-shows").html()){
 
                 $("#tab-shows").html(`<div class="tab-settings-container">
-
                 <div class="tab-settings">
                                   <h2>Tab Settings</h2>
                                   <div style="white-space:nowrap"><span>W <input type="number" id="tab-width" max-length="3" value="${100/(json_datas.tabs/json_datas.tab_rows)}" />%</span>
@@ -739,7 +754,6 @@ $(document).ready(function() {
                 </div>
                 <div class="orange-border">
               <div class="tab-image mCustomScrollbar" id= "tab_eg">
-
                       <div class="zooming">
                           <div class="tabs-attrs">
                               <div class="tab">
@@ -755,7 +769,6 @@ $(document).ready(function() {
                       </div>
                       <img src= "#" class="img-responsive" alt="">
                   </div>
-
               </div>
           </div>`);
 

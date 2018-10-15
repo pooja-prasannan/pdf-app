@@ -1,18 +1,17 @@
 $(document).ready(function() {
 
-
     var clone_div;
         $(document).on("click", '#define_book', function(e){
 
 
                 $("#next-button ").data("current-step","set-book-attributes");
                 $("#lbl-step-title ").text("Set Book Attribute");
-
                 $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="back_to_refine">Back</button>`);
                 $("#lbl-step-title").append(`&nbsp <button id="tab-settings" class="orange-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
                 $(".wrapper").hide();
                 $("#next-button").attr("id","build-book");
                 $("#build-book").hide();
+                $("#imgInp").hide();
                 $("#sortable").hide();
 
                  if(status && !$('#copy').html()){
@@ -34,7 +33,7 @@ $(document).ready(function() {
                      <span>Corner Type <select name="corner_type" id="corner_type">
                         <option   value="round" id="round_id">Rounded</option>
                         <option   value="square" id="square_id">Square</option>
-                        <option   value="square" id="none">None</option>
+                        <option   value="none" id="none">None</option>
                     </select></span>
 
                      <span>Material Type <select name="material_type" id="material_type">
@@ -49,12 +48,12 @@ $(document).ready(function() {
                      <span># of Rings <input type="number" name="no_of_rings" value=${json_datas.no_of_rings} id="no_of_rings" maxlength="4"></span>
                       <span># of Rings Set <input type="number" name="no_of_rings_set" value=${json_datas.no_of_ringset} id="no_of_rings_set" maxlength="4"></span>
 
-                    <span> Ring Type <select name="ring_type1">
+                    <span> Ring Type <select name="ring_type1" id="ring_type1">
                       <option id="metal">Metal</option>
                       <option id="plastic">Plastic</option>
                     </select></span>
 
-                     <span> Ring Material <select name="ring_material">
+                     <span> Ring Material <select name="ring_material" id="ring_material">
                       <option id="gold">Gold</option>
                       <option id="silver">Silver</option>
                       <option id="black">Matte Black</option>
@@ -96,13 +95,24 @@ $(document).ready(function() {
                                  <h2>Side</h2>
                                  <div class="thickness"></div>
                             </div>
-
                     </div>`);
                  }
 
                   else{
 
                  $("#copy").show();
+                 var selectedCover = $("#cover_type").val();
+                 var selectedCorner = $("#corner_type").val();
+                 var selectedMaterial = $("#material_type").val();
+                 var selectedRingType = $("#ring_type1").val();
+                 var selectedRingMaterial= $("#ring_material").val();
+                 var selectedHole= $("#hole_type").val();
+                 $("#cover_type").val(selectedCover);
+                 $("#corner_type").val(selectedCorner);
+                 $("#material_type").val(selectedMaterial);
+                 $("#ring_type1").val(selectedRingType);
+                 $("#ring_material").val(selectedRingMaterial);
+                 $("#hole_type").val(selectedHole);
                  }
 
                  var data = window.localStorage.getItem('data');
@@ -146,12 +156,12 @@ $(document).ready(function() {
                      <span># of Rings <input type="number" name="no_of_rings" value="6" id="no_of_rings" maxlength="4"></span>
                      <span># of Rings Set <input type="number" name="no_of_rings_set" value="2" id="no_of_rings_set" maxlength="4"></span>
 
-                    <span> Ring Type <select name="ring_type1">
+                    <span> Ring Type <select name="ring_type1" id="ring_type1">
                       <option id="metal">Metal</option>
                       <option id="plastic">Plastic</option>
                     </select></span>
 
-                     <span> Ring Material <select name="ring_material">
+                     <span> Ring Material <select name="ring_material"  id="ring_material">
                       <option id="gold">Gold</option>
                       <option id="silver">Silver</option>
                       <option id="black">Matte Black</option>
@@ -198,11 +208,23 @@ $(document).ready(function() {
                      setTimeout(function(){
                         $(".thickness").css({"width": 600/ratio});
                         $(".paper").css({"width": 600/ratio});
-                         $(".side").css({"width": 600/ratio});
+                        $(".side").css({"width": 600/ratio});
                      },500);
                  }
                  else{
                  $("#copy").show();
+                 var selectedCover = $("#cover_type").val();
+                 var selectedCorner = $("#corner_type").val();
+                 var selectedMaterial = $("#material_type").val();
+                 var selectedRingType = $("#ring_type1").val();
+                 var selectedRingMaterial= $("#ring_material").val();
+                 var selectedHole= $("#hole_type").val();
+                 $("#cover_type").val(selectedCover);
+                 $("#corner_type").val(selectedCorner);
+                 $("#material_type").val(selectedMaterial);
+                 $("#ring_type1").val(selectedRingType);
+                 $("#ring_material").val(selectedRingMaterial);
+                 $("#hole_type").val(selectedHole);
                   setTimeout(function(){
                         $(".thickness").css({"width": 600/$('book-height').val()/$('book-width').val()});
                         $(".paper").css({"width": 600/$('book-height').val()/$('book-width').val()});
@@ -255,6 +277,7 @@ $(document).ready(function() {
                 $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
                 $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
 
+
                 var r1 = $("#r1").val();
                  var r2 = $("#r2").val();
                  var r3 = $("#r3").val();
@@ -291,6 +314,8 @@ $(document).ready(function() {
                 tabbs(tabs)
 
                 $("input").bind("keyup",function(){
+
+                    $('.paper').removeClass(paperCornerType);
                     var r1 = $("#r1").val();
                     var r2 = $("#r2").val();
                     var r3 = $("#r3").val();
@@ -322,6 +347,7 @@ $(document).ready(function() {
                     $(".paper").css({"border-bottom-right-radius":6 * r2 +"px"});
                     $(".paper").css({"border-top-left-radius": 6 * r3 +"px"});
                     $(".paper").css({"border-bottom-left-radius":6 * r4+"px"});
+
                     var ringmgnTop = 5
                     $(".rings").empty();
                     $(".tabs-tags").empty();
@@ -356,7 +382,7 @@ $(document).ready(function() {
                         div.innerHTML = content;
                     }
 
-                    var bookWidth = $("#book-width").val();
+                var bookWidth = $("#book-width").val();
                 var bookWidth = $("#book-width").val();
                 $(".rings div div.ring-set").css({"height":(600/numOfRingset)+ "px"});
                 $(".holes").css({"width": (600*hole_width)/100});
@@ -430,12 +456,16 @@ $(document).ready(function() {
                 $("select").change(function()
                 {
                     var ringHoleType =$("#hole_type").val();
+
                     $(".holes").removeClass("circle");
                     $(".holes").removeClass("square");
-
                     $(".holes").addClass(ringHoleType);
-                });
 
+                    var paperCornerType =$("#corner_type").val();
+                    $('.paper').removeClass("round");
+                    $('.paper').removeClass("square");
+                    $('.paper').addClass(paperCornerType);
+                });
                 var paperhgt = $(".paper").height();
                 var numOfRings = $("#no_of_rings").val();
                 var numOfRingset = $("#no_of_rings_set").val();
@@ -444,12 +474,13 @@ $(document).ready(function() {
                 var ringHoleType =$("#hole_type").val();
                 var paperCornerType =$("#corner_type").val();
 
-                    var ringmgnTop = 5
+                $('.paper').addClass(paperCornerType);
+                var ringmgnTop = 5;
                 function rings()
                 {
+
                     $(".rings .ring-set"+numOfRingset).append('<div class="ring-hole"></div>');
                     $(".rings .holes").addClass(ringHoleType);
-
                 }
                 function tabbs(tabs)
                 {
@@ -481,8 +512,7 @@ $(document).ready(function() {
 
                  var no_of_rings = $("#no_of_rings").val();
                  var no_of_ringset = $("#no_of_rings_set").val();
-                 var ring_type = $("#ring_type2 option:selected").val();
-
+                 var ring_type = $("#ring_type1 option:selected").val();
                  var ring_material = $("#ring_material option:selected").val();
                  var hole_type = $("#hole_type option:selected").val();
                  var hole_width = $("#hole_width").val();
@@ -497,11 +527,6 @@ $(document).ready(function() {
                  var r2 = $("#r2").val();
                  var r3 = $("#r3").val();
                  var r4 = $("#r4").val();
-
-
-
-
-
                  var final_data={
                  "projectID":upload_id,
                  "projectOrder":finals,

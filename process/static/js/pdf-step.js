@@ -64,10 +64,6 @@ $(document).ready(function() {
                 }
             });
         $( "#next-button, #book_save" ).click(function(e) {
-
-
-
-
             e.preventDefault();
             var current_step = $("#next-button ").data("current-step");
 
@@ -92,12 +88,15 @@ $(document).ready(function() {
                $("#lbl-step-title ").text("Step 3: Select Front Cover Images");
             }
             if (current_step == "front_cover") {
-
-
-                 if (window.selected.length % 2 != 0) {
-                    alert("Please select EVEN number Front Cover")
+                 if (window.selected.length > 2 ) {
+                    alert("Please select 1 or 2  Front Cover")
                     return false;
                 }
+                if (window.selected.length  == 0 ) {
+                    alert("Please select  Front Cover")
+                    return false;
+                }
+
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
                 data["front_cover"] = window.selected
@@ -117,10 +116,7 @@ $(document).ready(function() {
                 $("div").removeClass("ui-selected");
 
                 $("#lbl-step-title ").text("Step 4: Select Back Cover Images")
-
             }
-
-
             if (current_step == "back_cover") {
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
@@ -137,8 +133,12 @@ $(document).ready(function() {
                  loops++;
                 }
 
-                 if (data["back_cover"].length % 2 != 0) {
-                    alert("Please select EVEN number Back Cover")
+                 if (data["back_cover"].length > 2) {
+                    alert("Please select 1 or 2 Back Cover")
+                    return false;
+                }
+                if (window.selected.length  == 0 ) {
+                    alert("Please select Back Cover")
                     return false;
                 }
                 var back_cover = data["back_cover"];
@@ -262,86 +262,74 @@ if ( i == current_order.length - 1){
     }
     data["total_tabs"] = new_tab;
     data["total_stacks"] = new_stack
-           for (var i=0;i< data["total_stacks"].length;i++){
-
+    for (var i=0;i< data["total_stacks"].length;i++){
         if (data["total_stacks"][i].length % 2 != 0) {
             alert("Stacks must be been EVEN number")
             return false;
         }
-
-
-
-          }
-
-
-
+    }
     // enabling sortable before adding
 
      $("#sortable").sortable({
-                                disabled: false,
-//                                        revert: true,
-                                update: function( event, ui ) {
-                                    var image_ids = $("#sortable").sortable("toArray");
-                                    var drag_data = ui.item.attr('data-order')
-                                    var drag_id = ui.item.attr('id')
-                                    var data_src = ui.item.find('img').attr('src')
-                                    var data = window.localStorage.getItem('data');
-                                    data = JSON.parse(data)
-                                    data["new_order"] = image_ids
+            disabled: false,
+            update: function( event, ui ) {
+                var image_ids = $("#sortable").sortable("toArray");
+                var drag_data = ui.item.attr('data-order')
+                var drag_id = ui.item.attr('id')
+                var data_src = ui.item.find('img').attr('src')
+                var data = window.localStorage.getItem('data');
+                data = JSON.parse(data)
+                data["new_order"] = image_ids
 
-                                     if (drag_data=="front_cover") {
-                                        for(var fc=1;fc<data["front_cover"].length;fc++)
-                                         {
+                 if (drag_data=="front_cover") {
+                    for(var fc=1;fc<data["front_cover"].length;fc++)
+                     {
 
-                                             $("#"+data["front_cover"][fc]).remove();
-                                             $("#"+drag_id).after(`<div id = ${data["front_cover"][fc]} class="images-ids" data-order="front_cover" class="ui-state-default" style="display: none">
-                                            <img src=${data_src} width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
+                         $("#"+data["front_cover"][fc]).remove();
+                         $("#"+drag_id).after(`<div id = ${data["front_cover"][fc]} class="images-ids" data-order="front_cover" class="ui-state-default" style="display: none">
+                        <img src=${data_src} width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
 
-                                         }
-                                     }
+                     }
+                 }
 
-                                     else if (drag_data=="back_cover") {
-                                        for(var bc=1;bc<data["back_cover"].length;bc++)
-                                         {
+                 else if (drag_data=="back_cover") {
+                    for(var bc=1;bc<data["back_cover"].length;bc++)
+                     {
 
-                                             $("#"+data["back_cover"][bc]).remove();
-                                             $("#"+drag_id).after(`<div id = ${data["back_cover"][bc]} class="images-ids" data-order="back_cover" class="ui-state-default" style="display: none">
-                                            <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
+                         $("#"+data["back_cover"][bc]).remove();
+                         $("#"+drag_id).after(`<div id = ${data["back_cover"][bc]} class="images-ids" data-order="back_cover" class="ui-state-default" style="display: none">
+                        <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
 
-                                         }
-                                     }
+                     }
+                 }
 
-                                     else if( drag_data.startsWith('tab')){
-                                     var last_char = parseInt(drag_data.slice(-1))-1;
-                                     for(var tabs=1;tabs<data["total_tabs"][last_char].length;tabs++)
-                                         {
+                 else if( drag_data.startsWith('tab')){
+                 var last_char = parseInt(drag_data.slice(-1))-1;
+                 for(var tabs=1;tabs<data["total_tabs"][last_char].length;tabs++)
+                     {
 
-                                             $("#"+data["total_tabs"][last_char][tabs]).remove();
-                                             $("#"+drag_id).after(`<div id = ${data["total_tabs"][last_char][tabs]} class="images-ids" data-order=${drag_data} class="ui-state-default" style="display: none">
-                                            <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
+                         $("#"+data["total_tabs"][last_char][tabs]).remove();
+                         $("#"+drag_id).after(`<div id = ${data["total_tabs"][last_char][tabs]} class="images-ids" data-order=${drag_data} class="ui-state-default" style="display: none">
+                        <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
 
-                                         }
+                     }
 
-                                     }
-                                       else {
-                                     var last_char = parseInt(drag_data.slice(-1))-1;
-                                     for(var stacks=1;stacks<data["total_stacks"][last_char].length;stacks++)
-                                         {
+                 }
+                   else {
+                 var last_char = parseInt(drag_data.slice(-1))-1;
+                 for(var stacks=1;stacks<data["total_stacks"][last_char].length;stacks++)
+                     {
 
-                                             $("#"+data["total_stacks"][last_char][stacks]).remove();
-                                             $("#"+drag_id).after(`<div id = ${data["total_stacks"][last_char][stacks]} class="images-ids" data-order=${drag_data} class="ui-state-default" style="display: none">
-                                            <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
-                                             $("#"+drag_id).find('img').attr('src', data_src).width(250).height(dimension);
-                                            drag_id = data["total_stacks"][last_char][stacks]
-
-
-                                         }
-
-                                     }
-                                    order_send();
-                                }
-
-                             });
+                         $("#"+data["total_stacks"][last_char][stacks]).remove();
+                         $("#"+drag_id).after(`<div id = ${data["total_stacks"][last_char][stacks]} class="images-ids" data-order=${drag_data} class="ui-state-default" style="display: none">
+                        <img src=${data_src}  width="250px" height=(dimension) class="img-responsive" alt=""> </div>`);
+                         $("#"+drag_id).find('img').attr('src', data_src).width(250).height(dimension);
+                        drag_id = data["total_stacks"][last_char][stacks]
+                     }
+                 }
+                order_send();
+            }
+     });
         var i;
         $("#"+data["front_cover"][0]).show();
         $("#"+data["front_cover"][0]).append(`<div><label for="name">Front Cover</label></div>`);

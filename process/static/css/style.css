@@ -256,7 +256,7 @@ box-sizing: border-box;
 }
 .paper.round
 {
-    border-radius: 25px;
+    border-radius: 25px !important;
 }
 
 .holes{

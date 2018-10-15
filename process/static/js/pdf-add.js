@@ -4,9 +4,9 @@ var temp_total_stacks =[];
 var max;
 var max1;
 var keys;
-
+var HeightDimension;
     $(function() {
-
+                HeightDimension = 250*(height/width);
                 max=0;
                 $('.images-ids').each(function()
                  {
@@ -107,7 +107,7 @@ var keys;
 
                                  $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="front_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);
-                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(dimension);
+                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
                                  $("#sortable").sortable({
                                         disabled: false,
@@ -143,7 +143,7 @@ var keys;
                                   var parent_id = data['back_cover'][len-1];
                                  $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="back_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);
-                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(dimension);
+                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
                                  $("#sortable").sortable({
                                         disabled: false,
                                         revert: true,
@@ -274,7 +274,7 @@ var keys;
 
                                       $("#"+global_max).after(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(dimension);
+                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
                                     temp_total_stacks.push(new_max)
                                      $("#sortable").sortable({
@@ -403,7 +403,7 @@ var keys;
 
                                      $("#"+global_max).after(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
                                       <img src="#" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(dimension);
+                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
 
 

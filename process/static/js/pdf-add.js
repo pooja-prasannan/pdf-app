@@ -37,7 +37,7 @@ var HeightDimension;
                     $('#imgInp').hide();
                     if(this.files.length>2){
 
-                    alert("only 2 files can be uploaded"+this.files.length)}
+                    alert("only 2 files can be uploaded")}
                     else{
                     readURL(this,keys);
                     base64data.length=0;
@@ -174,7 +174,6 @@ var HeightDimension;
                                  }
                                  if(inc%2==0)
                                    {
-//                                     $("#"+new_max).find("img").show();
                                      if(keys == "front"){
                                     $("#"+new_max).append(`<div><label for="name">Front Cover</label></div>`);
                                      }
@@ -218,8 +217,8 @@ var HeightDimension;
                 function readURL(input)
                     {
 
-                        if ( input.files) {
-                        console.log("imp",input.files)
+                        if ( input.files.length % 2 == 0) {
+
                         var base64data=[];
                         var filesAmount = input.files.length;
                         for(var i=0;i<filesAmount;i++){
@@ -228,6 +227,12 @@ var HeightDimension;
                           getBase64(input, input.files[i])
 
                            }
+                         }
+                         else{
+
+                         alert("You must upload  EVEN number of files")
+                         return false;
+
                          }
                     }
 
@@ -239,7 +244,6 @@ var HeightDimension;
                          base64data.push(reader.result)
 
                        if(base64data.length == input.files.length){
-
                           max1=0;
                              $('.images-ids').each(function()
                                 {
@@ -258,7 +262,6 @@ var HeightDimension;
                              console.log('Upload succes',datas['img_url'].length);
                              for(var inc=0;inc<datas['img_url'].length;inc++)
                                 {
-
                                      max=0;
                                     $('.images-ids').each(function()
                                      {
@@ -295,7 +298,7 @@ var HeightDimension;
                                          var data = window.localStorage.getItem('data');
                                          data = JSON.parse(data)
                                          data["new_order"] = image_ids
-                                         data['total_stacks'].push([new_max.toString()])
+                                         data['pages'].push([new_max.toString()])
                                          data = JSON.stringify(data)
                                          window.localStorage.setItem('data', data);
                                          console.log(window.localStorage.getItem('data'))
@@ -337,7 +340,6 @@ var HeightDimension;
                 $("#back").append(` <input type='file' multiple id="imgInp" />`);
                 var fileList =[];
                 $("#back").off().on('change','#imgInp',function() {
-
                     readURL_stack(this,keys);
                     base64data.length=0;
                     base64data=[]
@@ -345,19 +347,18 @@ var HeightDimension;
 
                 function readURL_stack(input, keys)
                     {
-
-                        if ( input.files.length==2) {
+                        if (input.files.length %2 ==0) {
                         console.log("imp",input.files)
                         var base64data=[];
                         var filesAmount = input.files.length;
                         for(var i=0;i<filesAmount;i++){
                           console.log("length",input.files[i])
                           getBase64_stack(keys,input, input.files[i])
-
                            }
                          }
                          else{
-                          alert("You must upload  2 files")
+                          alert("You must upload  EVEN number of files");
+                          return false;
                          }
                     }
 
@@ -426,7 +427,7 @@ var HeightDimension;
                                          var data = window.localStorage.getItem('data');
                                          data = JSON.parse(data)
                                          data["new_order"] = image_ids
-                                         data['total_tabs'].push([new_max.toString()])
+                                         data['spine'].push([new_max.toString()])
                                          data = JSON.stringify(data)
                                          window.localStorage.setItem('data', data);
                                          console.log(window.localStorage.getItem('data'))
@@ -448,7 +449,7 @@ var HeightDimension;
 
                                  data =window.localStorage.getItem('data')
                                  data = JSON.parse(data)
-                                 data['total_tabs'].push(temp_total_tabs)
+                                 data['spine'].push(temp_total_tabs)
                                  data = JSON.stringify(data)
                                  window.localStorage.setItem('data', data);
                                     },
@@ -469,8 +470,6 @@ var HeightDimension;
                 "stack": {name: "Pages"},
                 "tab": {name: "Tabs"},
                 "back": {name: "Back Cover"},
-
-
             }
         });
 

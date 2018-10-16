@@ -6,6 +6,7 @@ var slider_img_height;
 var base64data=[];
 var ids;
 $(document).ready(function() {
+
          $(document).on("click", '#crop-btn', function(e){
          $("#slide-crop").show();
          $("#lbl-step-title ").text("Crop Image");
@@ -38,22 +39,16 @@ $(document).ready(function() {
                         <span>Bottom</span><input id="bottom" type="number"  value="100"  maxlength="3"/>
                     </div>
                 </div>
-
-        
-
         <div class="crop-zoom" style="height:760px">
         <div class="red-boarder">
         <div class="scroller">
-           
-
            <div class="demo" id="header" style="height:auto; transform-origin: 0px 0px">
-
                 <ul id="lightSlider">
                    </ul>
              </div> </div></div></div></div>`)
              setTimeout(function()
             {
-                var ps = new PerfectScrollbar('.scroller');
+               var ps = new PerfectScrollbar('.scroller');
                ps.update();
             },20);
              var counter = 1;
@@ -84,8 +79,6 @@ $(document).ready(function() {
             $("#zoomin").click(function()
              {
 
-                //cropper.zoom(0.1);
-
                  counter = counter+.25;
                  borderVal = borderVal - .25
                  borderWidth = borderWidth - .75
@@ -93,24 +86,7 @@ $(document).ready(function() {
                         "transform":"scale("+counter+")",
                         "transform-origin": "0px 0px"
                     });
-                      //if(counter == 1)
-                    //{
-                        //$(".cropper-line.line-n").css({"height":"1px"})
-                    //}
-                    //else
-                    //{
-                         //$(".cropper-line.line-n").css({"height":borderVal+"px"})
-                         //$(".cropper-line.line-e").css({"width":borderVal+"px"})
-                         //$(".cropper-line.line-w").css({"width":borderVal+"px"})
-                         //if(counter <= 1.75)
-                         //{
-                         //$(".cropper-point").css({
-                         //"width":borderWidth+"px",
-                         //"height":borderWidth+"px",
-                         //})
-                         //}
 
-                    //}
                     $('.demo').draggable();
 
              });
@@ -129,23 +105,6 @@ $(document).ready(function() {
                         "transform-origin": "0px 0px"
                     });
 
-                      //if(counter == 1)
-                    //{
-                        //$(".cropper-line.line-n").css({"height":"1px"})
-                    //}
-                    //else
-                    //{
-                          //$(".cropper-line.line-n").css({"height":"1px"})
-                         //$(".cropper-line.line-s").css({"height":"1px"})
-                         //$(".cropper-line.line-e").css({"width":"1px"})
-                         //$(".cropper-line.line-w").css({"width":"1px"})
-                         // $(".cropper-point").css({
-                         //"width":borderWidth+"px",
-                         //"height":borderWidth+"px",
-                         //})
-
-
-                    //}
 
                     $('li.active img').draggable();
             });
@@ -162,19 +121,20 @@ $(document).ready(function() {
 
                     cropped_img=data["front_cover"][fc];
                     let crop_src=$("#"+cropped_img).find('img').attr('src');
-
                     $("#header ul").append(`<li data-thumb=`+crop_src+`><img id =`+cropped_img+`  src=`+crop_src+`/></li>`);
+                    $("#header ul").find('img').width(600).height(600*(height/width));``
                   }
              }
               if(data["back_cover"].includes(crop_element))
              {
-
                for( let bc=0;bc<data["back_cover"].length;bc++)
                   {
                     cropped_img=data["back_cover"][bc];
                     let crop_src=$("#"+cropped_img).find('img').attr('src');
                     $("#header ul").append(`<li data-thumb=`+crop_src+`><img id =`+cropped_img+` src=`+crop_src+`/></li>`);
+                    $("#header ul").find('img').width(600).height(600*(height/width));
                   }
+
              }
 
               for( let sc=0;sc<data["total_stacks"].length;sc++)
@@ -185,6 +145,7 @@ $(document).ready(function() {
                         cropped_img=data["total_stacks"][sc][scc];
                         let crop_src=$("#"+cropped_img).find('img').attr('src');
                         $("#header ul").append(`<li data-thumb=`+crop_src+`><img id =`+cropped_img+` src=`+crop_src+`/></li>`);
+                         $("#header ul").find('img').width(600).height(600*(height/width));
                          }
                      }
              }
@@ -198,6 +159,7 @@ $(document).ready(function() {
                     cropped_img=data["total_tabs"][tc][tcc];
                     let crop_src=$("#"+cropped_img).find('img').attr('src');
                     $("#header ul").append(`<li data-thumb=`+crop_src+`><img id =`+cropped_img+` src=`+crop_src+`/></li>`);
+                    $("#header ul").find('img').width(600).height(600*(height/width));
                  }
               }
              }
@@ -215,12 +177,7 @@ $(document).ready(function() {
                 cropperElements = document.getElementsByClassName("cropper-point");
                 cropperLines = document.getElementsByClassName("cropper-line");
                 redBoarder = document.getElementsByClassName("red-boarder");
-
-                
-
-
                 var i;
-                  
                   for (i = 0; i < cropperElements.length; i++) {
                     var x = document.getElementsByClassName('cropper-point')[i]
                     if (x.style.opacity == 0) {
@@ -238,11 +195,6 @@ $(document).ready(function() {
                         x.style.opacity = 0
                     }
                   }
-
-                  
-
-
-
 
               });
 
@@ -409,7 +361,7 @@ $(document).ready(function() {
                       viewMode: 3,
                       autoCropArea: 1,
                       zoom: false,
-                       dragMode: 'move',
+                      dragMode: 'move',
 
                       cropBoxMovable: true,
                       cropBoxResizable: true,
@@ -438,15 +390,7 @@ $(document).ready(function() {
                     });
                 }
                 });
-
-
-
      }, 500);
-
-
-
-
-
 
     $('#left,#top,#right,#bottom').change(function(){
 
@@ -539,9 +483,5 @@ $(document).ready(function() {
                       });
                     });
             }
-
-
-
-
 });
 });

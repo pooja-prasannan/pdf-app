@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 
                 $("#next-button ").data("current-step","set-book-attributes");
-                $("#lbl-step-title ").text("Set Book Attribute");
+                $("#lbl-step-title ").text("Set Book Attributes");
                 $("#lbl-step-title").append(`&nbsp <button name="back_to_refinement" class="orange-btn" id="back_to_refine">Back</button>`);
                 $("#lbl-step-title").append(`&nbsp <button id="tab-settings" class="orange-btn"><i class="fa fa-pencil" aria-hidden="true"></i></button>`);
                 $(".wrapper").hide();
@@ -225,11 +225,14 @@ $(document).ready(function() {
                  $("#ring_type1").val(selectedRingType);
                  $("#ring_material").val(selectedRingMaterial);
                  $("#hole_type").val(selectedHole);
+                 $(".holes").addClass(ringHoleType);
                   setTimeout(function(){
-                        $(".thickness").css({"width": 600/$('book-height').val()/$('book-width').val()});
-                        $(".paper").css({"width": 600/$('book-height').val()/$('book-width').val()});
-                         $(".side").css({"width": 600/$('book-height').val()/$('book-width').val()});
-                     },500);
+                     var ringHoleType =$("#hole_type").val();
+                     $(".holes").addClass(ringHoleType);
+                     $(".thickness").css({"width": 600/$('book-height').val()/$('book-width').val()});
+                     $(".paper").css({"width": 600/$('book-height').val()/$('book-width').val()});
+                     $(".side").css({"width": 600/$('book-height').val()/$('book-width').val()});
+                  },500);
                  }
 
                  setTimeout(function(){
@@ -456,7 +459,6 @@ $(document).ready(function() {
                 $("select").change(function()
                 {
                     var ringHoleType =$("#hole_type").val();
-
                     $(".holes").removeClass("circle");
                     $(".holes").removeClass("square");
                     $(".holes").addClass(ringHoleType);

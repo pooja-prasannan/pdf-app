@@ -4,8 +4,6 @@ $(document).ready(function() {
  $(".images-ids").contextmenu(function() {
                         return false;
                     });
-
-
         if($(".images img").length >0)
         {
             $(".upload-box").hide();
@@ -52,7 +50,6 @@ $(document).ready(function() {
             window.localStorage.setItem('data', data);
 
           $("#sortable").sortable({
-//                revert: true,
                 update: function( event, ui ) {
                     var image_ids = $("#sortable").sortable("toArray");
                     var data = window.localStorage.getItem('data');

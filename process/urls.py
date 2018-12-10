@@ -15,7 +15,10 @@ urlpatterns = [
 
     url(r'^merge-images/$', csrf_exempt(MergeImageView.as_view()), name='merge-image'),
 
-    url(r'^editor/(?P<pk>.*)$', csrf_exempt(EditorView.as_view()), name='editor')
+    url(r'^editor/(?P<pk>.*)$', csrf_exempt(EditorView.as_view()), name='editor'),
+
+    # url(r'^save/$', csrf_exempt(SaveView.as_view()), name='save')
+
 
 
 ]

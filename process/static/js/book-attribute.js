@@ -66,6 +66,8 @@ $(document).ready(function() {
 
                      <span>Hole  Width <input type="number" name="hole_width" value=${json_datas.hole_width} id="hole_width" maxlength="4"></span>
                      <span>Hole  Height <input type="number" name="hole_height" value=${json_datas.hole_height} id="hole_height" maxlength="4"></span>
+                     <span>Width Padding <input type="number" name="width_padding" value=${json_datas.width_padding} id="width_padding" maxlength="4"></span>
+                     <span>Height Padding <input type="number" name="height_padding" value=${json_datas.height_padding} id="height_padding" maxlength="4"></span>
                     </div>
 
                     <div class="page-items">
@@ -174,6 +176,8 @@ $(document).ready(function() {
 
                      <span>Hole  Width <input type="number" name="hole_width" value="3" id="hole_width" maxlength="4"></span>
                      <span>Hole  Height <input type="number" name="hole_height" value="3" id="hole_height" maxlength="4"></span>
+                     <span>Width Padding <input type="number" name="width_padding" value="0" id="width_padding" maxlength="4"></span>
+                     <span>Height Padding <input type="number" name="height_padding" value="0" id="height_padding" maxlength="4"></span>
                     </div>
 
                     <div class="page-items">
@@ -496,7 +500,7 @@ $(document).ready(function() {
             });
 
 
-             $(document).on("click", '#build-book', function(e){
+             $(document).on("click", '#build-book, #save_btn', function(e){
 
 
         var finals = window.localStorage.getItem("new_order");
@@ -525,6 +529,9 @@ $(document).ready(function() {
                  var pair_separation = $("#pair_separation").val();
                  var ring_compression = $("#ring_compression").val();
                  var set_offset = $("#set_offset").val();
+                 var width_padding = $("#width_padding").val();
+                 var height_padding = $("#height_padding").val();
+
                  var r1 = $("#r1").val();
                  var r2 = $("#r2").val();
                  var r3 = $("#r3").val();
@@ -546,6 +553,8 @@ $(document).ready(function() {
                  "ring_material":ring_material,
                  "hole_type":hole_type,
                  "hole_width":hole_width,
+                 "height_padding":height_padding,
+                 "width_padding":width_padding,
                  "hole_height":hole_height,
                  "offset":offset,
                  "thickness":thickness,
@@ -556,19 +565,7 @@ $(document).ready(function() {
                  "r1":r1,
                  "r2":r2,
                  "r3":r3,
-                 "r4":r4,
-                 "tab-width":$("#tab-width").val(),
-                 "tab-height":$("#tab-height").val(),
-                 "tab-pad":$("#tab-pad").val(),
-                 "tab-position":$("#tab-position").val(),
-                 "corner1A":$("#tab-c1-type").val(),
-                 "corner2A":$("#tab-c2-type").val(),
-                 "corner3A":$("#tab-c3-type").val(),
-                 "corner4A":$("#tab-c4-type").val(),
-                 "corner1B":$("#tab-c1-br").val(),
-                 "corner2B":$("#tab-c2-br").val(),
-                 "corner3B":$("#tab-c3-br").val(),
-                 "corner4B":$("#tab-c4-br").val()
+                 "r4":r4
                  }
 
 

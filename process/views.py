@@ -2,6 +2,8 @@ import os
 import base64
 import uuid
 import json
+import re
+
 from PIL import Image
 from django.conf import settings
 from django.views import View
@@ -21,16 +23,9 @@ class CovertView(View):
             width, height = images[0].size
             img_path_list = []
             i = 1
-            
             uniqueID = str(uuid.uuid4())[:5]
-
             upload_id = (os.path.splitext(file.name)[0]) + "_" + uniqueID
-            
-            
-
-
             folder = "{}/upload/{}".format(settings.MEDIA_ROOT, str(upload_id))
-
             try:
                 os.mkdir(folder)
                 os.mkdir(folder+"/finalOutput")
@@ -55,20 +50,34 @@ class CovertView(View):
 
 
 class EditorView(View):
+    def natural_sort(self, l):
+        convert = lambda text: int(text) if text.isdigit() else text.lower()
+        alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+        return sorted(l, key = alphanum_key)
+
     def get(self, request, pk):
         image_list = []
         folder = "{}/upload/{}".format(settings.MEDIA_ROOT, pk)
         json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', pk, 'finalOutput', 'book_attribute_data.json'), 'r')
         book_attribute_data = json.load(json_file)
-        for filename in os.listdir(folder):
-            image_list.append(os.path.join(settings.MEDIA_URL, "upload/{}/{}".format(pk, filename)))
+        first_image = True
+
+        for filename in self.natural_sort(os.listdir(folder)):
+            if os.path.isfile(os.path.join(folder, filename)) and ".png" in filename:
+                if first_image:
+                    image = Image.open(os.path.join(folder, filename))
+                    width, height = image.size
+                    first_image = False
+                image_list.append(os.path.join(settings.MEDIA_URL, "upload/{}/{}".format(pk, filename)))
 
         return render(request, 'process/index.html', {
             'images': image_list,
             'json_images': json.dumps(image_list),
             'upload_id': pk,
             'attributes': json.dumps(book_attribute_data),
-            'status': True
+            'status': True,
+            'height': height,
+            'width': width
         })
 
 
@@ -132,7 +141,7 @@ class MergeImageView(View):
         upload_id = json_data.get('upload_id')
         tab_settings_data = json_data.get('tab_settings')
         hello_world(book_attr_data, tab_settings_data,upload_id)
-        save_book_attributes(book_attr_data, upload_id)
+        save_book_attributes(book_attr_data, upload_id, tab_settings_data)
         merge_img_data = eval(json_data.get('merge_image'))
         for cmp in components[:2]:
             data = merge_img_data.get(cmp)
@@ -181,12 +190,9 @@ def merge_image(image_merge_list, image_id, upload_id):
     images = list(map(Image.open, list(image_path_list)))
 
     widths, heights = zip(*(i.size for i in images))
-
     total_width = sum(widths)
     max_height = max(heights)
-
     new_im = Image.new('RGB', (total_width, max_height))
-    new_im = new_im.resize((1024, 1024), Image.ANTIALIAS)#this resize the image to 1024 px
 
     x_offset = 0
     for im in images:
@@ -196,8 +202,9 @@ def merge_image(image_merge_list, image_id, upload_id):
     new_im.save(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', image_id))
 
 
-def save_book_attributes(book_attr_data, upload_id):
-    json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', 'book_attribute_data.json'), 'a')
+def save_book_attributes(book_attr_data, upload_id, tab_settings_data):
+    json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', 'book_attribute_data.json'), 'w+')
+    book_attr_data.update({'tab_settings': tab_settings_data})
     json.dump(book_attr_data, json_file)
     json_file.write("\n")
 

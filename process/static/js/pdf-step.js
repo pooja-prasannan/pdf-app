@@ -391,7 +391,7 @@ if ( i == current_order.length - 1){
         $("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
         $("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
         $("#next-button").html("Build Book");
-        $("#next-button").attr("id","build-book");
+        // $("#next-button").attr("id","build-book");
         $("#sortable").append(`<div class="add-btn-div"><button name="add_btn" id="add_btn"> Add + </button></div>`);
         $("#add_btn").addClass("context-menu-two");
         $(".images-ids").bind("contextmenu",function(e){

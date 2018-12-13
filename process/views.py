@@ -140,11 +140,13 @@ class MergeImageView(View):
         book_attr_data = json_data.get('book_attribute')
         upload_id = json_data.get('upload_id')
         tab_settings_data = json_data.get('tab_settings')
-        hello_world(book_attr_data, tab_settings_data,upload_id)
-        save_book_attributes(book_attr_data, upload_id, tab_settings_data)
         merge_img_data = eval(json_data.get('merge_image'))
+        hello_world(book_attr_data, tab_settings_data,upload_id, merge_img_data)
+        save_book_attributes(book_attr_data, upload_id, tab_settings_data, merge_img_data)
+
         for cmp in components[:2]:
             data = merge_img_data.get(cmp)
+            print("Dssssssssssssssssssssssssssss", data)
             d = list(map(int, data))
             it = iter(d)
             for id, x in enumerate(it):
@@ -202,13 +204,14 @@ def merge_image(image_merge_list, image_id, upload_id):
     new_im.save(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', image_id))
 
 
-def save_book_attributes(book_attr_data, upload_id, tab_settings_data):
+def save_book_attributes(book_attr_data, upload_id, tab_settings_data, merge_img_data):
     json_file = open(os.path.join(settings.MEDIA_ROOT, 'upload', upload_id, 'finalOutput', 'book_attribute_data.json'), 'w+')
     book_attr_data.update({'tab_settings': tab_settings_data})
+    book_attr_data.update({'merge_img_data': merge_img_data})
     json.dump(book_attr_data, json_file)
     json_file.write("\n")
 
 
-def hello_world(book_attr_data, tab_settings_data,upload_id):
+def hello_world(book_attr_data, tab_settings_data,upload_id,merge_img_data):
     print("HELLOOOOOOOOOO WORLDDDDDDDDDDDDDDDDDDDDD")
-    print(book_attr_data, tab_settings_data,upload_id)
+    print(book_attr_data, tab_settings_data,upload_id,merge_img_data)

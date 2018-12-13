@@ -1,6 +1,8 @@
 var base64data=[];
 var temp_total_tabs =[];
 var temp_total_stacks =[];
+var temp_back_cover = [];
+var temp_front_cover = [];
 var max;
 var max1;
 var keys;
@@ -130,6 +132,7 @@ var HeightDimension;
                                      data = JSON.parse(data)
                                      data["new_order"] = image_ids
                                      data['front_cover'].push(new_max.toString())
+                                     //temp_front_cover.push(new_max)
                                      data = JSON.stringify(data)
                                      window.localStorage.setItem('data', data);
                                      console.log(window.localStorage.getItem('data'))
@@ -164,12 +167,11 @@ var HeightDimension;
                                  data = JSON.parse(data)
                                  data["new_order"] = image_ids
                                  data['back_cover'].push(new_max.toString())
+                                //  temp_back_cover.push(new_max)
                                  data = JSON.stringify(data)
                                  window.localStorage.setItem('data', data);
                                  console.log(window.localStorage.getItem('data'))
 
-                                data = JSON.stringify(data)
-                                window.localStorage.setItem('data', data);
 
                                  }
                                  if(inc%2==0)
@@ -188,6 +190,17 @@ var HeightDimension;
                                  $("#"+new_max).hide();
                                  }
                                  }
+
+                                //  data =window.localStorage.getItem('data')
+                                //  data = JSON.parse(data)
+                                //  data['front_cover'].push(temp_front_cover)
+                                //  data['back_cover'].push(temp_back_cover)
+                                //  data = JSON.stringify(data)
+                                //  window.localStorage.setItem('data', data);
+                                //  console.log("new f and b", window.localStorage.getItem('data'))
+
+
+
                                     },
                             error()
                                    {
@@ -275,7 +288,7 @@ var HeightDimension;
 //                                  data = JSON.parse(data)
 
 
-                                      $("#"+global_max).after(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
+                                      $("#"+global_max).after(` <div id = ${new_max} class="images-ids" data-order="stack"  class="ui-state-default">
                                       <img src="#" class="img-responsive" alt=""> </div>`)
                                      $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
@@ -298,7 +311,7 @@ var HeightDimension;
                                          var data = window.localStorage.getItem('data');
                                          data = JSON.parse(data)
                                          data["new_order"] = image_ids
-                                         data['pages'].push([new_max.toString()])
+                                         //data['total_stacks'].push([new_max.toString()])
                                          data = JSON.stringify(data)
                                          window.localStorage.setItem('data', data);
                                          console.log(window.localStorage.getItem('data'))
@@ -316,9 +329,11 @@ var HeightDimension;
 
                                  data =window.localStorage.getItem('data')
                                  data = JSON.parse(data)
-
+                                 data['total_stacks'].push(temp_total_stacks)
                                  data = JSON.stringify(data)
                                  window.localStorage.setItem('data', data);
+                                 console.log("new tab", window.localStorage.getItem('data'))
+
                                     },
                             error()
                                    {
@@ -402,7 +417,7 @@ var HeightDimension;
                                  var n_max = max+1
                                  var new_max =n_max.toString()
 
-                                     $("#"+global_max).after(` <div id = ${new_max} class="images-ids"  class="ui-state-default">
+                                     $("#"+global_max).after(` <div id = ${new_max} class="images-ids" data-order="tab" class="ui-state-default">
                                       <img src="#" class="img-responsive" alt=""> </div>`)
                                      $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
@@ -427,10 +442,9 @@ var HeightDimension;
                                          var data = window.localStorage.getItem('data');
                                          data = JSON.parse(data)
                                          data["new_order"] = image_ids
-                                         data['spine'].push([new_max.toString()])
+                                         //data['total_tabs'].push([new_max.toString()])
                                          data = JSON.stringify(data)
                                          window.localStorage.setItem('data', data);
-                                         console.log(window.localStorage.getItem('data'))
 
                                          temp_total_tabs.push(new_max)
 
@@ -449,9 +463,11 @@ var HeightDimension;
 
                                  data =window.localStorage.getItem('data')
                                  data = JSON.parse(data)
-                                 data['spine'].push(temp_total_tabs)
+                                 data['total_tabs'].push(temp_total_tabs)
                                  data = JSON.stringify(data)
                                  window.localStorage.setItem('data', data);
+                                 console.log("new tab", window.localStorage.getItem('data'))
+
                                     },
                             error()
                                    {

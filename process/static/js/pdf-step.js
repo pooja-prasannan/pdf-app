@@ -125,7 +125,6 @@ $(document).ready(function() {
                  if(data["front_cover"].includes(data["back_cover"][ws]))
                  {
                   data["back_cover"].remove(data["back_cover"][ws])
-//                  loops++;
                  }
                  loops++;
                 }
@@ -324,7 +323,7 @@ if ( i == current_order.length - 1){
                         drag_id = data["total_stacks"][last_char][stacks]
                      }
                  }
-                order_send();
+                //order_send();
             }
      });
         var i;
@@ -419,9 +418,10 @@ if ( i == current_order.length - 1){
                     });
 
         });
-        order_send();
+        //order_send();
 
          function order_send(){
+            
 
         var values = $("#sortable div.images-ids").map(function() {
         return $(this).attr('data-order')

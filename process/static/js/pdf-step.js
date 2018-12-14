@@ -96,6 +96,8 @@ $(document).ready(function() {
 
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
+                data['front_cover_array']=[];
+                data['front_cover_array'].push(window.selected)
                 data["front_cover"] = window.selected
 
                 var front_cover = data["front_cover"];
@@ -117,6 +119,8 @@ $(document).ready(function() {
             if (current_step == "back_cover") {
                 var data = window.localStorage.getItem('data');
                 data = JSON.parse(data)
+                data['back_cover_array']=[];
+                data['back_cover_array'].push(window.selected)
                 data["back_cover"] = window.selected
                 var ws =0;
                 var loops=0

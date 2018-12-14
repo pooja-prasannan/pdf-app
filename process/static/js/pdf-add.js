@@ -142,7 +142,7 @@ var HeightDimension;
                                  }
                                   if(key == "back"){
 
-                                    var len = data['back_cover'].length;
+                                 var len = data['back_cover'].length;
                                   var parent_id = data['back_cover'][len-1];
                                  $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="back_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);

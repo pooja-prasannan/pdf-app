@@ -3,6 +3,8 @@ $(document).ready(function () {
 	var clone_div;
 	var last_chars;
 	var last_char;
+	var last_char_fc;
+	var last_char_bc;
 	var flagFc;
 	var flagBc;
 	$(document).on("click", '#define_book', function (e) {
@@ -502,6 +504,8 @@ $(document).ready(function () {
 		order_data_array = [];
 		last_chars = 0;
 		last_char = 0;
+		last_char_fc = 0;
+		last_char_bc = 0;
 		flagFc=true;
 		flagBc=true;
 		for (var s = 0; s < data_order_values.length; s++) {
@@ -511,7 +515,7 @@ $(document).ready(function () {
 					var order_data_array1 = {};
 					order_data_array1[data_order_values[s]] = data_global['total_tabs'][last_chars]
 					order_data_array.push(order_data_array1);
-						last_chars++;
+					last_chars++;
 					}
 				
 			}
@@ -523,24 +527,22 @@ $(document).ready(function () {
 				last_char++;
 			}
 		}
-			else {
-				var data_ord = data_order_values[s]
-				if (data_order_values[s] == "front_cover" && flagFc) {
-					
-						flagFc=false
-					var order_data_array3 = {};
-					order_data_array3[data_order_values[s]] = data_global['front_cover']
-					order_data_array.push(order_data_array3);
-				
-				}
-				else if (data_order_values[s] == "back_cover" && flagBc) {
-					
-						flagBc=false
-						var order_data_array4 = {};
-					order_data_array4[data_order_values[s]] = data_global['back_cover']
-					order_data_array.push(order_data_array4);
-				}
+		else if (data_order_values[s].startsWith('front')) {
+			if( s%2 != 0){
+			var order_data_array2 = {};
+			order_data_array2[data_order_values[s]] = data_global['front_cover_array'][last_char_fc];
+			order_data_array.push(order_data_array2)
+			last_char_fc++;
 		}
+	}
+	else if (data_order_values[s].startsWith('back')) {
+		if( s%2 != 0){
+		var order_data_array2 = {};
+		order_data_array2[data_order_values[s]] = data_global['back_cover_array'][last_char_bc];
+		order_data_array.push(order_data_array2)
+		last_char_bc++;
+	}
+}
 		}
 		
 		window.localStorage.setItem("final", JSON.stringify(order_data_array))
@@ -917,22 +919,13 @@ $(document).ready(function () {
 
 
 			$(".tab-image .tab").css({ "margin-top": ((tabImgeHt / 100) * tabPos) + "px" })
-
-
-
 			$(".tab-image .tab").css({ "height": hgttt + "px", "top": (newMargin) + 'px' });
-
 			$(".tab-image .tab").css({ "width": (tabImgeWdt / 100 * tWheight) });
 			$(".tab-image .tab .tab-padding").css({ "width": (tabImgeWdt / 100 * tabpad) });
-
 			var topOffset = ((tabImgeWdt / 100 * tWheight) * tabBR3) / 100
 			var bottomOffset = ((tabImgeWdt / 100 * tWheight) * tabBR4) / 100
-
-
 			$(".tab-image .tab .tab-padding").css({ "height": (hgttt + 1 - topOffset - bottomOffset) + "px" });
-
 			$(".tab-image .tab .tab-padding").css({ "top": (topOffset) - .5 + "px" });
-
 
 			if (tabc1type == 1) {
 				$(".corner .corner1").css({
@@ -941,7 +934,6 @@ $(document).ready(function () {
 					"background-image": "url(../static/img/rounded_corner.png)",
 					"transform": "rotate(90deg) scaleX(1)",
 					"top": 0
-
 				});
 
 				if (tabBR1 < 0) {

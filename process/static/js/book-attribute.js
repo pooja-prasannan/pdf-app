@@ -6,7 +6,7 @@ $(document).ready(function () {
 	var last_char_fc;
 	var last_char_bc;
 	var flagFc;
-	var flagBc;
+	var flagStack;
 	$(document).on("click", '#define_book', function (e) {
 
 
@@ -92,11 +92,9 @@ $(document).ready(function () {
 
                     </div>
                     <div class="custom-books">
-
                             <div class="paper-style">
                                 <div class="paper"></div>
                                 <div class="rings" id="id_rings"></div>
-
                             </div>
                         <hr/>
                             <div class="side">
@@ -507,11 +505,12 @@ $(document).ready(function () {
 		last_char_fc = 0;
 		last_char_bc = 0;
 		flagFc=true;
-		flagBc=true;
+		flagStack=true;
 		for (var s = 0; s < data_order_values.length; s++) {
 
 			if (data_order_values[s].startsWith('tab')) {
 				if( s%2 != 0){
+					flagStack=true
 					var order_data_array1 = {};
 					order_data_array1[data_order_values[s]] = data_global['total_tabs'][last_chars]
 					order_data_array.push(order_data_array1);
@@ -519,13 +518,12 @@ $(document).ready(function () {
 					}
 				
 			}
-			else if (data_order_values[s].startsWith('stack')) {
-				if( s%2 != 0){
+			else if (data_order_values[s].startsWith('stack') && flagStack) {
+				flagStack=false;
 				var order_data_array2 = {};
 				order_data_array2[data_order_values[s]] = data_global['total_stacks'][last_char];
 				order_data_array.push(order_data_array2)
 				last_char++;
-			}
 		}
 		else if (data_order_values[s].startsWith('front')) {
 			if( s%2 != 0){
@@ -689,14 +687,6 @@ $(document).ready(function () {
 
 			month_values["month" + k] = arrays[k];
 		}
-
-		//            var book_attribute={"bookDimenstions":bookDimenstions,
-		//                                "monthValues":month_values,
-		//                                "tabValues":tab_values,
-		//                                "metalCorners":metalCorners,
-		//                                "ringSets":ringSets,
-		//                                "coverValues":cover_values
-		//                   };
 
 		var formdata = {
 			"book_attribute": final_data,
@@ -1192,14 +1182,9 @@ $(document).ready(function () {
 
 		$("#tab-shows").hide();
 		$("#copy").hide();
-
 		$("#lbl-step-title ").text("Refine Components");
 		$("#lbl-step-title").append(`&nbsp <button name="define_book" class="orange-btn" id="define_book">Define Book Attribute</button>`);
 		$("#lbl-step-title").append(`&nbsp <button name="save_btn" class="orange-btn" id="save_btn">Save</button>`);
 		$("#sortable").show();
-
-
 	});
-
-
 });

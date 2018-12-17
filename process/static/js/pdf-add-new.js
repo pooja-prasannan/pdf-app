@@ -1,578 +1,538 @@
-var base64data=[];
-var temp_total_tabs =[];
-var temp_total_stacks =[];
+var base64data = [];
+var temp_total_tabs = [];
+var temp_total_stacks = [];
 var temp_back_cover = [];
 var temp_front_cover = [];
 var max;
 var max1;
 var keys;
 var HeightDimension;
-    $(function() {
-                HeightDimension = 250*(height/width);
-                max=0;
-                $('.images-ids').each(function()
-                 {
-                var value = parseInt($(this).attr('id'));
-                global_max = (value > max) ? value : max;
-                 });
+$(function () {
+	HeightDimension = 250 * (height / width);
+	max = 0;
+	$('.images-ids').each(function () {
+		var value = parseInt($(this).attr('id'));
+		global_max = (value > max) ? value : max;
+	});
 
-        $.contextMenu({
-            selector: '.context-menu-two',
-            trigger: 'left',
-          determinePosition: function($menu){
+	$.contextMenu({
+		selector: '.context-menu-two',
+		trigger: 'left',
+		determinePosition: function ($menu) {
 
-        $menu.css('display', 'block')
-            .position({ my: "center top", at: "center bottom", of: this, offset: "0 5"})
-            .css('display', 'none');
-    },
+			$menu.css('display', 'block')
+				.position({ my: "center top", at: "center bottom", of: this, offset: "0 5" })
+				.css('display', 'none');
+		},
 
-            callback: function(key, options) {
-                if( key== "front")
-                {
-                temp_front_cover=[];
-                $("#back").empty()
-                $("#back").append(` <input type='file' multiple id="imgInp" />`);
-                var fileList =[];
-                $("#back").off().on('change','#imgInp',function() {
-                    readURL(this);
-                    base64data.length=0;
-                    $('#imgInp').show();
-                    $('#imgInp').hide();
-                });
+		callback: function (key, options) {
+			if (key == "front") {
+				temp_front_cover = [];
+				$("#back").empty()
+				$("#back").append(` <input type='file' multiple id="imgInp" />`);
+				var fileList = [];
+				$("#back").off().on('change', '#imgInp', function () {
+					readURL(this);
+					base64data.length = 0;
+					$('#imgInp').show();
+					$('#imgInp').hide();
+				});
 
-                function readURL(input)
-                    {
-                        if ( input.files.length % 2 == 0) {
+				function readURL(input) {
+					if (input.files.length % 2 == 0) {
 
-                        var base64data=[];
-                        var filesAmount = input.files.length;
-                        for(var i=0;i<filesAmount;i++){
-                          console.log("length",input.files[i])
-                          getBase64(input, input.files[i])
-                           }
-                         }
-                         else{
-                         alert("You must upload  EVEN number of files")
-                         return false;
-                         }
-                    }
+						var base64data = [];
+						var filesAmount = input.files.length;
+						for (var i = 0; i < filesAmount; i++) {
+							console.log("length", input.files[i])
+							getBase64(input, input.files[i])
+						}
+					}
+					else {
+						alert("You must upload  EVEN number of files")
+						return false;
+					}
+				}
 
-                function getBase64(input, file){
+				function getBase64(input, file) {
 
-                   var reader = new FileReader();
-                   reader.readAsDataURL(file);
-                   reader.onload = function () {
-                         base64data.push(reader.result)
+					var reader = new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload = function () {
+						base64data.push(reader.result)
 
-                       if(base64data.length == input.files.length){
-                          max1=0;
-                             $('.images-ids').each(function()
-                                {
-                                    var value = parseInt($(this).attr('id'));
-                                    max1 = (value > max1) ? value : max1;
-                                });
+						if (base64data.length == input.files.length) {
+							max1 = 0;
+							$('.images-ids').each(function () {
+								var value = parseInt($(this).attr('id'));
+								max1 = (value > max1) ? value : max1;
+							});
 
-                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image','upload_id':upload_id}
-                            console.log("formdata",formData1)
-                            $.ajax('/images/', {
-                            method: "POST",
-                            data: JSON.stringify(formData1),
-                            processData: false,
-                            contentType: false,
-                            success(datas) {
-                             console.log('Upload succes',datas['img_url'].length);
-                             for(var inc=0;inc<datas['img_url'].length;inc++)
-                                {
-                                     max=0;
-                                    $('.images-ids').each(function()
-                                     {
-                                    var value = parseInt($(this).attr('id'));
+							var formData1 = { 'front_cover': base64data, 'id_max': max1, 'action': 'add_image', 'upload_id': upload_id }
+							console.log("formdata", formData1)
+							$.ajax('/images/', {
+								method: "POST",
+								data: JSON.stringify(formData1),
+								processData: false,
+								contentType: false,
+								success(datas) {
+									console.log('Upload succes', datas['img_url'].length);
+									for (var inc = 0; inc < datas['img_url'].length; inc++) {
+										max = 0;
+										$('.images-ids').each(function () {
+											var value = parseInt($(this).attr('id'));
 
-                                    max = (value > max) ? value : max;
-                                     });
-                                     var n_max = max+1
-                                 var new_max =n_max.toString()
-                                    data =window.localStorage.getItem('data')
-                                  data = JSON.parse(data)
+											max = (value > max) ? value : max;
+										});
+										var n_max = max + 1
+										var new_max = n_max.toString()
+										data = window.localStorage.getItem('data')
+										data = JSON.parse(data)
 
-                                    var len = data['front_cover'].length;
-                                  var parent_id = data['front_cover'][len-1];
+										var len = data['front_cover'].length;
+										var parent_id = data['front_cover'][len - 1];
 
-                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="front_cover" class="ui-state-default">
+										$("#" + parent_id).after(`<div id = ${new_max} class="images-ids" data-order="front_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);
-                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
+										$("#" + new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
-                                     temp_front_cover.push(new_max)
-                                     $("#sortable").sortable({
-                                        disabled: false,
-                                        revert: true,
-                                        update: function( event, ui ) {
-                                            var image_ids = $("#sortable").sortable("toArray");
-                                            var data = window.localStorage.getItem('data');
-                                            data = JSON.parse(data)
-                                            data["new_order"] = image_ids
-                                            data = JSON.stringify(data)
-                                            window.localStorage.setItem('data', data);
-                                            console.log(window.localStorage.getItem('data'))
-                                            }
-                                         });
+										temp_front_cover.push(new_max)
+										$("#sortable").sortable({
+											disabled: false,
+											revert: true,
+											update: function (event, ui) {
+												var image_ids = $("#sortable").sortable("toArray");
+												var data = window.localStorage.getItem('data');
+												data = JSON.parse(data)
+												data["new_order"] = image_ids
+												data = JSON.stringify(data)
+												window.localStorage.setItem('data', data);
+												console.log(window.localStorage.getItem('data'))
+											}
+										});
 
-                                         var image_ids = $("#sortable").sortable("toArray");
-                                         var data = window.localStorage.getItem('data');
-                                         data = JSON.parse(data)
-                                         data["new_order"] = image_ids
-                                         //data['total_stacks'].push([new_max.toString()])
-                                         data = JSON.stringify(data)
-                                         window.localStorage.setItem('data', data);
-                                         console.log(window.localStorage.getItem('data'))
-                                     if(inc==0)
-                                       {
-                                         $("#"+new_max).find("img").show();
-                                         $("#"+new_max).append(`<div><label for="name">Front Cover</label></div>`);
+										var image_ids = $("#sortable").sortable("toArray");
+										var data = window.localStorage.getItem('data');
+										data = JSON.parse(data)
+										data["new_order"] = image_ids
+										//data['total_stacks'].push([new_max.toString()])
+										data = JSON.stringify(data)
+										window.localStorage.setItem('data', data);
+										console.log(window.localStorage.getItem('data'))
+										if (inc == 0) {
+											$("#" + new_max).find("img").show();
+											$("#" + new_max).append(`<div><label for="name">Front Cover</label></div>`);
 
-                                       }
-                                     else
-                                     {
-                                     $("#"+new_max).hide();
-                                     }
-                                 }
+										}
+										else {
+											$("#" + new_max).hide();
+										}
+									}
 
-                                 data =window.localStorage.getItem('data')
-                                 data = JSON.parse(data)
-                                 
-                                 data['front_cover_array'].push(temp_front_cover)
-                                 data = JSON.stringify(data)
-                                 window.localStorage.setItem('data', data);
-                                 console.log("new tab", window.localStorage.getItem('data'))
+									data = window.localStorage.getItem('data')
+									data = JSON.parse(data)
 
-                                    },
-                            error()
-                                   {
-                                      console.log('Upload error');
-                                    },
-                              });
-                             }
-                           };
-                     }
+									data['front_cover_array'].push(temp_front_cover)
+									data = JSON.stringify(data)
+									window.localStorage.setItem('data', data);
+									console.log("new tab", window.localStorage.getItem('data'))
 
-                }
+								},
+								error() {
+									console.log('Upload error');
+								},
+							});
+						}
+					};
+				}
 
-                if( key== "back")
-                {
-                temp_back_cover=[];
-                $("#back").empty()
-                $("#back").append(` <input type='file' multiple id="imgInp" />`);
-                var fileList =[];
-                $("#back").off().on('change','#imgInp',function() {
-                    readURL(this);
-                    base64data.length=0;
-                    $('#imgInp').show();
-                    $('#imgInp').hide();
+			}
 
-                });
+			if (key == "back") {
+				temp_back_cover = [];
+				$("#back").empty()
+				$("#back").append(` <input type='file' multiple id="imgInp" />`);
+				var fileList = [];
+				$("#back").off().on('change', '#imgInp', function () {
+					readURL(this);
+					base64data.length = 0;
+					$('#imgInp').show();
+					$('#imgInp').hide();
 
-                function readURL(input)
-                    {
-                        if ( input.files.length % 2 == 0) {
+				});
 
-                        var base64data=[];
-                        var filesAmount = input.files.length;
-                        for(var i=0;i<filesAmount;i++){
+				function readURL(input) {
+					if (input.files.length % 2 == 0) {
 
-                          console.log("length",input.files[i])
-                          getBase64(input, input.files[i])
+						var base64data = [];
+						var filesAmount = input.files.length;
+						for (var i = 0; i < filesAmount; i++) {
 
-                           }
-                         }
-                         else{
+							console.log("length", input.files[i])
+							getBase64(input, input.files[i])
 
-                         alert("You must upload  EVEN number of files")
-                         return false;
+						}
+					}
+					else {
 
-                         }
-                    }
+						alert("You must upload  EVEN number of files")
+						return false;
 
-                function getBase64(input, file){
+					}
+				}
 
-                   var reader = new FileReader();
-                   reader.readAsDataURL(file);
-                   reader.onload = function () {
-                         base64data.push(reader.result)
+				function getBase64(input, file) {
 
-                       if(base64data.length == input.files.length){
-                          max1=0;
-                             $('.images-ids').each(function()
-                                {
-                                    var value = parseInt($(this).attr('id'));
-                                    max1 = (value > max1) ? value : max1;
-                                });
+					var reader = new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload = function () {
+						base64data.push(reader.result)
 
-                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image','upload_id':upload_id}
-                            console.log("formdata",formData1)
-                            $.ajax('/images/', {
-                            method: "POST",
-                            data: JSON.stringify(formData1),
-                            processData: false,
-                            contentType: false,
-                            success(datas) {
-                             console.log('Upload succes',datas['img_url'].length);
-                             for(var inc=0;inc<datas['img_url'].length;inc++)
-                                {
-                                     max=0;
-                                    $('.images-ids').each(function()
-                                     {
-                                    var value = parseInt($(this).attr('id'));
+						if (base64data.length == input.files.length) {
+							max1 = 0;
+							$('.images-ids').each(function () {
+								var value = parseInt($(this).attr('id'));
+								max1 = (value > max1) ? value : max1;
+							});
 
-                                    max = (value > max) ? value : max;
-                                     });
-                                     var n_max = max+1
-                                 var new_max =n_max.toString()
-//                                  data =window.localStorage.getItem('data')
-//                                  data = JSON.parse(data)
+							var formData1 = { 'front_cover': base64data, 'id_max': max1, 'action': 'add_image', 'upload_id': upload_id }
+							console.log("formdata", formData1)
+							$.ajax('/images/', {
+								method: "POST",
+								data: JSON.stringify(formData1),
+								processData: false,
+								contentType: false,
+								success(datas) {
+									console.log('Upload succes', datas['img_url'].length);
+									for (var inc = 0; inc < datas['img_url'].length; inc++) {
+										max = 0;
+										$('.images-ids').each(function () {
+											var value = parseInt($(this).attr('id'));
 
-
-                                    //   $("#"+global_max).after(` <div id = ${new_max} class="images-ids" data-order="back"  class="ui-state-default">
-                                    //   <img src="#" class="img-responsive" alt=""> </div>`)
-                                    //  $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
-                                    data =window.localStorage.getItem('data')
-                                  data = JSON.parse(data)
-                                    var len = data['back_cover'].length;
-                                  var parent_id = data['back_cover'][len-1];
-                                 $("#"+parent_id).after(`<div id = ${new_max} class="images-ids" data-order="back_cover" class="ui-state-default">
+											max = (value > max) ? value : max;
+										});
+										var n_max = max + 1
+										var new_max = n_max.toString()
+										
+										data = window.localStorage.getItem('data')
+										data = JSON.parse(data)
+										var len = data['back_cover'].length;
+										var parent_id = data['back_cover'][len - 1];
+										$("#" + parent_id).after(`<div id = ${new_max} class="images-ids" data-order="back_cover" class="ui-state-default">
                                   <img src="#"  width="250px"  class="img-responsive" alt=""> </div>`);
-                                 $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
+										$("#" + new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
-                                     temp_back_cover.push(new_max)
-                                     $("#sortable").sortable({
-                                        disabled: false,
-                                        revert: true,
-                                        update: function( event, ui ) {
-                                            var image_ids = $("#sortable").sortable("toArray");
-                                            var data = window.localStorage.getItem('data');
-                                            data = JSON.parse(data)
-                                            data["new_order"] = image_ids
-                                            data = JSON.stringify(data)
-                                            window.localStorage.setItem('data', data);
-                                            console.log(window.localStorage.getItem('data'))
-                                            }
-                                         });
+										temp_back_cover.push(new_max)
+										$("#sortable").sortable({
+											disabled: false,
+											revert: true,
+											update: function (event, ui) {
+												var image_ids = $("#sortable").sortable("toArray");
+												var data = window.localStorage.getItem('data');
+												data = JSON.parse(data)
+												data["new_order"] = image_ids
+												data = JSON.stringify(data)
+												window.localStorage.setItem('data', data);
+												console.log(window.localStorage.getItem('data'))
+											}
+										});
 
-                                         var image_ids = $("#sortable").sortable("toArray");
-                                         var data = window.localStorage.getItem('data');
-                                         data = JSON.parse(data)
-                                         data["new_order"] = image_ids
-                                         //data['total_stacks'].push([new_max.toString()])
-                                         data = JSON.stringify(data)
-                                         window.localStorage.setItem('data', data);
-                                         console.log(window.localStorage.getItem('data'))
-                                     if(inc==0)
-                                       {
-                                         $("#"+new_max).find("img").show();
-                                         $("#"+new_max).append(`<div><label for="name">Back Cover</label></div>`);
+										var image_ids = $("#sortable").sortable("toArray");
+										var data = window.localStorage.getItem('data');
+										data = JSON.parse(data)
+										data["new_order"] = image_ids
+										//data['total_stacks'].push([new_max.toString()])
+										data = JSON.stringify(data)
+										window.localStorage.setItem('data', data);
+										console.log(window.localStorage.getItem('data'))
+										if (inc == 0) {
+											$("#" + new_max).find("img").show();
+											$("#" + new_max).append(`<div><label for="name">Back Cover</label></div>`);
 
-                                       }
-                                     else
-                                     {
-                                     $("#"+new_max).hide();
-                                     }
-                                 }
+										}
+										else {
+											$("#" + new_max).hide();
+										}
+									}
 
-                                 data =window.localStorage.getItem('data')
-                                 data = JSON.parse(data)
-                                 
-                                 data['back_cover_array'].push(temp_back_cover)
-                                 data = JSON.stringify(data)
-                                 window.localStorage.setItem('data', data);
-                                 console.log("new tab", window.localStorage.getItem('data'))
+									data = window.localStorage.getItem('data')
+									data = JSON.parse(data)
 
-                                    },
-                            error()
-                                   {
-                                      console.log('Upload error');
-                                    },
-                              });
-                             }
-                           };
-                     }
+									data['back_cover_array'].push(temp_back_cover)
+									data = JSON.stringify(data)
+									window.localStorage.setItem('data', data);
+									console.log("new tab", window.localStorage.getItem('data'))
 
-                }
+								},
+								error() {
+									console.log('Upload error');
+								},
+							});
+						}
+					};
+				}
 
-                 if( key== "stack")
-                {
-                temp_total_stacks=[];
-                $("#back").empty()
-                $("#back").append(` <input type='file' multiple id="imgInp" />`);
-                var fileList =[];
-                $("#back").off().on('change','#imgInp',function() {
-                    readURL(this);
-                    base64data.length=0;
-                    $('#imgInp').show();
-                    $('#imgInp').hide();
+			}
 
-                });
+			if (key == "stack") {
+				temp_total_stacks = [];
+				$("#back").empty()
+				$("#back").append(` <input type='file' multiple id="imgInp" />`);
+				var fileList = [];
+				$("#back").off().on('change', '#imgInp', function () {
+					readURL(this);
+					base64data.length = 0;
+					$('#imgInp').show();
+					$('#imgInp').hide();
+				});
 
-                function readURL(input)
-                    {
-                        if ( input.files.length % 2 == 0) {
+				function readURL(input) {
+					if (input.files.length % 2 == 0) {
 
-                        var base64data=[];
-                        var filesAmount = input.files.length;
-                        for(var i=0;i<filesAmount;i++){
+						var base64data = [];
+						var filesAmount = input.files.length;
+						for (var i = 0; i < filesAmount; i++) {
 
-                          console.log("length",input.files[i])
-                          getBase64(input, input.files[i])
+							console.log("length", input.files[i])
+							getBase64(input, input.files[i])
 
-                           }
-                         }
-                         else{
+						}
+					}
+					else {
 
-                         alert("You must upload  EVEN number of files")
-                         return false;
+						alert("You must upload  EVEN number of files")
+						return false;
 
-                         }
-                    }
+					}
+				}
 
-                function getBase64(input, file){
+				function getBase64(input, file) {
 
-                   var reader = new FileReader();
-                   reader.readAsDataURL(file);
-                   reader.onload = function () {
-                         base64data.push(reader.result)
+					var reader = new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload = function () {
+						base64data.push(reader.result)
 
-                       if(base64data.length == input.files.length){
-                          max1=0;
-                             $('.images-ids').each(function()
-                                {
-                                    var value = parseInt($(this).attr('id'));
-                                    max1 = (value > max1) ? value : max1;
-                                });
+						if (base64data.length == input.files.length) {
+							max1 = 0;
+							$('.images-ids').each(function () {
+								var value = parseInt($(this).attr('id'));
+								max1 = (value > max1) ? value : max1;
+							});
 
-                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image','upload_id':upload_id}
-                            console.log("formdata",formData1)
-                            $.ajax('/images/', {
-                            method: "POST",
-                            data: JSON.stringify(formData1),
-                            processData: false,
-                            contentType: false,
-                            success(datas) {
-                             console.log('Upload succes',datas['img_url'].length);
-                             for(var inc=0;inc<datas['img_url'].length;inc++)
-                                {
-                                     max=0;
-                                    $('.images-ids').each(function()
-                                     {
-                                    var value = parseInt($(this).attr('id'));
+							var formData1 = { 'front_cover': base64data, 'id_max': max1, 'action': 'add_image', 'upload_id': upload_id }
+							console.log("formdata", formData1)
+							$.ajax('/images/', {
+								method: "POST",
+								data: JSON.stringify(formData1),
+								processData: false,
+								contentType: false,
+								success(datas) {
+									console.log('Upload succes', datas['img_url'].length);
+									for (var inc = 0; inc < datas['img_url'].length; inc++) {
+										max = 0;
+										$('.images-ids').each(function () {
+											var value = parseInt($(this).attr('id'));
 
-                                    max = (value > max) ? value : max;
-                                     });
-                                     var n_max = max+1
-                                 var new_max =n_max.toString()
-//                                  data =window.localStorage.getItem('data')
-//                                  data = JSON.parse(data)
+											max = (value > max) ? value : max;
+										});
+										var n_max = max + 1
+										var new_max = n_max.toString()
+										//                                  data =window.localStorage.getItem('data')
+										//                                  data = JSON.parse(data)
 
 
-                                      $("#"+global_max).after(` <div id = ${new_max} class="images-ids" data-order="stack"  class="ui-state-default">
+										$("#" + global_max).after(` <div id = ${new_max} class="images-ids" data-order="stack"  class="ui-state-default">
                                       <img src="#" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
+										$("#" + new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
-                                    temp_total_stacks.push(new_max)
-                                     $("#sortable").sortable({
-                                        disabled: false,
-                                        revert: true,
-                                        update: function( event, ui ) {
-                                            var image_ids = $("#sortable").sortable("toArray");
-                                            var data = window.localStorage.getItem('data');
-                                            data = JSON.parse(data)
-                                            data["new_order"] = image_ids
-                                            data = JSON.stringify(data)
-                                            window.localStorage.setItem('data', data);
-                                            console.log(window.localStorage.getItem('data'))
-                                            }
-                                         });
+										temp_total_stacks.push(new_max)
+										$("#sortable").sortable({
+											disabled: false,
+											revert: true,
+											update: function (event, ui) {
+												var image_ids = $("#sortable").sortable("toArray");
+												var data = window.localStorage.getItem('data');
+												data = JSON.parse(data)
+												data["new_order"] = image_ids
+												data = JSON.stringify(data)
+												window.localStorage.setItem('data', data);
+												console.log(window.localStorage.getItem('data'))
+											}
+										});
 
-                                         var image_ids = $("#sortable").sortable("toArray");
-                                         var data = window.localStorage.getItem('data');
-                                         data = JSON.parse(data)
-                                         data["new_order"] = image_ids
-                                         //data['total_stacks'].push([new_max.toString()])
-                                         data = JSON.stringify(data)
-                                         window.localStorage.setItem('data', data);
-                                         console.log(window.localStorage.getItem('data'))
-                                     if(inc==0)
-                                       {
-                                         $("#"+new_max).find("img").show();
-                                         $("#"+new_max).append(`<div><label for="name">Stack</label></div>`);
+										var image_ids = $("#sortable").sortable("toArray");
+										var data = window.localStorage.getItem('data');
+										data = JSON.parse(data)
+										data["new_order"] = image_ids
+										//data['total_stacks'].push([new_max.toString()])
+										data = JSON.stringify(data)
+										window.localStorage.setItem('data', data);
+										console.log(window.localStorage.getItem('data'))
+										if (inc == 0) {
+											$("#" + new_max).find("img").show();
+											$("#" + new_max).append(`<div><label for="name">Stack</label></div>`);
 
-                                       }
-                                     else
-                                     {
-                                     $("#"+new_max).hide();
-                                     }
-                                 }
+										}
+										else {
+											$("#" + new_max).hide();
+										}
+									}
 
-                                 data =window.localStorage.getItem('data')
-                                 data = JSON.parse(data)
-                                 data['total_stacks'].push(temp_total_stacks)
-                                 data = JSON.stringify(data)
-                                 window.localStorage.setItem('data', data);
-                                 console.log("new tab", window.localStorage.getItem('data'))
+									data = window.localStorage.getItem('data')
+									data = JSON.parse(data)
+									data['total_stacks'].push(temp_total_stacks)
+									data = JSON.stringify(data)
+									window.localStorage.setItem('data', data);
+									console.log("new tab", window.localStorage.getItem('data'))
 
-                                    },
-                            error()
-                                   {
-                                      console.log('Upload error');
-                                    },
-                              });
-                             }
-                           };
-                     }
+								},
+								error() {
+									console.log('Upload error');
+								},
+							});
+						}
+					};
+				}
 
-                }
+			}
 
-                 if( key== "tab")
-                {
+			if (key == "tab") {
 
-                  temp_total_tabs =[];
-                 $("#back").empty()
-                keys=key;
-                $("#back").append(` <input type='file' multiple id="imgInp" />`);
-                var fileList =[];
-                $("#back").off().on('change','#imgInp',function() {
-                    readURL_stack(this,keys);
-                    base64data.length=0;
-                    base64data=[]
-                });
+				temp_total_tabs = [];
+				$("#back").empty()
+				keys = key;
+				$("#back").append(` <input type='file' multiple id="imgInp" />`);
+				var fileList = [];
+				$("#back").off().on('change', '#imgInp', function () {
+					readURL_stack(this, keys);
+					base64data.length = 0;
+					base64data = []
+				});
 
-                function readURL_stack(input, keys)
-                    {
-                        if (input.files.length %2 ==0) {
-                        console.log("imp",input.files)
-                        var base64data=[];
-                        var filesAmount = input.files.length;
-                        for(var i=0;i<filesAmount;i++){
-                          console.log("length",input.files[i])
-                          getBase64_stack(keys,input, input.files[i])
-                           }
-                         }
-                         else{
-                          alert("You must upload  EVEN number of files");
-                          return false;
-                         }
-                    }
+				function readURL_stack(input, keys) {
+					if (input.files.length % 2 == 0) {
+						console.log("imp", input.files)
+						var base64data = [];
+						var filesAmount = input.files.length;
+						for (var i = 0; i < filesAmount; i++) {
+							console.log("length", input.files[i])
+							getBase64_stack(keys, input, input.files[i])
+						}
+					}
+					else {
+						alert("You must upload  EVEN number of files");
+						return false;
+					}
+				}
 
-                function getBase64_stack(keys, input, file){
+				function getBase64_stack(keys, input, file) {
 
-                   var reader = new FileReader();
-                   reader.readAsDataURL(file);
-                   reader.onload = function () {
-                         base64data.push(reader.result)
+					var reader = new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload = function () {
+						base64data.push(reader.result)
 
-                       if(base64data.length == input.files.length){
-                            max1=0;
-                             $('.images-ids').each(function()
-                                {
-                                    var value = parseInt($(this).attr('id'));
-                                    max1 = (value > max1) ? value : max1;
-                                });
+						if (base64data.length == input.files.length) {
+							max1 = 0;
+							$('.images-ids').each(function () {
+								var value = parseInt($(this).attr('id'));
+								max1 = (value > max1) ? value : max1;
+							});
 
-                            var formData1 ={'front_cover':base64data, 'id_max': max1, 'action': 'add_image','upload_id':upload_id}
-                            console.log("formdata644",formData1)
-                            $.ajax('/images/', {
-                            method: "POST",
-                            data: JSON.stringify(formData1),
-                            processData: false,
-                            contentType: false,
-                            success(datas) {
-                             console.log('Upload succes',datas['img_url'].length);
+							var formData1 = { 'front_cover': base64data, 'id_max': max1, 'action': 'add_image', 'upload_id': upload_id }
+							console.log("formdata644", formData1)
+							$.ajax('/images/', {
+								method: "POST",
+								data: JSON.stringify(formData1),
+								processData: false,
+								contentType: false,
+								success(datas) {
+									console.log('Upload succes', datas['img_url'].length);
 
 
-                             for(var inc=0;inc<datas['img_url'].length;inc++)
-                                {
+									for (var inc = 0; inc < datas['img_url'].length; inc++) {
 
-                                 max=0;
-                                $('.images-ids').each(function()
-                                 {
-                                var value = parseInt($(this).attr('id'));
+										max = 0;
+										$('.images-ids').each(function () {
+											var value = parseInt($(this).attr('id'));
 
-                                max = (value > max) ? value : max;
-                                 });
+											max = (value > max) ? value : max;
+										});
 
-                                 var n_max = max+1
-                                 var new_max =n_max.toString()
+										var n_max = max + 1
+										var new_max = n_max.toString()
 
-                                     $("#"+global_max).after(` <div id = ${new_max} class="images-ids" data-order="tab" class="ui-state-default">
+										$("#" + global_max).after(` <div id = ${new_max} class="images-ids" data-order="tab" class="ui-state-default">
                                       <img src="#" class="img-responsive" alt=""> </div>`)
-                                     $("#"+new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
+										$("#" + new_max).find('img').attr('src', datas['img_url'][inc]).width(250).height(HeightDimension);
 
 
 
-                                         $("#sortable").sortable({
-                                            disabled: false,
-                                            revert: true,
-                                            update: function( event, ui ) {
-                                                var image_ids = $("#sortable").sortable("toArray");
-                                                var data = window.localStorage.getItem('data');
-                                                data = JSON.parse(data)
-                                                data["new_order"] = image_ids
+										$("#sortable").sortable({
+											disabled: false,
+											revert: true,
+											update: function (event, ui) {
+												var image_ids = $("#sortable").sortable("toArray");
+												var data = window.localStorage.getItem('data');
+												data = JSON.parse(data)
+												data["new_order"] = image_ids
 
-                                                data = JSON.stringify(data)
-                                                window.localStorage.setItem('data', data);
-                                                console.log(window.localStorage.getItem('data'))
-                                            }
-                                         });
+												data = JSON.stringify(data)
+												window.localStorage.setItem('data', data);
+												console.log(window.localStorage.getItem('data'))
+											}
+										});
 
-                                         var image_ids = $("#sortable").sortable("toArray");
-                                         var data = window.localStorage.getItem('data');
-                                         data = JSON.parse(data)
-                                         data["new_order"] = image_ids
-                                         //data['total_tabs'].push([new_max.toString()])
-                                         data = JSON.stringify(data)
-                                         window.localStorage.setItem('data', data);
+										var image_ids = $("#sortable").sortable("toArray");
+										var data = window.localStorage.getItem('data');
+										data = JSON.parse(data)
+										data["new_order"] = image_ids
+										//data['total_tabs'].push([new_max.toString()])
+										data = JSON.stringify(data)
+										window.localStorage.setItem('data', data);
 
-                                         temp_total_tabs.push(new_max)
+										temp_total_tabs.push(new_max)
 
-                                     if(inc%2==0)
-                                       {
-                                         $("#"+new_max).find("img").show();
-                                         $("#"+new_max).append(`<div><label for="name">Tab</label></div>`);
+										if (inc % 2 == 0) {
+											$("#" + new_max).find("img").show();
+											$("#" + new_max).append(`<div><label for="name">Tab</label></div>`);
 
-                                       }
-                                     else
-                                     {
-                                     $("#"+new_max).hide();
-                                     }
+										}
+										else {
+											$("#" + new_max).hide();
+										}
 
-                                 }
+									}
 
-                                 data =window.localStorage.getItem('data')
-                                 data = JSON.parse(data)
-                                 data['total_tabs'].push(temp_total_tabs)
-                                 data = JSON.stringify(data)
-                                 window.localStorage.setItem('data', data);
-                                 console.log("new tab", window.localStorage.getItem('data'))
+									data = window.localStorage.getItem('data')
+									data = JSON.parse(data)
+									data['total_tabs'].push(temp_total_tabs)
+									data = JSON.stringify(data)
+									window.localStorage.setItem('data', data);
+									console.log("new tab", window.localStorage.getItem('data'))
 
-                                    },
-                            error()
-                                   {
-                                      console.log('Upload error');
-                                    },
-                              });
+								},
+								error() {
+									console.log('Upload error');
+								},
+							});
 
-                             }
-                           };
-                     }
-                }
+						}
+					};
+				}
+			}
 
-            },
-            items: {
-                "front": {name: "Front Cover"},
-                "stack": {name: "Pages"},
-                "tab": {name: "Tabs"},
-                "back": {name: "Back Cover"},
-            }
-        });
+		},
+		items: {
+			"front": { name: "Front Cover" },
+			"stack": { name: "Pages" },
+			"tab": { name: "Tabs" },
+			"back": { name: "Back Cover" },
+		}
+	});
 
-        $('#add_btn').on('click', function(e){
-            console.log('clicked', this);
-        })
-    });
+	$('#add_btn').on('click', function (e) {
+		console.log('clicked', this);
+	})
+});

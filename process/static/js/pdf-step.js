@@ -340,8 +340,8 @@ if ( i == current_order.length - 1){
     {
 
          $("#"+a[i][0]).show();
-         $("#"+a[i][0]).attr("data-order","tab"+(j+1))
-         $("#"+a[i][0]).append(`<div><label for="name">Tab ${j+1} </label></div>`);
+         $("#"+a[i][0]).attr("data-order","tab");
+         $("#"+a[i][0]).append(`<div><label for="name">Tab  </label></div>`);
          j++;
     }
      for(var i=0,p=0;i<a.length;i++)
@@ -349,7 +349,7 @@ if ( i == current_order.length - 1){
 
         for(var j=1;j<a[i].length;j++){
          $("#"+a[i][j]).hide();
-         $("#"+a[i][j]).attr("data-order","tab"+(p+1));
+         $("#"+a[i][j]).attr("data-order","tab");
 
         }
          p++;
@@ -361,8 +361,8 @@ if ( i == current_order.length - 1){
    {
 //                   var first = a[i].shift();
              $("#"+a[i][0]).show();
-             $("#"+a[i][0]).attr("data-order","stack"+(j+1))
-            $("#"+a[i][0]).append(`<div><label for="name">Stack ${j+1} </label></div>`);
+             $("#"+a[i][0]).attr("data-order","stack")
+            $("#"+a[i][0]).append(`<div><label for="name">Stack </label></div>`);
             j++
     }
     for(var i=0,p=0;i<a.length;i++)
@@ -370,7 +370,7 @@ if ( i == current_order.length - 1){
 
         for(var j=1;j<a[i].length;j++){
           $("#"+a[i][j]).hide();
-           $("#"+a[i][j]).attr("data-order","stack"+(p+1));
+           $("#"+a[i][j]).attr("data-order","stack");
 
         }
         p++
